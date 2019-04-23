@@ -1,57 +1,26 @@
 import React from 'react';
-// import PropTypes from 'prop-types';
-import { withStyles } from '@material-ui/core/styles';
-import Button from '@material-ui/core/Button';
-
+import logo from './logo.svg';
 import './App.css';
 
-const styles = theme => ({
-  button: {
-    margin: theme.spacing.unit,
-  },
-  input: {
-    display: 'none',
-  },
-});
-
-
-function ContainedButtons(props) {
-  const { classes } = props;
+function App() {
   return (
-    <div>
-      <Button variant="contained" className={classes.button}>
-        Default
-      </Button>
-      <Button variant="contained" color="primary" className={classes.button}>
-        Primary
-      </Button>
-      <Button variant="contained" color="secondary" className={classes.button}>
-        Secondary
-      </Button>
-      <Button variant="contained" color="secondary" disabled className={classes.button}>
-        Disabled
-      </Button>
-      <Button variant="contained" href="#contained-buttons" className={classes.button}>
-        Link
-      </Button>
-      <input
-        accept="image/*"
-        className={classes.input}
-        id="contained-button-file"
-        multiple
-        type="file"
-      />
-      <label htmlFor="contained-button-file">
-        <Button variant="contained" component="span" className={classes.button}>
-          Upload
-        </Button>
-      </label>
+    <div className="App">
+      <header className="App-header">
+        <img src={logo} className="App-logo" alt="logo" />
+        <p>
+          Edit <code>src/App.js</code> and save to reload.
+        </p>
+        <a
+          className="App-link"
+          href="https://reactjs.org"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          Learn React
+        </a>
+      </header>
     </div>
   );
 }
 
-// ContainedButtons.propTypes = {
-//   classes: PropTypes.object.isRequired,
-// };
-
-export default withStyles(styles)(ContainedButtons);
+export default App;
