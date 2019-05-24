@@ -1,6 +1,6 @@
 import React from 'react';
-import './App.css';
 import Main from './views/main';
+import Signin from './views/signin';
 import {Router, Route, Switch} from 'react-router';
 import {createBrowserHistory} from "history";
 
@@ -10,7 +10,8 @@ function App() {
     return (
         <Router history={history}>
             <Switch>
-                <Route path='/' component={Main}/>
+                <Route exact path='/' component={Main}/>
+                <Route exact path='/signin' component={Signin}/>
             </Switch>
         </Router>
     );

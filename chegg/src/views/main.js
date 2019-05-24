@@ -1,9 +1,10 @@
 import React, {Component} from "react";
-import Navbar from '../components/navbar'
+import Template from '../components/template';
+
 class Main extends Component{
     render() {
         return(
-            <Navbar/>
+            <Template/>
         )
     }
 }

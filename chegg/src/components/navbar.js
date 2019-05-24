@@ -17,21 +17,23 @@ const useStyles = makeStyles(theme => ({
   title: {
     flexGrow: 1,
   },
+  appbar: {
+    // backgroundColor: '#13003d'
+  }
 }));
 
 function Navbar() {
   const classes = useStyles();
   return (
-    <div className={classes.root} dir="rtl">
-      <AppBar position="static" >
+    <div className={classes.root}>
+      <AppBar position="static" className={classes.appbar} >
         <Toolbar>
           <IconButton edge="start" className={classes.menuButton} color="inherit" aria-label="Menu">
             <MenuIcon />
           </IconButton>
           <Typography variant="h6" className={classes.title}>
-            عاباس
           </Typography>
-          <Button color="inherit">Login</Button>
+          <Button color="inherit" href={'/signin'}>ورود</Button>
         </Toolbar>
       </AppBar>
     </div>
