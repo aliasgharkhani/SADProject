@@ -8,3 +8,4 @@ chegg/node_modules/*
 chegg/.idea
 chegg/../.idea/*
 chegg/../.idea
+chegg-backend/db.sqlite3

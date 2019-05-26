@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {Component} from 'react';
 import Avatar from '@material-ui/core/Avatar';
 import Button from '@material-ui/core/Button';
 import CssBaseline from '@material-ui/core/CssBaseline';
@@ -13,6 +13,8 @@ import Typography from '@material-ui/core/Typography';
 import {makeStyles} from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
 import Template from "../components/template";
+import axios from 'axios';
+import { Redirect } from 'react-router-dom'
 
 
 const useStyles = makeStyles(theme => ({
@@ -40,29 +42,84 @@ const useStyles = makeStyles(theme => ({
     },
 }));
 
-export default function SignIn() {
-    const classes = useStyles();
 
+class SignInForm extends Component{
+    constructor(props) {
+        super(props);
+        this.state = {
+            username: '',
+            password: '',
+            message: ''
+        };
+        this.handleClick = this.handleClick.bind(this)
+        this.handleChange = this.handleChange.bind(this)
+        
+      }
 
-    const signinForm = <Container component="main" maxWidth="xs">
+      handleChange(event) {
+          console.log("here")
+        this.setState({
+            [event.target.name]: event.target.value,
+        })
+      
+      }
+
+    handleClick(e){
+        e.preventDefault();
+        axios.post('http://127.0.0.1:8000/auth/token/', {
+            username: this.state.username,
+            password: this.state.password
+        })
+          .then(response => {
+              if (response.status == 200){
+                localStorage.setItem('cheggtoken', response.data.token) 
+                this.setState({
+                    message: 'با موفقیت وارد شدید'
+                })
+                
+              }
+              else{
+                this.setState({
+                    message: 'دوباره امتحان کنید'
+                })
+              }
+
+          })
+          .catch((error) => {
+            this.setState({
+                message: 'دوباره امتحان کنید'
+            })
+          })
+
+        console.log(this.props.history)
+          this.props.history.push('/path')
+                
+    }
+
+    render(){
+        return(
+<Container component="SignInForm" maxWidth="xs">
         <CssBaseline/>
-        <div className={classes.paper}>
-            <Avatar className={classes.avatar}>
+        <div>
+            {this.state.message}
+            <Avatar >
                 <LockOutlinedIcon/>
             </Avatar>
             <Typography component="h1" variant="h5">
                 ورود
             </Typography>
-            <form className={classes.form} noValidate>
+            <form    method='post' noValidate>
                 <TextField
                     margin="normal"
                     required
                     fullWidth
-                    id="email"
-                    label="ایمیل"
-                    name="email"
-                    autoComplete="email"
+                    id="username"
+                    label="نام کاربری"
+                    name="username"
+                    autoComplete="username"
                     autoFocus
+                    value={this.state.username}
+                    onChange={this.handleChange}
                 />
                 <TextField
 
@@ -74,6 +131,8 @@ export default function SignIn() {
                     type="password"
                     id="password"
                     autoComplete="current-password"
+                    value={this.state.password}
+                    onChange={this.handleChange}
                 />
 
                 <Button
@@ -81,7 +140,8 @@ export default function SignIn() {
                     fullWidth
                     variant="contained"
                     color="primary"
-                    className={classes.submit}
+                    // className={classes.submit}
+                    onClick={this.handleClick}
                 >
                     ورود
                 </Button>
@@ -99,10 +159,14 @@ export default function SignIn() {
                 </Grid>
             </form>
         </div>
-    </Container>;
-
-    return (
-        <Template body={signinForm}/>
-    );
+    </Container>
+        );
+    }
 }
 
+export default function Signin (){
+    return(
+        <Template body={<SignInForm/>}/>
+    )
+
+    }

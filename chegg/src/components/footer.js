@@ -21,12 +21,12 @@ class Footer extends Component {
         return (
             <Grid container style={footerStyle}>
                 <Grid item xs={12}>
-                        <Typography>
+                        
                             <IconWithText icon={<MailIcon/>} text={'chegg@ce.sharif.edu'}/>
                             <IconWithText icon={<Location/>} text={'تهران، دانشگاه شریف، دانشکده کامپیوتر، طبقه ۹'}/>
                             <IconWithText icon={<Call/>} text={'12345678 21 (98+)'}/>
                             <IconWithText icon={<CopyRight/>} text={'تمامی حقوق این سایت متعلق به فناوران شریف میباشد.'}/>
-                        </Typography>
+                        
                 </Grid>
             </Grid>
         )
