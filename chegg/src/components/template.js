@@ -45,7 +45,7 @@ class Template extends Component {
                             <Navbar/>
                         </Grid>
                     </Grid>
-                    <Grid container justify={'center'} style={{height:'100%'}} alignContent={'center'}>
+                    <Grid container justify={'center'} style={{height: '100%'}} alignContent={'center'}>
                         <Grid item>
                             {this.props.body}
                         </Grid>

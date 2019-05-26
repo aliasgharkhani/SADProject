@@ -3,18 +3,14 @@ import Avatar from '@material-ui/core/Avatar';
 import Button from '@material-ui/core/Button';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import TextField from '@material-ui/core/TextField';
-import FormControlLabel from '@material-ui/core/FormControlLabel';
-import Checkbox from '@material-ui/core/Checkbox';
 import Link from '@material-ui/core/Link';
 import Grid from '@material-ui/core/Grid';
-import Box from '@material-ui/core/Box';
 import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
 import Typography from '@material-ui/core/Typography';
 import {makeStyles} from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
 import Template from "../components/template";
 import axios from 'axios';
-import { Redirect } from 'react-router-dom'
 
 
 const useStyles = makeStyles(theme => ({
@@ -43,7 +39,7 @@ const useStyles = makeStyles(theme => ({
 }));
 
 
-class SignInForm extends Component{
+class SignInForm extends Component {
     constructor(props) {
         super(props);
         this.state = {
@@ -53,120 +49,116 @@ class SignInForm extends Component{
         };
         this.handleClick = this.handleClick.bind(this)
         this.handleChange = this.handleChange.bind(this)
-        
-      }
 
-      handleChange(event) {
-          console.log("here")
+    }
+
+    handleChange(event) {
+        console.log("here")
         this.setState({
             [event.target.name]: event.target.value,
         })
-      
-      }
 
-    handleClick(e){
+    }
+
+    handleClick(e) {
         e.preventDefault();
         axios.post('http://127.0.0.1:8000/auth/token/', {
             username: this.state.username,
             password: this.state.password
         })
-          .then(response => {
-              if (response.status == 200){
-                localStorage.setItem('cheggtoken', response.data.token) 
-                this.setState({
-                    message: 'با موفقیت وارد شدید'
-                })
-                
-              }
-              else{
+            .then(response => {
+                if (response.status === 200) {
+                    localStorage.setItem('cheggtoken', response.data.token)
+                    this.setState({
+                        message: 'با موفقیت وارد شدید' + response.data.token
+                    })
+
+                } else {
+                    this.setState({
+                        message: 'دوباره امتحان کنید'
+                    })
+                }
+
+            })
+            .catch((error) => {
                 this.setState({
                     message: 'دوباره امتحان کنید'
                 })
-              }
-
-          })
-          .catch((error) => {
-            this.setState({
-                message: 'دوباره امتحان کنید'
             })
-          })
 
-        console.log(this.props.history)
-          this.props.history.push('/path')
-                
     }
 
-    render(){
-        return(
-<Container component="SignInForm" maxWidth="xs">
-        <CssBaseline/>
-        <div>
-            {this.state.message}
-            <Avatar >
-                <LockOutlinedIcon/>
-            </Avatar>
-            <Typography component="h1" variant="h5">
-                ورود
-            </Typography>
-            <form    method='post' noValidate>
-                <TextField
-                    margin="normal"
-                    required
-                    fullWidth
-                    id="username"
-                    label="نام کاربری"
-                    name="username"
-                    autoComplete="username"
-                    autoFocus
-                    value={this.state.username}
-                    onChange={this.handleChange}
-                />
-                <TextField
+    render() {
+        return (
+            <Container component="SignInForm" maxWidth="xs">
+                <CssBaseline/>
+                <div>
+                    {this.state.message}
+                    <Avatar>
+                        <LockOutlinedIcon/>
+                    </Avatar>
+                    <Typography component="h1" variant="h5">
+                        ورود
+                    </Typography>
+                    <form method='post' noValidate>
+                        <TextField
+                            margin="normal"
+                            required
+                            fullWidth
+                            id="username"
+                            label="نام کاربری"
+                            name="username"
+                            autoComplete="username"
+                            autoFocus
+                            value={this.state.username}
+                            onChange={this.handleChange}
+                        />
+                        <TextField
 
-                    margin="normal"
-                    required
-                    fullWidth
-                    name="password"
-                    label="رمز عبور"
-                    type="password"
-                    id="password"
-                    autoComplete="current-password"
-                    value={this.state.password}
-                    onChange={this.handleChange}
-                />
+                            margin="normal"
+                            required
+                            fullWidth
+                            name="password"
+                            label="رمز عبور"
+                            type="password"
+                            id="password"
+                            autoComplete="current-password"
+                            value={this.state.password}
+                            onChange={this.handleChange}
+                        />
 
-                <Button
-                    type="submit"
-                    fullWidth
-                    variant="contained"
-                    color="primary"
-                    // className={classes.submit}
-                    onClick={this.handleClick}
-                >
-                    ورود
-                </Button>
-                <Grid container>
-                    <Grid item xs>
-                        <Link href="#" variant="body2">
-                            فراموشی رمزعبور
-                        </Link>
-                    </Grid>
-                    <Grid item>
-                        <Link href="#" variant="body2">
-                            {"ثبت نام"}
-                        </Link>
-                    </Grid>
-                </Grid>
-            </form>
-        </div>
-    </Container>
+                        <Button
+                            type="submit"
+                            fullWidth
+                            variant="contained"
+                            color="primary"
+                            // className={classes.submit}
+                            onClick={this.handleClick}
+                        >
+                            ورود
+                        </Button>
+                        <Grid container>
+                            <Grid item xs>
+                                <Link href="#" variant="body2">
+                                    فراموشی رمزعبور
+                                </Link>
+                            </Grid>
+                            <Grid item>
+                                <Link href="#" variant="body2">
+                                    {"ثبت نام"}
+                                </Link>
+                            </Grid>
+                        </Grid>
+                    </form>
+                </div>
+            </Container>
         );
     }
 }
 
-export default function Signin (){
-    return(
+export default function Signin() {
+    return (
         <Template body={<SignInForm/>}/>
     )
 
-    }
+}

@@ -1,11 +1,12 @@
 import React, {Component} from "react";
 import Template from '../components/template';
 
-class Main extends Component{
+class Main extends Component {
     render() {
-        return(
+        return (
             <Template/>
         )
     }
 }
+
 export default Main;
