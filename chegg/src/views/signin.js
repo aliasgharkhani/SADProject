@@ -139,13 +139,13 @@ class SignInForm extends Component {
                         </Button>
                         <Grid container>
                             <Grid item xs>
-                                <Link href="#" variant="body2">
-                                    فراموشی رمزعبور
+                                <Link href="../signup" variant="body2">
+                                    ثبت نام
                                 </Link>
                             </Grid>
                             <Grid item>
                                 <Link href="#" variant="body2">
-                                    {"ثبت نام"}
+                                    فراموشی رمزعبور
                                 </Link>
                             </Grid>
                         </Grid>
