@@ -7,36 +7,17 @@ import Link from '@material-ui/core/Link';
 import Grid from '@material-ui/core/Grid';
 import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
 import Typography from '@material-ui/core/Typography';
-import {makeStyles} from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
 import Template from "../components/template";
 import axios from 'axios';
+import {Redirect, withRouter} from 'react-router-dom';
 
 
-const useStyles = makeStyles(theme => ({
-    '@global': {
-        body: {
-            backgroundColor: theme.palette.common.white,
-        },
-    },
-    paper: {
-        // margin: theme.spacing(8),
-        display: 'flex',
-        flexDirection: 'column',
-        alignItems: 'center',
-    },
-    avatar: {
-        margin: theme.spacing(1),
-        backgroundColor: theme.palette.secondary.main,
-    },
-    form: {
-        width: '100%', // Fix IE 11 issue.
-        marginTop: theme.spacing(1),
-    },
-    submit: {
-        margin: theme.spacing(3, 0, 2),
-    },
-}));
+const formStyle = {
+    display: 'flex',
+    flexDirection: 'column',
+    alignItems: 'center',
+};
 
 
 class SignInForm extends Component {
@@ -53,7 +34,6 @@ class SignInForm extends Component {
     }
 
     handleChange(event) {
-        console.log("here")
         this.setState({
             [event.target.name]: event.target.value,
         })
@@ -61,7 +41,9 @@ class SignInForm extends Component {
     }
 
     handleClick(e) {
-        e.preventDefault();
+        console.log(this)
+         e.preventDefault();
+
         axios.post('http://127.0.0.1:8000/auth/token/', {
             username: this.state.username,
             password: this.state.password
@@ -90,9 +72,9 @@ class SignInForm extends Component {
 
     render() {
         return (
-            <Container component="SignInForm" maxWidth="xs">
+            <Container maxWidth="xs">
                 <CssBaseline/>
-                <div>
+                <div style={formStyle}>
                     {this.state.message}
                     <Avatar>
                         <LockOutlinedIcon/>
@@ -156,9 +138,13 @@ class SignInForm extends Component {
     }
 }
 
-export default function Signin() {
+function SignIn() {
     return (
-        <Template body={<SignInForm/>}/>
+        <Template>
+            <SignInForm/>
+        </Template>
     )
 
 }
+
+export default withRouter(SignIn)

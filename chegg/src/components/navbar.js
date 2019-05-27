@@ -33,6 +33,7 @@ function Navbar() {
                     </IconButton>
                     <Typography variant="h6" className={classes.title}>
                     </Typography>
+                    <Button color="inherit" href={'/signup'}>عضویت</Button>
                     <Button color="inherit" href={'/signin'}>ورود</Button>
                 </Toolbar>
             </AppBar>

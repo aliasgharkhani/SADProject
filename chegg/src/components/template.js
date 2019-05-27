@@ -47,7 +47,7 @@ class Template extends Component {
                     </Grid>
                     <Grid container justify={'center'} style={{height: '100%'}} alignContent={'center'}>
                         <Grid item>
-                            {this.props.body}
+                            {this.props.children}
                         </Grid>
                     </Grid>
                     <Grid container>
