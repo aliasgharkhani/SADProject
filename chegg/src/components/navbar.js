@@ -22,22 +22,35 @@ const useStyles = makeStyles(theme => ({
     }
 }));
 
+class NavbarComponent extends React.Component {
+    constructor(props) {
+        super(props);
+    }
+
+    render() {
+        return (
+            <div className={this.props.classes.root}>
+                <AppBar position="static" className={this.props.classes.appbar}>
+                    <Toolbar>
+                        <IconButton edge="start" className={this.props.classes.menuButton} color="inherit" aria-label="Menu">
+                            <MenuIcon/>
+                        </IconButton>
+                        <Typography variant="h6" className={this.props.classes.title}>
+                        </Typography>
+                        <Button color="inherit" href={'/signup'}>عضویت</Button>
+                        <Button color="inherit" href={'/signin'}>ورود</Button>
+                    </Toolbar>
+                </AppBar>
+            </div>
+        )
+    }
+
+}
+
 function Navbar() {
     const classes = useStyles();
     return (
-        <div className={classes.root}>
-            <AppBar position="static" className={classes.appbar}>
-                <Toolbar>
-                    <IconButton edge="start" className={classes.menuButton} color="inherit" aria-label="Menu">
-                        <MenuIcon/>
-                    </IconButton>
-                    <Typography variant="h6" className={classes.title}>
-                    </Typography>
-                    <Button color="inherit" href={'/signup'}>عضویت</Button>
-                    <Button color="inherit" href={'/signin'}>ورود</Button>
-                </Toolbar>
-            </AppBar>
-        </div>
+        <NavbarComponent classes={classes}/>
     );
 }
 
