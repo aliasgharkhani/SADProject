@@ -1,57 +1,137 @@
-import React from 'react';
-import {makeStyles} from '@material-ui/core/styles';
-import AppBar from '@material-ui/core/AppBar';
-import Toolbar from '@material-ui/core/Toolbar';
-import Typography from '@material-ui/core/Typography';
-import Button from '@material-ui/core/Button';
-import IconButton from '@material-ui/core/IconButton';
-import MenuIcon from '@material-ui/icons/Menu';
+import _ from "lodash";
+import React, { Component } from "react";
+import axios from "axios";
+import { render } from "react-dom";
+import {
+  Container,
+  Icon,
+  Image,
+  Menu,
+  Sidebar,
+  Responsive,
+  Dropdown
+} from "semantic-ui-react";
 
-const useStyles = makeStyles(theme => ({
-    root: {
-        flexGrow: 1,
-    },
-    menuButton: {
-        marginRight: theme.spacing(2),
-    },
-    title: {
-        flexGrow: 1,
-    },
-    appbar: {
-        // backgroundColor: '#13003d'
-    }
-}));
+class Navbar extends Component {
 
-class NavbarComponent extends React.Component {
-    constructor(props) {
-        super(props);
-    }
+    state = {
+
+        setName: false,
+        name: '',
+        change: false,
+        first: true
+    };
+
+
+
+    handleItemClick = (e, {name, path}) => {
+
+
+            window.location.replace( path);
+    };
+
+    handleLogout = (e) => {
+        localStorage.removeItem("chegg-token");
+        localStorage.removeItem("chegg-username");
+        this.setState({
+            name: ''
+        });
+    };
 
     render() {
-        return (
-            <div className={this.props.classes.root}>
-                <AppBar position="static" className={this.props.classes.appbar}>
-                    <Toolbar>
-                        <IconButton edge="start" className={this.props.classes.menuButton} color="inherit" aria-label="Menu">
-                            <MenuIcon/>
-                        </IconButton>
-                        <Typography variant="h6" className={this.props.classes.title}>
-                        </Typography>
-                        <Button color="inherit" href={'/signup'}>عضویت</Button>
-                        <Button color="inherit" href={'/signin'}>ورود</Button>
-                    </Toolbar>
-                </AppBar>
-            </div>
+        if (localStorage.getItem('username') !== null && !this.state.setName) {
+            this.setState({setName: true, name: localStorage.getItem('username')})
+        }
+        const Logout = () => {
+            // let url = window.location.href;
+            let userAuth = false;
+            // url = url.replace('3', '8');
+            axios.defaults.withCredentials = true;
+            let self = this;
+            // let bodyFormData = new FormData();
+            // bodyFormData.set('username', localStorage.getItem('username'));
+            axios.get('http://localhost:8000/sport3/logout').then(function (response) {
+                localStorage.removeItem('username');
+                localStorage.removeItem('Authorization');
+                self.setState({change: !self.state.change});
+                window.location.reload()
+            });
+
+        };
+        const Login_Logout = () => {
+            if (localStorage.getItem('chegg-token') !== null) {
+
+                return (
+
+
+                    <Menu.Item
+                        onClick = {this.handleLogout}
+                        name= "خروج"
+                        path='/sport3/login'
+                        position={"left"}
+                    />
+                )
+            } else {
+                return (
+                    <Menu.Item
+                    name='ورود'
+                    path='/signin'
+                    position={"left"}
+                    onClick={this.handleItemClick}
+
+                    />
+
+                )
+            }
+        };
+
+        const fixedMenuItems = () => {
+            return(
+                <Menu.Item
+                    name='صفحه ی اصلی'
+                    path='/sport3/home'
+                    onClick={this.handleItemClick}
+                    style={{padding: '20px'}}
+                />
+            )
+        };
+
+        if (localStorage.getItem('chegg-token') !== null){
+            return (
+
+            <Menu inverted style={{height: '100%', direction: 'rtl', fontFamily: 'B Yekan'}}>
+                {fixedMenuItems()}
+
+
+
+
+                {Login_Logout()}
+            </Menu>
+
+
         )
+        }
+        else {
+            return (
+
+            <Menu inverted style={{height: '100%', direction: 'rtl', fontFamily: 'B Yekan'}}>
+                {fixedMenuItems()}
+
+                 <Menu.Item
+                    name='ثبت نام'
+                    path='/signup'
+                    onClick={this.handleItemClick}
+                />
+
+
+                {Login_Logout()}
+            </Menu>
+
+
+        )
+        }
+
     }
-
-}
-
-function Navbar() {
-    const classes = useStyles();
-    return (
-        <NavbarComponent classes={classes}/>
-    );
 }
 
 export default Navbar;

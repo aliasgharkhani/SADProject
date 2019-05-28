@@ -1,150 +1,101 @@
-import React, {Component} from 'react';
-import Avatar from '@material-ui/core/Avatar';
-import Button from '@material-ui/core/Button';
-import CssBaseline from '@material-ui/core/CssBaseline';
-import TextField from '@material-ui/core/TextField';
-import Link from '@material-ui/core/Link';
-import Grid from '@material-ui/core/Grid';
-import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
-import Typography from '@material-ui/core/Typography';
-import Container from '@material-ui/core/Container';
-import Template from "../components/template";
+import React from 'react'
+import { Button, Form, Grid, Header, Image, Message, Segment } from 'semantic-ui-react';
+import Template from '../components/template';
 import axios from 'axios';
-import {Redirect, withRouter} from 'react-router-dom';
 
+class SignIn extends React.Component {
 
-const formStyle = {
-    display: 'flex',
-    flexDirection: 'column',
-    alignItems: 'center',
-};
-
-
-class SignInForm extends Component {
-    constructor(props) {
+    constructor(props){
         super(props);
         this.state = {
             username: '',
             password: '',
             message: ''
         };
-        this.handleClick = this.handleClick.bind(this)
-        this.handleChange = this.handleChange.bind(this)
-
+        this.handleInput = this.handleInput.bind(this);
+        this.handleLogin = this.handleLogin.bind(this);
     }
 
-    handleChange(event) {
+    handleInput(e) {
         this.setState({
-            [event.target.name]: event.target.value,
-        })
+            [e.target.name]: e.target.value
+        });
 
     }
 
-    handleClick(e) {
-        console.log(this)
-         e.preventDefault();
-
-        axios.post('http://127.0.0.1:8000/auth/token/', {
+    handleLogin(e) {
+        e.preventDefault();
+axios.post('http://127.0.0.1:8000/auth/token/', {
             username: this.state.username,
             password: this.state.password
         })
             .then(response => {
                 if (response.status === 200) {
-                    localStorage.setItem('cheggtoken', response.data.token)
+                    localStorage.setItem('chegg-token', response.data.token);
+                    localStorage.setItem('chegg-username', this.state.username);
                     this.setState({
-                        message: 'با موفقیت وارد شدید' + response.data.token
+                        message: 'با موفقیت وارد شدید'
                     })
+                    window.location.replace('/')
 
                 } else {
                     this.setState({
-                        message: 'دوباره امتحان کنید'
+                        message: 'اطلاعات وارد شده نادرست می باشد'
                     })
                 }
 
             })
             .catch((error) => {
                 this.setState({
-                    message: 'دوباره امتحان کنید'
+                    message: 'اطلاعات وارد شده نادرست می باشد'
                 })
-            })
-
+})
     }
 
-    render() {
+
+
+
+    render (){
         return (
-            <Container maxWidth="xs">
-                <CssBaseline/>
-                <div style={formStyle}>
-                    {this.state.message}
-                    <Avatar>
-                        <LockOutlinedIcon/>
-                    </Avatar>
-                    <Typography component="h1" variant="h5">
-                        ورود
-                    </Typography>
-                    <form method='post' noValidate>
-                        <TextField
-                            margin="normal"
-                            required
-                            fullWidth
-                            id="username"
-                            label="نام کاربری"
-                            name="username"
-                            autoComplete="username"
-                            autoFocus
-                            value={this.state.username}
-                            onChange={this.handleChange}
-                        />
-                        <TextField
+            <Template>
+  <Grid textAlign='center' verticalAlign='middle'>
+    <Grid.Column style={{ maxWidth: 450 }}>
+      <Header as='h2' color='teal' textAlign='center'>
 
-                            margin="normal"
-                            required
-                            fullWidth
-                            name="password"
-                            label="رمز عبور"
-                            type="password"
-                            id="password"
-                            autoComplete="current-password"
-                            value={this.state.password}
-                            onChange={this.handleChange}
-                        />
+      </Header>
+      <Form size='large'>
+        <Segment stacked>
+            {this.state.message}
+          <Form.Input  fluid icon='user' iconPosition='left' placeholder='نام کاربری' onChange={this.handleInput} name={'username'} value={this.state.username}/>
+          <Form.Input
+            fluid
+            icon='lock'
+            iconPosition='left'
+            placeholder='رمز کاربری'
+            onChange={this.handleInput}
+            value={this.state.password}
+            name={'password'}
+            type='password'
+          />
 
-                        <Button
-                            type="submit"
-                            fullWidth
-                            variant="contained"
-                            color="primary"
-                            // className={classes.submit}
-                            onClick={this.handleClick}
-                        >
-                            ورود
-                        </Button>
-                        <Grid container>
-                            <Grid item xs>
-                                <Link href="../signup" variant="body2">
-                                    ثبت نام
-                                </Link>
-                            </Grid>
-                            <Grid item>
-                                <Link href="#" variant="body2">
-                                    فراموشی رمزعبور
-                                </Link>
-                            </Grid>
-                        </Grid>
-                    </form>
-                </div>
-            </Container>
-        );
-    }
+          <Button color='black' fluid size='large' onClick={this.handleLogin} style={{fontFamily: 'B Yekan'}}>
+            ورود
+          </Button>
+        </Segment>
+      </Form>
+      <Message>
+         <a href='#'>عضویت</a>
+      </Message>
+    </Grid.Column>
+  </Grid>
+  </Template>
+
+)};
 }
 
-function SignIn() {
-    return (
-        <Template>
-            <SignInForm/>
-        </Template>
-    )
 
-}
 
-export default withRouter(SignIn)
+
+
+
+export default SignIn

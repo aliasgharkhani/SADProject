@@ -1,121 +1,145 @@
-import React from 'react';
-import Avatar from '@material-ui/core/Avatar';
-import Button from '@material-ui/core/Button';
-import CssBaseline from '@material-ui/core/CssBaseline';
-import TextField from '@material-ui/core/TextField';
-import FormControlLabel from '@material-ui/core/FormControlLabel';
-import Checkbox from '@material-ui/core/Checkbox';
-import Link from '@material-ui/core/Link';
-import Grid from '@material-ui/core/Grid';
-import Box from '@material-ui/core/Box';
-import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
-import Typography from '@material-ui/core/Typography';
-import { makeStyles } from '@material-ui/core/styles';
-import Container from '@material-ui/core/Container';
-import Template from "../components/template";
+import React, {Component} from 'react'
+import {Button, Form, Grid, Segment} from 'semantic-ui-react'
+import Template from '../components/template'
+import {findDOMNode} from 'react-dom';
+import axios from "axios";
 
 
-const useStyles = makeStyles(theme => ({
-  '@global': {
-    body: {
-      backgroundColor: theme.palette.common.white,
-    },
-  },
-  paper: {
-    marginTop: theme.spacing(8),
-    display: 'flex',
-    flexDirection: 'column',
-    alignItems: 'center',
-  },
-  avatar: {
-    margin: theme.spacing(1),
-    backgroundColor: theme.palette.secondary.main,
-  },
-  form: {
-    width: '100%', // Fix IE 11 issue.
-    marginTop: theme.spacing(3),
-  },
-  submit: {
-    margin: theme.spacing(3, 0, 2),
-  },
-}));
+class SignupForm extends Component {
+    constructor(props) {
+        super(props);
 
-export default function SignIn() {
-  const classes = useStyles();
-    const signupForm = <Container component="main" maxWidth="xs">
-      <CssBaseline />
-      <div className={classes.paper}>
-        <Avatar className={classes.avatar}>
-          <LockOutlinedIcon />
-        </Avatar>
-        <Typography component="h1" variant="h5">
-          ثبت نام
-        </Typography>
-        <form className={classes.form} noValidate>
-          <Grid container spacing={2}>
-            <Grid item xs={12} sm={6}>
-              <TextField
-                autoComplete="fname"
-                name="firstName"
-                required
-                fullWidth
-                id="firstName"
-                label="نام"
-                autoFocus
-              />
-            </Grid>
-            <Grid item xs={12} sm={6}>
-              <TextField
-                required
-                fullWidth
-                id="lastName"
-                label="نام خانوادگی"
-                name="lastName"
-                autoComplete="lname"
-              />
-            </Grid>
-            <Grid item xs={12}>
-              <TextField
-                required
-                fullWidth
-                id="email"
-                label="ایمیل"
-                name="email"
-                autoComplete="email"
-              />
-            </Grid>
-            <Grid item xs={12}>
-              <TextField
-                required
-                fullWidth
-                name="password"
-                label="رمز عبور"
-                type="password"
-                id="password"
-                autoComplete="current-password"
-              />
-            </Grid>
-          </Grid>
-          <Button
-            type="submit"
-            fullWidth
-            variant="contained"
-            color="primary"
-            className={classes.submit}
-          >
-            ثبت نام
-          </Button>
-          <Grid container >
-            <Grid item>
-              <Link href="../signin" variant="body2">
-                ورود
-              </Link>
-            </Grid>
-          </Grid>
-        </form>
-      </div>
-    </Container>;
-    return(
-        <Template body={signupForm}/>
-    )
+        this.handleSubmit = this.handleSubmit.bind(this)
+        this.passConfirmCheck = this.passConfirmCheck.bind(this)
+        this.passSave = this.passSave.bind(this)
+        this.error= this.error.bind(this)
+
+    }
+
+    state = {
+        equal: true,
+        pass: null,
+        errors: null
+    };
+
+
+
+    handleSubmit(event) {
+        event.preventDefault();
+
+        let self = this
+        let url = 'http://localhost:8000/auth/signup/';
+
+
+        let bodyFormData = new FormData();
+        bodyFormData.set('username', event.target.username.value);
+        bodyFormData.set('password', event.target.password.value);
+        bodyFormData.set('first_name', event.target.first_name.value);
+        bodyFormData.set('last_name', event.target.last_name.value);
+        bodyFormData.set('email', event.target.email.value);
+        bodyFormData.set('confirm_pass', event.target.confirm_pass.value);
+        bodyFormData.set('rules', event.target.rules.value);
+
+
+        axios({
+            method: 'post',
+            url: url,
+            data: bodyFormData,
+            config: {headers: {'Content-Type': 'multipart/form-data'}}
+        }).then(function (response) {
+
+            console.log(response);
+            if (response.status === 200) {
+                window.location.replace("http://localhost:3000/");
+            }
+            else if(response.status === 203) {
+                var error = ""
+                for (var key in response.data){
+                    if (key === "email"){
+                       error += " این ایمیل قبلاْ انتخاب شده است. "
+
+                    }
+                    if(key === "username"){
+                        error += " این نام کاربری قبلاْ انتخاب شده است. \n"
+
+                    }
+                    if (key === "password") {
+                        error += " رمز عبور حداقل باید 8 کاراکتر باشد. \n"
+
+                    }
+
+                }
+                self.setState({
+                    errors: error
+                })
+            }
+        }).catch(function ( error) {
+
+             console.log(error)
+             self.setState({
+                    errors:<div>ایمیل یا نام کاربری موجود می باشد.</div>
+                });
+        });
+    }
+
+    error() {
+        return <div>{this.state.errors}</div>;
+    }
+
+    passConfirmCheck(event) {
+        if (this.state.pass === event.target.value) {
+            this.setState({equal: true})
+        } else
+            this.setState({equal: false})
+    }
+
+    passSave(event) {
+        this.setState({pass: event.target.value})
+    }
+
+    render() {
+        return (
+            <Segment>
+                <div>{this.error()}</div>
+                <Form onSubmit={this.handleSubmit}>
+
+                    <Form.Input name="first_name" fluid label='نام' required/>
+                    <Form.Input name="last_name" fluid label='نام خانوادگی' required/>
+                    <Form.Input name="username" fluid label='نام کاربری' required/>
+                    <Form.Input name="password" fluid label='رمز عبور' required onChange={this.passSave}
+                                type="password"/>
+                    <Form.Input name="confirm_pass" fluid label='تایید رمز عبور' required
+                                onChange={this.passConfirmCheck} error={!this.state.equal} type="password"/>
+                    <Form.Input name="email" fluid label='ایمیل' placeholder='Email@example.com' type="email" required/>
+                    {/*<Form.Checkbox name="rules" label='قوانین و شرایط را قبول دارم' required/>*/}
+                    <label htmlFor="other">قوانین و شرایط را قبول دارم</label>
+                    <Form.Input type="checkbox" name="rules" id="other" ref="rule" required/>
+
+                    <Button color='black' fluid type='submit' style={{fontFamily: 'B Yekan'}}>تایید</Button>
+                </Form>
+            </Segment>
+        )
+    }
+
+
+};
+
+
+class App extends Component {
+    render() {
+        console.log("APP")
+        const body =
+            <Grid verticalAlign='middle' textAlign='center' style={{width: '100%', height: '100%'}}>
+                <Grid.Row>
+                    <Grid.Column style={{maxWidth: '30vw'}}>
+                        <SignupForm/>
+                    </Grid.Column>
+                </Grid.Row>
+            </Grid>;
+        return (
+            <Template>{body}</Template>
+        );
+    }
 }
+
+export default App;
