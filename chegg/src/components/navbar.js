@@ -12,6 +12,13 @@ import {
   Dropdown
 } from "semantic-ui-react";
 
+
+const IconExampleDisabled = () => <Icon  name='users' />;
+
+
+
+
+
 class Navbar extends Component {
 
     state = {
@@ -64,12 +71,15 @@ class Navbar extends Component {
                 return (
 
 
-                    <Menu.Item
-                        onClick = {this.handleLogout}
-                        name= "خروج"
-                        path='/sport3/login'
-                        position={"left"}
-                    />
+
+                        <Menu.Item
+                            onClick = {this.handleLogout}
+                            name= "خروج"
+                            path='/sport3/login'
+                            position={"left"}
+                        />
+
+
                 )
             } else {
                 return (
@@ -84,12 +94,28 @@ class Navbar extends Component {
                 )
             }
         };
+        const UserName_or_Icon = () => {
+            if (localStorage.getItem('chegg-token') !== null) {
+
+                return (
+                        <Menu.Item
+
+                            name= {localStorage.getItem('chegg-username')}
+                            path='/sport3/login'
+
+                        />
+
+
+                )
+            }
+        };
+
 
         const fixedMenuItems = () => {
             return(
                 <Menu.Item
                     name='صفحه ی اصلی'
-                    path='/sport3/home'
+                    path=''
                     onClick={this.handleItemClick}
                     style={{padding: '20px'}}
                 />
@@ -100,12 +126,23 @@ class Navbar extends Component {
             return (
 
             <Menu inverted style={{height: '100%', direction: 'rtl', fontFamily: 'B Yekan'}}>
+                <i aria-hidden="true" className="users icon"/>
+
+                {UserName_or_Icon()}
+                 <Menu.Item
+                    name='ثبت نام'
+                    path='/signup'
+                    onClick={this.handleItemClick}
+                />
                 {fixedMenuItems()}
 
 
 
-
                 {Login_Logout()}
+
+
+
+
             </Menu>
 
 
@@ -115,13 +152,16 @@ class Navbar extends Component {
             return (
 
             <Menu inverted style={{height: '100%', direction: 'rtl', fontFamily: 'B Yekan'}}>
-                {fixedMenuItems()}
+                <i aria-hidden="true" className="users icon"/>
 
-                 <Menu.Item
+                <Menu.Item
                     name='ثبت نام'
                     path='/signup'
                     onClick={this.handleItemClick}
                 />
+                {fixedMenuItems()}
+
+
 
 
                 {Login_Logout()}
