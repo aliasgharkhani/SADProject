@@ -15,7 +15,7 @@ import {
 
 const IconExampleDisabled = () => <Icon  name='users' />;
 
-
+const IconExampleDisabled2 = () => <Icon  name='users' />;
 
 
 
