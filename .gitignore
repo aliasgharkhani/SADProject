@@ -4,6 +4,9 @@
 node_modules/
 /node_modules/*
 /.idea/
+./media/*
+./media/
+./media
 chegg/node_modules/*
 chegg/.idea
 chegg/../.idea/*
