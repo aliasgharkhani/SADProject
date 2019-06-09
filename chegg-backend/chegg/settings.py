@@ -42,6 +42,7 @@ INSTALLED_APPS = [
     'corsheaders',
 
     'authentication',
+    'store',
 ]
 
 MIDDLEWARE = [
@@ -128,3 +129,7 @@ REST_FRAMEWORK = {
         'rest_framework.authentication.TokenAuthentication',  # <-- And here
     ],
 }
+
+MEDIA_ROOT = '../media/'
+
+MEDIA_URL = '/media/'
