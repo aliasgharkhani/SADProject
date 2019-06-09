@@ -33,3 +33,13 @@ class Problem(models.Model):
     answer_blurred = models.ImageField()
     chapter = models.ForeignKey('store.Chapter', related_name='problems', on_delete=models.CASCADE)
 
+
+class PurchaseHistory(models.Model):
+    member = models.ForeignKey('authentication.Member', related_name='purchased_chapters', on_delete=models.CASCADE)
+    chapter = models.ForeignKey('store.Chapter', related_name='purchase_info', on_delete=models.CASCADE)
+
+    class Meta:
+        unique_together = ('chapter', 'member',)
+
+    def __str__(self):
+        return "{}-> {}".format(str(self.member), str(self.chapter))
