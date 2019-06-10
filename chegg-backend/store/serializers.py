@@ -3,13 +3,21 @@ from store.models import Book, Problem, Chapter
 
 
 class BookSerializer(serializers.ModelSerializer):
+    chapters = serializers.SerializerMethodField()
+
+    def get_chapters(self, obj):
+        return ChapterSerializer(obj.chapters.all(), many=True).data
+
     class Meta:
         model = Book
         exclude = ()
 
 
 class ChapterSerializer(serializers.ModelSerializer):
-    book = BookSerializer()
+    problems = serializers.SerializerMethodField()
+
+    def get_problems(self, obj):
+        return ProblemSerializer(obj.problems.all(), many=True).data
 
     class Meta:
         model = Chapter
@@ -17,7 +25,6 @@ class ChapterSerializer(serializers.ModelSerializer):
 
 
 class ProblemSerializer(serializers.ModelSerializer):
-    chapter = ChapterSerializer()
 
     class Meta:
         model = Problem
