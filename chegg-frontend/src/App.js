@@ -2,6 +2,7 @@ import React from 'react';
 import Main from './views/main';
 import SignIn from './views/signin';
 import SignUp from './views/signup';
+import BookList from './views/bookList';
 
 
 import {Route, Switch} from 'react-router';
@@ -15,6 +16,7 @@ function App() {
                 <Route exact path='/' component={Main}/>
                 <Route exact path='/signin' component={SignIn}/>
                 <Route exact path='/signup' component={SignUp}/>
+                <Route exact path='/booklist' component={BookList}/>
 
             </Switch>
         </BrowserRouter>

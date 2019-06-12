@@ -15,7 +15,9 @@
     "react-scripts": "0.9.5",
     "semantic-ui-react": "^0.87.1"
   },
-  "devDependencies": {},
+  "devDependencies": {
+    "file-loader": "^4.0.0"
+  },
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
