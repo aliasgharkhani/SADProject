@@ -43,28 +43,42 @@ class BookCard extends Component {
                     <Grid.Row>
                         <Grid.Column width={9}>
 
-                            <strong>این کتاب قبلا خریداری شده است.</strong>
+                           این کتاب قبلا خریداری شده است.
 
                         </Grid.Column>
 
-                        <Grid.Column width={7} floated={"left"}>
-                            <Button onClick={() => this.routeChange('' + this.props.link)} floated={"left"}
-                                    style={{fontFamily: "B Yekan"}}> مشاهده ی کتاب</Button>
+                        <Grid.Column width={7} floated={"left"} style={{textAlign: 'left'}}>
+                            <div style={{width: '75%', fontFamily: "B Yekan", backgroundColor: 'rgb(182,227,255)'}} className="ui vertical animated button"
+                                 tabIndex="0">
+                                <div className="hidden content">
+                                    <i className="book icon"></i>
+                                </div>
+                                <div className="visible content">مشاهده ی کتاب</div>
+
+                            </div>
                         </Grid.Column>
                     </Grid.Row>
                 )
             } else {
                 return (<Grid.Row>
-                        <Grid.Column width={9}>
+                        <Grid.Column width={9} floated={"left"} style={{paddingLeft: '0px'}}>
+                            تعداد فصل های خریده شده:
+                            <strong> {this.props.chaptersPurchased}</strong>
 
-                            <strong>قیمت خرید: {this.props.price}</strong>
+
+                        </Grid.Column>
+                        <Grid.Column width={7} style={{textAlign: 'left'}}>
+
+                            <div style={{ width: '75%', fontFamily: "B Yekan", backgroundColor: '#5a8fff'}} className="ui animated fade button" tabIndex="0">
+                                <div className="visible content" style={{padding: '0px'}}>مشاهده و خرید کتاب</div>
+                                <div className="hidden content">
+                                    {this.props.price} هزار تومان
+                                </div>
+                            </div>
 
                         </Grid.Column>
 
-                        <Grid.Column width={7} floated={"left"}>
-                            <Button onClick={() => this.routeChange('' + this.props.link)} floated={"left"}
-                                    style={{fontFamily: "B Yekan"}}> خرید</Button>
-                        </Grid.Column>
+
                     </Grid.Row>
 
                 )
@@ -75,8 +89,9 @@ class BookCard extends Component {
         return (
 
 
-            <Card style={{width: '47%', margin: '1em 0'}}>
+            <Card style={{width: '47%', margin: '1em 0', fontSize: '1.5em'}}>
                 <Card.Content style={{direction: "rtl"}}>
+
 
                     <img style={{width: "65px", height: "88px", float: "right", marginLeft: "1em"}}
                          src={require('' + imgPath)}/>

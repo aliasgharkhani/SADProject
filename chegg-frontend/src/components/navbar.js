@@ -130,7 +130,7 @@ class Navbar extends Component {
         if (localStorage.getItem('chegg-token') !== null) {
             return (
 
-                <Menu inverted style={{height: '100%'  , fontFamily: 'B Yekan'}}>
+                <Menu inverted className='borderless' style={{height: '100%'  , fontFamily: 'B Yekan'}}>
 
                     {Login_Logout()}
                     {fixedMenuItems()}

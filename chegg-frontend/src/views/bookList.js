@@ -20,7 +20,7 @@ const books = [{
         'description': 'کتاب خوب',
         "image": "./a.jpeg",
         'purchased': 0,
-        "chaptersPurchased": 0,
+        "chaptersPurchased": 10,
         'price': 10,
         'link' : '',
 
@@ -60,7 +60,7 @@ class BookList extends Component {
                 <Segment
                     style={{
                         width: ' 70%',
-
+                        backgroundColor: '#020039',
                         margin: 'auto'
                     }}>
                 <Grid style={{
