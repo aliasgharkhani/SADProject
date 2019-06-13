@@ -1,22 +1,15 @@
-import _ from "lodash";
-import React, { Component } from "react";
+import React, {Component} from "react";
 import axios from "axios";
-import { render } from "react-dom";
 import {
-  Container,
-  Icon,
-  Image,
-  Menu,
-  Sidebar,
-  Responsive,
-  Dropdown
+    Icon,
+    Menu,
+    Grid
 } from "semantic-ui-react";
 
 
-const IconExampleDisabled = () => <Icon  name='users' />;
+const IconExampleDisabled = () => <Icon name='users'/>;
 
-const IconExampleDisabled2 = () => <Icon  name='users' />;
-
+const IconExampleDisabled2 = () => <Icon name='users'/>;
 
 
 class Navbar extends Component {
@@ -30,12 +23,14 @@ class Navbar extends Component {
     };
 
 
-
     handleItemClick = (e, {name, path}) => {
 
+        console.log(path);
 
-            window.location.replace( path);
+        window.location.replace(path);
     };
+
+
 
     handleLogout = (e) => {
         localStorage.removeItem("chegg-token");
@@ -57,7 +52,7 @@ class Navbar extends Component {
             let self = this;
             // let bodyFormData = new FormData();
             // bodyFormData.set('username', localStorage.getItem('username'));
-            axios.get('http://localhost:8000/sport3/logout').then(function (response) {
+            axios.get('http://localhost:8000/auth/logout').then(function (response) {
                 localStorage.removeItem('username');
                 localStorage.removeItem('Authorization');
                 self.setState({change: !self.state.change});
@@ -69,28 +64,25 @@ class Navbar extends Component {
             if (localStorage.getItem('chegg-token') !== null) {
 
                 return (
-
-
-
-                        <Menu.Item
-                            onClick = {this.handleLogout}
-                            name= "خروج"
-                            path='/sport3/login'
-                            position={"left"}
-                        />
+                    <Menu.Item
+                        onClick={this.handleLogout}
+                        name="خروج"
+                        path='/sport3/login'
+                        position={"LEFT"}
+                    />
 
 
                 )
             } else {
                 return (
-                    <Menu.Item
-                    name='ورود'
-                    path='/signin'
-                    position={"left"}
-                    onClick={this.handleItemClick}
+                    <Menu.Menu position='left'>
+                        <Menu.Item
+                            name='ورود'
+                            path='/signin'
+                            onClick={this.handleItemClick}
 
-                    />
-
+                        />
+                    </Menu.Menu>
                 )
             }
         };
@@ -98,12 +90,10 @@ class Navbar extends Component {
             if (localStorage.getItem('chegg-token') !== null) {
 
                 return (
-                        <Menu.Item
-
-                            name= {localStorage.getItem('chegg-username')}
-                            path='/sport3/login'
-
-                        />
+                    <Menu.Item
+                        name={localStorage.getItem('chegg-username')}
+                        path='/sport3/login'
+                    />
 
 
                 )
@@ -112,63 +102,69 @@ class Navbar extends Component {
 
 
         const fixedMenuItems = () => {
-            return(
-                <Menu.Item
-                    name='صفحه ی اصلی'
-                    path=''
-                    onClick={this.handleItemClick}
-                    style={{padding: '20px'}}
-                />
+            return (
+                <Menu.Menu position={"right"}>
+                    <Menu.Item
+                        name='کتاب ها'
+                        path='/booklist'
+                        onClick={this.handleItemClick}
+                    />
+                    <Menu.Item
+                        name='ثبت نام'
+                        path='/signup'
+                        onClick={this.handleItemClick}
+                    />
+                    <Menu.Item
+                        name='صفحه ی اصلی'
+                        path='http://localhost:3000/'
+                        onClick={this.handleItemClick}
+                        style={{padding: '20px'}}
+
+                    />
+
+                </Menu.Menu>
             )
         };
 
-        if (localStorage.getItem('chegg-token') !== null){
+
+        if (localStorage.getItem('chegg-token') !== null) {
             return (
 
-            <Menu inverted style={{height: '100%', direction: 'rtl', fontFamily: 'B Yekan'}}>
-                <i aria-hidden="true" className="users icon"/>
+                <Menu inverted className='borderless' style={{height: '100%'  , fontFamily: 'B Yekan'}}>
 
-                {UserName_or_Icon()}
-                 <Menu.Item
-                    name='ثبت نام'
-                    path='/signup'
-                    onClick={this.handleItemClick}
-                />
-                {fixedMenuItems()}
-
-
-
-                {Login_Logout()}
+                    {Login_Logout()}
+                    {fixedMenuItems()}
+                    {UserName_or_Icon()}
+                    {/*<Menu.Item>*/}
+                    {/*    <Icon name='list'/>*/}
+                    {/*</Menu.Item>*/}
 
 
 
 
-            </Menu>
 
 
-        )
-        }
-        else {
+                </Menu>
+
+
+            )
+        } else {
             return (
 
-            <Menu inverted style={{height: '100%', direction: 'rtl', fontFamily: 'B Yekan'}}>
-                <i aria-hidden="true" className="users icon"/>
-
-                <Menu.Item
-                    name='ثبت نام'
-                    path='/signup'
-                    onClick={this.handleItemClick}
-                />
-                {fixedMenuItems()}
+                <Menu inverted style={{height: '100%',fontFamily: 'B Yekan'}}>
 
 
+                    {Login_Logout()}
+                    {fixedMenuItems()}
+                    <Menu.Item>
+                        <Icon name='user'/>
+                    </Menu.Item>
+
+                </Menu>
 
 
-                {Login_Logout()}
-            </Menu>
 
-
-        )
+            )
         }
 
     }
