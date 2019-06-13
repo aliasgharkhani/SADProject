@@ -35,8 +35,11 @@ class Problem(models.Model):
 
 
 class PurchaseHistory(models.Model):
-    member = models.ForeignKey('authentication.Member', related_name='purchased_chapters', on_delete=models.CASCADE)
-    chapter = models.ForeignKey('store.Chapter', related_name='purchase_info', on_delete=models.CASCADE)
+    member = models.ForeignKey('authentication.Member', related_name='purchased_chapters',
+                               on_delete=models.CASCADE)
+    chapter = models.ForeignKey('store.Chapter', related_name='purchase_info',
+                                on_delete=models.CASCADE)
+    bought_at = models.DateTimeField(auto_now_add=True)
 
     class Meta:
         unique_together = ('chapter', 'member',)

@@ -1,6 +1,6 @@
 import React, {Component} from "react";
 import Template from '../components/template';
-import {Container, Grid, List, Menu, Segment} from 'semantic-ui-react';
+import {Button, Container, Grid, Label, List, Menu, Segment} from 'semantic-ui-react';
 import axios from 'axios';
 
 
@@ -14,7 +14,8 @@ class ProblemList extends Component {
             return (
                 <List style={{'direction': 'rtl'}}>
                     {this.props.chapter.problems.map((problem) => {
-                        return <List.Item as='a' key={problem.problem_id}>{problem.body}</List.Item>
+                        return <List.Item as='a'
+                                          key={problem.problem_id}>{problem.problem_id + '. ' + problem.body}</List.Item>
                     })}
                 </List>
 
@@ -49,7 +50,7 @@ class MenuExampleInvertedSegment extends Component {
                 <Menu attached='top' tabular style={{'direction': 'rtl'}}>
                     {this.props.chapters.map((chapter) => {
                         return <Menu.Item
-                            name={chapter.chapter_id + 'خرید'}
+                            name={'فصل' + chapter.chapter_id}
                             active={this.state.activeItem === chapter.chapter_id}
                             onClick={this.handleItemClick}
                             id={chapter.chapter_id}
@@ -59,7 +60,10 @@ class MenuExampleInvertedSegment extends Component {
                 </Menu>
 
                 <Segment attached='bottom'>
-                    {console.log("sdfasdfasdf")}
+                    <Label as='a' color='red' ribbon>
+                        {this.props.chapters[this.state.activeItem - 1] ? 'خرید این فصل با ' + this.props.chapters[this.state.activeItem - 1].price + ' تومان' : null}
+
+                    </Label>
                     <ProblemList chapter={this.props.chapters[this.state.activeItem - 1]}/>
                 </Segment>
             </div>
@@ -126,14 +130,6 @@ class Book extends Component {
                                                  src={this.state.cover}/><br/>
                                         </Grid.Row>
 
-                                        <Grid.Row>
-                                            <Grid.Column width={8}>
-                                                قیمت
-                                            </Grid.Column>
-                                            <Grid.Column width={8}>
-                                                {this.state.price}
-                                            </Grid.Column>
-                                        </Grid.Row>
                                         {/*<Grid.Row>*/}
                                         {/*    <Grid.Column width={8}>*/}
                                         {/*        امتیاز*/}
@@ -164,6 +160,13 @@ class Book extends Component {
                                             </Grid.Column>
                                             <Grid.Column width={8}>
                                                 {this.state.edition}
+                                            </Grid.Column>
+                                        </Grid.Row>
+                                        <Grid.Row>
+                                            <Grid.Column width={16}>
+                                                <Button
+                                                    content={'خرید کل کتاب به قیمت ' + `${this.state.price}` + ' تومان'}
+                                                    primary fluid/>
                                             </Grid.Column>
                                         </Grid.Row>
 
