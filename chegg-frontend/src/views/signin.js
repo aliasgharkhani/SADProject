@@ -1,11 +1,11 @@
 import React from 'react'
-import { Button, Form, Grid, Header, Image, Message, Segment } from 'semantic-ui-react';
+import {Button, Form, Grid, Header, Message, Segment} from 'semantic-ui-react';
 import Template from '../components/template';
 import axios from 'axios';
 
 class SignIn extends React.Component {
 
-    constructor(props){
+    constructor(props) {
         super(props);
         this.state = {
             username: '',
@@ -25,7 +25,7 @@ class SignIn extends React.Component {
 
     handleLogin(e) {
         e.preventDefault();
-axios.post('http://127.0.0.1:8000/auth/token/', {
+        axios.post('http://127.0.0.1:8000/auth/token/', {
             username: this.state.username,
             password: this.state.password
         })
@@ -49,53 +49,51 @@ axios.post('http://127.0.0.1:8000/auth/token/', {
                 this.setState({
                     message: 'اطلاعات وارد شده نادرست می باشد'
                 })
-})
+            })
     }
 
 
-
-
-    render (){
+    render() {
         return (
             <Template>
-  <Grid textAlign='center' verticalAlign='middle'>
-    <Grid.Column style={{ maxWidth: 450 }}>
-      <Header as='h2' color='teal' textAlign='center'>
+                <Grid textAlign='center' verticalAlign='middle'>
+                    <Grid.Column style={{maxWidth: 450}}>
+                        <Header as='h2' color='teal' textAlign='center'>
 
-      </Header>
-      <Form size='large'>
-        <Segment stacked>
-            {this.state.message}
-          <Form.Input  fluid icon='user' iconPosition='left' placeholder='نام کاربری' onChange={this.handleInput} name={'username'} value={this.state.username}/>
-          <Form.Input
-            fluid
-            icon='lock'
-            iconPosition='left'
-            placeholder='رمز کاربری'
-            onChange={this.handleInput}
-            value={this.state.password}
-            name={'password'}
-            type='password'
-          />
+                        </Header>
+                        <Form size='large'>
+                            <Segment stacked>
+                                {this.state.message}
+                                <Form.Input fluid icon='user' iconPosition='left'
+                                            placeholder='نام کاربری' onChange={this.handleInput}
+                                            name={'username'} value={this.state.username}/>
+                                <Form.Input
+                                    fluid
+                                    icon='lock'
+                                    iconPosition='left'
+                                    placeholder='رمز کاربری'
+                                    onChange={this.handleInput}
+                                    value={this.state.password}
+                                    name={'password'}
+                                    type='password'
+                                />
 
-          <Button color='black' fluid size='large' onClick={this.handleLogin} style={{fontFamily: 'B Yekan'}}>
-            ورود
-          </Button>
-        </Segment>
-      </Form>
-      <Message>
-         <a href='#'>عضویت</a>
-      </Message>
-    </Grid.Column>
-  </Grid>
-  </Template>
+                                <Button color='black' fluid size='large' onClick={this.handleLogin}
+                                        style={{fontFamily: 'B Yekan'}}>
+                                    ورود
+                                </Button>
+                            </Segment>
+                        </Form>
+                        <Message>
+                            <a href='#'>عضویت</a>
+                        </Message>
+                    </Grid.Column>
+                </Grid>
+            </Template>
 
-)};
+        )
+    };
 }
-
-
-
-
 
 
 export default SignIn

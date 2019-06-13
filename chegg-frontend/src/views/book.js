@@ -1,39 +1,68 @@
 import React, {Component} from "react";
 import Template from '../components/template';
-import {Container, Grid, Menu, Segment} from 'semantic-ui-react';
+import {Container, Grid, List, Menu, Segment} from 'semantic-ui-react';
 import axios from 'axios';
 
-class MenuExampleInvertedSegment extends Component {
-    state = {activeItem: 'home'}
 
-    handleItemClick = (e, {name}) => this.setState({activeItem: name})
+class ProblemList extends Component {
+    constructor(props) {
+        super(props);
+    }
 
     render() {
-        const {activeItem} = this.state
+        if (this.props !== undefined && this.props.chapter !== undefined) {
+            return (
+                <List style={{'direction': 'rtl'}}>
+                    {this.props.chapter.problems.map((problem) => {
+                        return <List.Item as='a' key={problem.problem_id}>{problem.body}</List.Item>
+                    })}
+                </List>
 
+            )
+        }
+        return (<div></div>)
+
+    }
+
+}
+
+class MenuExampleInvertedSegment extends Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+            activeItem: 1,
+        };
+    }
+
+
+    handleItemClick = (e, {id}) => {
+        console.log(id, 'key')
+        this.setState({
+            activeItem: id,
+        })
+    };
+
+    render() {
+        // const {activeItem} = 1;
         return (
-            <Segment inverted>
-                <Menu inverted secondary>
-                    {this.props.chapters.map(function (chapter) {
+            <div>
+                <Menu attached='top' tabular style={{'direction': 'rtl'}}>
+                    {this.props.chapters.map((chapter) => {
                         return <Menu.Item
-                            name={chapter.id}
-                            active={activeItem === 'messages'}
+                            name={chapter.chapter_id + 'خرید'}
+                            active={this.state.activeItem === chapter.chapter_id}
+                            onClick={this.handleItemClick}
+                            id={chapter.chapter_id}
                         />
                     })}
-                    <Menu.Item name='home' active={activeItem === 'home'}
-                               onClick={this.handleItemClick}/>
-                    <Menu.Item
-                        name='messages'
-                        active={activeItem === 'messages'}
-                        onClick={this.handleItemClick}
-                    />
-                    <Menu.Item
-                        name='friends'
-                        active={activeItem === 'friends'}
-                        onClick={this.handleItemClick}
-                    />
+
                 </Menu>
-            </Segment>
+
+                <Segment attached='bottom'>
+                    {console.log("sdfasdfasdf")}
+                    <ProblemList chapter={this.props.chapters[this.state.activeItem - 1]}/>
+                </Segment>
+            </div>
         )
     }
 }
@@ -41,7 +70,7 @@ class MenuExampleInvertedSegment extends Component {
 class Book extends Component {
 
     constructor(props) {
-        super(props)
+        super(props);
         this.bookId = this.props.match.params.id
     }
 
@@ -58,7 +87,8 @@ class Book extends Component {
         chapters: []
     };
 
-    componentDidMount() {
+
+    componentWillMount() {
         axios.get(`http://localhost:8000/store/books/${this.bookId}/`)
             .then(res => {
                 const chapters = res.data.chapters;
@@ -78,27 +108,68 @@ class Book extends Component {
     }
 
     render() {
-        console.log(this.bookId)
         return (
             <Template>
                 <Container>
                     <Segment>
-                        <Grid>
-                            <Grid.Row>
-                                <Grid.Column width={12}>
-                                    Book info goes here
+                        <Grid columns={2} relaxed={"very"}>
+                            <Grid.Row style={{'direction': 'rtl'}}>
+                                <Grid.Column width={10}>
+                                    <h3>{this.state.title}</h3>
+                                    {this.state.description}
                                 </Grid.Column>
-                                <Grid.Column width={4}>
-                                    <img className="ui small image"
-                                         src={this.state.cover}/>
-                                    {this.state.ISBN} <br/>
-                                    {this.state.score} <br/>
-                                    {this.state.publication_date} <br/>
-                                    {this.state.edition} <br/>
-                                    {this.state.title} <br/>
-                                    {this.state.author} <br/>
-                                    {this.state.price} <br/>
-                                    {this.state.description} <br/>
+                                <Grid.Column width={6}>
+
+                                    <Grid>
+                                        <Grid.Row>
+                                            <img className="ui small image"
+                                                 src={this.state.cover}/><br/>
+                                        </Grid.Row>
+
+                                        <Grid.Row>
+                                            <Grid.Column width={8}>
+                                                قیمت
+                                            </Grid.Column>
+                                            <Grid.Column width={8}>
+                                                {this.state.price}
+                                            </Grid.Column>
+                                        </Grid.Row>
+                                        {/*<Grid.Row>*/}
+                                        {/*    <Grid.Column width={8}>*/}
+                                        {/*        امتیاز*/}
+                                        {/*    </Grid.Column>*/}
+                                        {/*    <Grid.Column width={8}>*/}
+                                        {/*        {this.state.score}*/}
+                                        {/*    </Grid.Column>*/}
+                                        {/*</Grid.Row>*/}
+                                        <Grid.Row>
+                                            <Grid.Column width={8}>
+                                                نویسنده
+                                            </Grid.Column>
+                                            <Grid.Column width={8}>
+                                                {this.state.author}
+                                            </Grid.Column>
+                                        </Grid.Row>
+                                        <Grid.Row>
+                                            <Grid.Column width={8}>
+                                                تاریخ انتشار
+                                            </Grid.Column>
+                                            <Grid.Column width={8}>
+                                                {this.state.publication_date}
+                                            </Grid.Column>
+                                        </Grid.Row>
+                                        <Grid.Row>
+                                            <Grid.Column width={8}>
+                                                ویرایش
+                                            </Grid.Column>
+                                            <Grid.Column width={8}>
+                                                {this.state.edition}
+                                            </Grid.Column>
+                                        </Grid.Row>
+
+                                    </Grid>
+
+
                                 </Grid.Column>
                             </Grid.Row>
                             <Grid.Row>
@@ -106,6 +177,8 @@ class Book extends Component {
                                     <MenuExampleInvertedSegment chapters={this.state.chapters}/>
                                 </Grid.Column>
                             </Grid.Row>
+
+
                         </Grid>
                     </Segment>
                 </Container>

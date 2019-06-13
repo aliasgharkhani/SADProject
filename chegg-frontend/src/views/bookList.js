@@ -1,5 +1,5 @@
 import React, {Component} from "react";
-import {Button, Card, Image, Segment, Grid} from 'semantic-ui-react'
+import {Grid, Segment} from 'semantic-ui-react'
 import BookCard from '../components/bookCard'
 import Template from '../components/template';
 
@@ -12,7 +12,7 @@ const books = [{
     'purchased': 1,
     "chaptersPurchased": 5,
     'price': 15,
-    'link' : 'google.com',
+    'link': 'google.com',
 },
     {
         'title': 'قلعه ی حیوانات',
@@ -22,7 +22,7 @@ const books = [{
         'purchased': 0,
         "chaptersPurchased": 10,
         'price': 10,
-        'link' : '',
+        'link': '',
 
     },
     {
@@ -33,7 +33,7 @@ const books = [{
         'purchased': 1,
         "chaptersPurchased": 5,
         'price': 20,
-        'link' : '',
+        'link': '',
 
     }, {
         'title': 'قلعه ی حیوانات',
@@ -43,11 +43,9 @@ const books = [{
         'purchased': 1,
         "chaptersPurchased": 5,
         'price': 10,
-        'link' : '',
+        'link': '',
 
     },];
-
-
 
 
 class BookList extends Component {
@@ -63,7 +61,7 @@ class BookList extends Component {
                         backgroundColor: '#020039',
                         margin: 'auto'
                     }}>
-                <Grid style={{
+                    <Grid style={{
 
                         display: 'flex',
                         flexDirection: 'row',
@@ -71,15 +69,15 @@ class BookList extends Component {
                         flexWrap: 'wrap',
                         margin: 'auto'
                     }}>
-                    {books.map(book =>
+                        {books.map(book =>
 
-                           <BookCard bookImage={book.image} title={book.title} author={book.author}
+                            <BookCard bookImage={book.image} title={book.title}
+                                      author={book.author}
                                       description={book.description} purchased={book.purchased}
-                                      chaptersPurchased={book.chaptersPurchased} price={book.price} link={book.link}/>
-
-
-                    )}
-                </Grid>
+                                      chaptersPurchased={book.chaptersPurchased} price={book.price}
+                                      link={book.link}/>
+                        )}
+                    </Grid>
 
                 </Segment>
 

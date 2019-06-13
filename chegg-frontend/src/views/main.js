@@ -1,8 +1,6 @@
 import React, {Component} from "react";
 import Template from '../components/template';
-import {Grid, Segment} from "semantic-ui-react";
-import BookCard from "../components/bookCard";
-import Button from "semantic-ui-react/dist/commonjs/elements/Button";
+import {Grid} from "semantic-ui-react";
 import './hoverRight.css';
 import BackgroundImageOnLoad from 'background-image-on-load';
 
@@ -17,7 +15,7 @@ class Main extends Component {
     };
 
     state = {
-        loaded : 'none'
+        loaded: 'none'
     };
 
     render() {
@@ -33,7 +31,7 @@ class Main extends Component {
                 />
 
 
-                <Grid style={{width: ' 70%', margin: 'auto', display: this.state.loaded }}>
+                <Grid style={{width: ' 70%', margin: 'auto', display: this.state.loaded}}>
                     <Grid.Row style={{
                         height: ' 50vh',
                         margin: 'auto',
@@ -48,11 +46,13 @@ class Main extends Component {
                             fontSize: "2em",
                             lineHeight: '1.3em'
                         }}>
-                            دیگر نگران تمرین های سختتان نباشید!! راه حل سوالات و پاسخ نامه ی کتاب ها در در چگ پیدا کنید.
+                            دیگر نگران تمرین های سختتان نباشید!! راه حل سوالات و پاسخ نامه ی کتاب
+                            ها در در چگ پیدا کنید.
                             <br/>
                             <br/>
 
-                            <a href={'booklist'} className='myHover' style={{fontSize: '1.5em',}}> پاسخ نامه ی کتاب
+                            <a href={'booklist'} className='myHover'
+                               style={{fontSize: '1.5em',}}> پاسخ نامه ی کتاب
                                 ها</a>
                         </Grid.Column>
                     </Grid.Row>

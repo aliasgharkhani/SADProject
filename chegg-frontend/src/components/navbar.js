@@ -1,10 +1,6 @@
 import React, {Component} from "react";
 import axios from "axios";
-import {
-    Icon,
-    Menu,
-    Grid
-} from "semantic-ui-react";
+import {Icon, Menu} from "semantic-ui-react";
 
 
 const IconExampleDisabled = () => <Icon name='users'/>;
@@ -29,7 +25,6 @@ class Navbar extends Component {
 
         window.location.replace(path);
     };
-
 
 
     handleLogout = (e) => {
@@ -82,6 +77,11 @@ class Navbar extends Component {
                             onClick={this.handleItemClick}
 
                         />
+                        <Menu.Item
+                            name='ثبت نام'
+                            path='/signup'
+                            onClick={this.handleItemClick}
+                        />
                     </Menu.Menu>
                 )
             }
@@ -106,12 +106,7 @@ class Navbar extends Component {
                 <Menu.Menu position={"right"}>
                     <Menu.Item
                         name='کتاب ها'
-                        path='/booklist'
-                        onClick={this.handleItemClick}
-                    />
-                    <Menu.Item
-                        name='ثبت نام'
-                        path='/signup'
+                        path='/books'
                         onClick={this.handleItemClick}
                     />
                     <Menu.Item
@@ -130,7 +125,8 @@ class Navbar extends Component {
         if (localStorage.getItem('chegg-token') !== null) {
             return (
 
-                <Menu inverted className='borderless' style={{height: '100%'  , fontFamily: 'B Yekan'}}>
+                <Menu inverted className='borderless'
+                      style={{height: '100%', fontFamily: 'B Yekan'}}>
 
                     {Login_Logout()}
                     {fixedMenuItems()}
@@ -140,10 +136,6 @@ class Navbar extends Component {
                     {/*</Menu.Item>*/}
 
 
-
-
-
-
                 </Menu>
 
 
@@ -151,7 +143,7 @@ class Navbar extends Component {
         } else {
             return (
 
-                <Menu inverted style={{height: '100%',fontFamily: 'B Yekan'}}>
+                <Menu inverted style={{height: '100%', fontFamily: 'B Yekan'}}>
 
 
                     {Login_Logout()}
@@ -161,7 +153,6 @@ class Navbar extends Component {
                     </Menu.Item>
 
                 </Menu>
-
 
 
             )
