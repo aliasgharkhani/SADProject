@@ -1,6 +1,5 @@
-from rest_framework import serializers
-
 from authentication.models import Member
+from rest_framework import serializers
 from rest_framework.validators import UniqueValidator
 
 
@@ -19,3 +18,21 @@ class MemberSignupSerializer(serializers.ModelSerializer):
         member.set_password(validated_data['password'])
         member.save()
         return member
+
+
+class MemberProfileSerializer(serializers.ModelSerializer):
+    bought_books = serializers.SerializerMethodField()
+    bought_chapters = serializers.SerializerMethodField()
+
+    class Meta:
+        model = Member
+        exclude = (
+        'password', 'is_active', 'is_staff', 'is_superuser', 'groups', 'user_permissions')
+
+    def get_bought_books(self, obj):
+        from store.serializers import BookSerializer
+        return BookSerializer(obj.get_bought_books(), many=True).data
+
+    def get_bought_chapters(self, obj):
+        from store.serializers import ChapterSerializer
+        return ChapterSerializer(obj.get_bought_chapters(), many=True).data

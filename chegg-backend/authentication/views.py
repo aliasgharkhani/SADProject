@@ -1,4 +1,4 @@
-from authentication.serializers import MemberSignupSerializer
+from authentication.serializers import MemberSignupSerializer, MemberProfileSerializer
 from rest_framework import status
 from rest_framework.generics import CreateAPIView
 from rest_framework.permissions import IsAuthenticated
@@ -22,3 +22,12 @@ class HelloView(APIView):
 
     def get(self, request):
         return Response({'s': 'a'})
+
+
+class MemberProfileAPIView(APIView):
+    permission_classes = [IsAuthenticated]
+
+    def get(self, request, *args, **kwargs):
+        member = self.request.user
+        data = MemberProfileSerializer(member).data
+        return Response(data)

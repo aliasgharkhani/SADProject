@@ -5,7 +5,8 @@ from django.urls import reverse
 
 class AuthenticationTestCase(TestCase):
     def setUp(self):
-        self.test_member = Member.objects.create(first_name="ali", last_name="salmani", username="garamaleki", email="folan@folan.com")
+        self.test_member = Member.objects.create(first_name="ali", last_name="salmani",
+                                                 username="garamaleki", email="folan@folan.com")
         self.test_member.set_password("123456")
         self.test_member.save()
 
