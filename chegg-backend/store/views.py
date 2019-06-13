@@ -13,6 +13,7 @@ class BookViewSet(ModelViewSet):
 
     @action(detail=True, methods=['post'], permission_classes=[IsAuthenticated])
     def buy(self, request, pk):
+        print("here")
         book = self.get_object()
         member = self.request.user
         if member.has_purchased_book(book):
