@@ -43,12 +43,13 @@ class BookCard extends Component {
                     <Grid.Row>
                         <Grid.Column width={9}>
 
-                           این کتاب قبلا خریداری شده است.
+                            این کتاب قبلا خریداری شده است.
 
                         </Grid.Column>
 
                         <Grid.Column width={7} floated={"left"} style={{textAlign: 'left'}}>
-                            <div style={{width: '75%', fontFamily: "B Yekan", backgroundColor: 'rgb(182,227,255)'}} className="ui vertical animated button"
+                            <div style={{width: '75%', fontFamily: "B Yekan", backgroundColor: 'rgb(182,227,255)'}}
+                                 className="ui vertical animated button"
                                  tabIndex="0">
                                 <div className="hidden content">
                                     <i className="book icon"></i>
@@ -68,14 +69,15 @@ class BookCard extends Component {
 
                         </Grid.Column>
                         <Grid.Column width={7} style={{textAlign: 'left'}}>
-
-                            <div style={{ width: '75%', fontFamily: "B Yekan", backgroundColor: '#5a8fff'}} className="ui animated fade button" tabIndex="0">
-                                <div className="visible content" style={{padding: '0px'}}>مشاهده و خرید کتاب</div>
-                                <div className="hidden content">
-                                    {this.props.price} هزار تومان
+                            <a href={this.props.link}>
+                                <div style={{width: '75%', fontFamily: "B Yekan", backgroundColor: '#5a8fff'}}
+                                     className="ui animated fade button" tabIndex="0">
+                                    <div className="visible content" style={{padding: '0px'}}>مشاهده و خرید کتاب</div>
+                                    <div className="hidden content">
+                                        {this.props.price} هزار تومان
+                                    </div>
                                 </div>
-                            </div>
-
+                            </a>
                         </Grid.Column>
 
 
@@ -85,7 +87,6 @@ class BookCard extends Component {
             }
         };
 
-        const imgPath = this.props.bookImage;
         return (
 
 
@@ -94,7 +95,7 @@ class BookCard extends Component {
 
 
                     <img style={{width: "65px", height: "88px", float: "right", marginLeft: "1em"}}
-                         src={require('' + imgPath)}/>
+                         src={this.props.bookCover}/>
 
                     <Card.Header style={{fontFamily: "B Yekan", marginTop: '0.5em'}}>{this.props.title}</Card.Header>
                     <Card.Meta>{this.props.author}</Card.Meta>

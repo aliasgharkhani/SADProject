@@ -143,7 +143,7 @@ class Navbar extends Component {
         } else {
             return (
 
-                <Menu inverted style={{height: '100%', fontFamily: 'B Yekan'}}>
+                <Menu inverted className='borderless' style={{height: '100%', fontFamily: 'B Yekan'}}>
 
 
                     {Login_Logout()}

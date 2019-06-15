@@ -117,7 +117,7 @@ class Book extends Component {
                 <Container>
                     <Segment>
                         <Grid columns={2} relaxed={"very"}>
-                            <Grid.Row style={{'direction': 'rtl'}}>
+                            <Grid.Row style={{'direction': 'rtl', fontFamily: 'B Yekan'}}>
                                 <Grid.Column width={10}>
                                     <h3>{this.state.title}</h3>
                                     {this.state.description}
@@ -164,7 +164,7 @@ class Book extends Component {
                                         </Grid.Row>
                                         <Grid.Row>
                                             <Grid.Column width={16}>
-                                                <Button
+                                                <Button style={{fontFamily: 'B Yekan'}}
                                                     content={'خرید کل کتاب به قیمت ' + `${this.state.price}` + ' تومان'}
                                                     primary fluid/>
                                             </Grid.Column>

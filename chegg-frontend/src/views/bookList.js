@@ -2,6 +2,7 @@ import React, {Component} from "react";
 import {Grid, Segment} from 'semantic-ui-react'
 import BookCard from '../components/bookCard'
 import Template from '../components/template';
+import axios from "axios";
 
 
 const books = [{
@@ -51,6 +52,32 @@ const books = [{
 class BookList extends Component {
 
 
+    state = {
+        books: []
+    };
+
+
+    componentWillMount() {
+        console.log(localStorage.getItem('chegg-token'))
+        axios.get(`http://localhost:8000/store/books`)
+            .then(res => {
+                this.setState({
+                    books: res.data
+                })
+            });
+        var headers = {
+
+            'Authorization': 'TOKEN' + localStorage.getItem('chegg-token')
+        };
+        axios.post(`http://localhost:8000/store/books/2/buy/`, {headers: headers})
+            .then(res => {
+                console.log(res.data)
+            }).catch((error) => {
+                console.log(error)
+            })
+    }
+
+
     render() {
 
         return (
@@ -69,13 +96,13 @@ class BookList extends Component {
                         flexWrap: 'wrap',
                         margin: 'auto'
                     }}>
-                        {books.map(book =>
+                        {this.state.books.map(book =>
 
-                            <BookCard bookImage={book.image} title={book.title}
+                            <BookCard bookCover={book.cover} title={book.title}
                                       author={book.author}
                                       description={book.description} purchased={book.purchased}
                                       chaptersPurchased={book.chaptersPurchased} price={book.price}
-                                      link={book.link}/>
+                                      link={'http://localhost:3000/books/' + book.id}/>
                         )}
                     </Grid>
 
