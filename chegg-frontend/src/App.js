@@ -8,6 +8,7 @@ import BookList from './views/bookList';
 
 import {Route, Switch} from 'react-router';
 import {BrowserRouter} from "react-router-dom";
+import './App.css';
 
 
 function App() {

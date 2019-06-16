@@ -48,6 +48,7 @@ class BookCard extends Component {
                         </Grid.Column>
 
                         <Grid.Column width={7} floated={"left"} style={{textAlign: 'left'}}>
+                            <a href={this.props.link}>
                             <div style={{width: '75%', fontFamily: "B Yekan", backgroundColor: 'rgb(182,227,255)'}}
                                  className="ui vertical animated button"
                                  tabIndex="0">
@@ -57,6 +58,7 @@ class BookCard extends Component {
                                 <div className="visible content">مشاهده ی کتاب</div>
 
                             </div>
+                            </a>
                         </Grid.Column>
                     </Grid.Row>
                 )

@@ -23,6 +23,8 @@ constructor(props){
         super(props);
     }
     render() {
+   var a =  document.getElementsByTagName('a');
+   console.log(a)
         return (
             <Grid columns={1} style={templateStyle}>
                 <Grid.Row>

@@ -54,8 +54,10 @@ class BookList extends Component {
 
     state = {
         books: [],
+        bought_books: [],
 
-        bought_books : [],
+        numOfChapters: []
+
     };
 
 
@@ -64,25 +66,41 @@ class BookList extends Component {
         axios.get(`http://localhost:8000/store/books`)
             .then(res => {
                 this.setState({
-                    books: res.data
+                    books: res.data,
+                    numOfChapters: new Array(res.data.length).fill(0)
                 })
-                console.log(this.state.books)
+
+
+
+
+                var headers = {
+
+                    'Authorization': 'TOKEN ' + localStorage.getItem('chegg-token')
+                };
+                axios.get(`http://localhost:8000/auth/self/`, {headers: headers})
+                    .then(res => {
+
+
+                        let numOfChapters = new Array(this.state.books.length).fill(0);
+
+                        for (var i = 0; i < res.data.bought_chapters.length; i++) {
+
+                            numOfChapters[res.data.bought_chapters[i].book - 1] += 1;
+
+                        }
+
+                        this.setState(
+                            {
+                                numOfChapters: numOfChapters,
+                                bought_books: res.data.bought_books,
+                            }
+                        )
+                    }).catch((error) => {
+                    console.log(error)
+                })
             });
 
-        var headers = {
 
-            'Authorization': 'TOKEN ' + localStorage.getItem('chegg-token')
-        };
-        axios.get(`http://localhost:8000/auth/self/`, {headers: headers})
-            .then(res => {
-                this.setState({
-                    bought_books: res.data.bought_books
-
-                });
-                console.log(this.state.bought_books)
-            }).catch((error) => {
-                console.log(error)
-            })
     }
 
 
@@ -90,28 +108,23 @@ class BookList extends Component {
 
         const hasBoughtBook = (book) => {
 
-            for (var i = 0; i < this.state.bought_books.length; i++){
-                if (this.state.bought_books[i].title === book.title){
-                    return this.state.bought_books[i].chapters.length;
-                }
-            }
-            return 0;
-
-        };
-
-        const chaptersBought = (book) => {
-
-            for (var i = 0; i < this.state.bought_books.length; i++){
-                if (this.state.bought_books[i].title === book.title){
+            for (var i = 0; i < this.state.bought_books.length; i++) {
+                if (this.state.bought_books[i].title === book.title) {
                     return 1;
                 }
             }
             return 0;
 
+        };
+
+        const chaptersBought = () => {
+
 
         };
 
+
         return (
+
             <Template {...this.props}>
                 <Segment
                     style={{
@@ -132,7 +145,7 @@ class BookList extends Component {
                             <BookCard bookCover={book.cover} title={book.title}
                                       author={book.author}
                                       description={book.description} purchased={hasBoughtBook(book)}
-                                      chaptersPurchased={chaptersBought(book)} price={book.price}
+                                      chaptersPurchased={this.state.numOfChapters[book.id - 1]} price={book.price}
                                       link={'http://localhost:3000/books/' + book.id}/>
                         )}
                     </Grid>
