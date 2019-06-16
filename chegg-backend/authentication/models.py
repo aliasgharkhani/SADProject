@@ -7,6 +7,8 @@ class Member(AbstractUser):
         for chapter in book.chapters.all():
             if not self.has_purchased_chapter(chapter):
                 return False
+        if len(book.chapters.all()) == 0:
+            return False
         return True
 
     def has_purchased_chapter(self, chapter):
