@@ -1,11 +1,11 @@
 import React, {Component} from "react";
-import {Grid, Segment} from 'semantic-ui-react'
+import {Grid, Menu, Segment} from 'semantic-ui-react'
 import BookCard from '../components/bookCard'
 import Template from '../components/template';
 import axios from "axios";
 
 
-const books = [{
+const books1 = [{
     'title': 'قلعه ی حیوانات',
     'author': "جورج",
     'description': 'کتاب خوب',
@@ -53,7 +53,9 @@ class BookList extends Component {
 
 
     state = {
-        books: []
+        books: [],
+
+        bought_books : [],
     };
 
 
@@ -64,14 +66,20 @@ class BookList extends Component {
                 this.setState({
                     books: res.data
                 })
+                console.log(this.state.books)
             });
+
         var headers = {
 
-            'Authorization': 'TOKEN' + localStorage.getItem('chegg-token')
+            'Authorization': 'TOKEN ' + localStorage.getItem('chegg-token')
         };
-        axios.post(`http://localhost:8000/store/books/2/buy/`, {headers: headers})
+        axios.get(`http://localhost:8000/auth/self/`, {headers: headers})
             .then(res => {
-                console.log(res.data)
+                this.setState({
+                    bought_books: res.data.bought_books
+
+                });
+                console.log(this.state.bought_books)
             }).catch((error) => {
                 console.log(error)
             })
@@ -79,6 +87,29 @@ class BookList extends Component {
 
 
     render() {
+
+        const hasBoughtBook = (book) => {
+
+            for (var i = 0; i < this.state.bought_books.length; i++){
+                if (this.state.bought_books[i].title === book.title){
+                    return this.state.bought_books[i].chapters.length;
+                }
+            }
+            return 0;
+
+        };
+
+        const chaptersBought = (book) => {
+
+            for (var i = 0; i < this.state.bought_books.length; i++){
+                if (this.state.bought_books[i].title === book.title){
+                    return 1;
+                }
+            }
+            return 0;
+
+
+        };
 
         return (
             <Template {...this.props}>
@@ -100,8 +131,8 @@ class BookList extends Component {
 
                             <BookCard bookCover={book.cover} title={book.title}
                                       author={book.author}
-                                      description={book.description} purchased={book.purchased}
-                                      chaptersPurchased={book.chaptersPurchased} price={book.price}
+                                      description={book.description} purchased={hasBoughtBook(book)}
+                                      chaptersPurchased={chaptersBought(book)} price={book.price}
                                       link={'http://localhost:3000/books/' + book.id}/>
                         )}
                     </Grid>
