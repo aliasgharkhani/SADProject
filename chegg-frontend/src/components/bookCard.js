@@ -40,16 +40,19 @@ class BookCard extends Component {
             if (this.props.purchased === 1) {
 
                 return (
-                    <Grid.Row>
-                        <Grid.Column width={9}>
-
+                    <Grid>
+                        <Grid.Row style={{textAlign: 'center'}}>
+                            <div style={{margin: 'auto'}}>
+                            {this.props.title}<br/>
                             این کتاب قبلا خریداری شده است.
+                            </div>
 
-                        </Grid.Column>
 
-                        <Grid.Column width={7} floated={"left"} style={{textAlign: 'left'}}>
-                            <a href={this.props.link}>
-                            <div style={{width: '75%', fontFamily: "B Yekan", backgroundColor: 'rgb(182,227,255)'}}
+                        </Grid.Row>
+
+                        <Grid.Row   style={{textAlign: 'center'}}>
+                            <a href={this.props.link}  style={{ margin: 'auto'}}>
+                            <div style={{ fontFamily: "B Yekan"}}
                                  className="ui vertical animated button"
                                  tabIndex="0">
                                 <div className="hidden content">
@@ -59,20 +62,23 @@ class BookCard extends Component {
 
                             </div>
                             </a>
-                        </Grid.Column>
-                    </Grid.Row>
+                        </Grid.Row>
+                    </Grid>
                 )
             } else {
-                return (<Grid.Row>
-                        <Grid.Column width={9} floated={"left"} style={{paddingLeft: '0px'}}>
+                return (<Grid>
+                        <Grid.Row  style={{paddingLeft: '0px', textAlign: 'center'}}>
+                            <div style={{margin: 'auto'}}>
+                            {this.props.title}<br/>
                             تعداد فصل های خریده شده:
-                            <strong> {this.props.chaptersPurchased}</strong>
+                            {this.props.chaptersPurchased}
+                            </div>
 
 
-                        </Grid.Column>
-                        <Grid.Column width={7} style={{textAlign: 'left'}}>
-                            <a href={this.props.link}>
-                                <div style={{width: '75%', fontFamily: "B Yekan", backgroundColor: '#5a8fff'}}
+                        </Grid.Row>
+                        <Grid.Row  style={{textAlign: 'center'}}>
+                            <a href={this.props.link} style={{ margin: 'auto'}}>
+                                <div style={{fontFamily: "B Yekan" }}
                                      className="ui animated fade button" tabIndex="0">
                                     <div className="visible content" style={{padding: '0px'}}>مشاهده و خرید کتاب</div>
                                     <div className="hidden content">
@@ -80,10 +86,10 @@ class BookCard extends Component {
                                     </div>
                                 </div>
                             </a>
-                        </Grid.Column>
+                        </Grid.Row>
 
 
-                    </Grid.Row>
+                    </Grid>
 
                 )
             }
@@ -92,26 +98,23 @@ class BookCard extends Component {
         return (
 
 
-            <Card style={{width: '47%', margin: '1em 0', fontSize: '1.5em'}}>
-                <Card.Content style={{direction: "rtl"}}>
+            <Grid style={{width: '24%' , height: '40vh', margin: '1em 0', fontSize: '1.5em', }} >
 
-
-                    <img style={{width: "65px", height: "88px", float: "right", marginLeft: "1em"}}
+                <Grid.Row>
+                     <img style={{width: "70%", height: "25vh",margin: 'auto'}}
                          src={this.props.bookCover}/>
+                </Grid.Row>
 
-                    <Card.Header style={{fontFamily: "B Yekan", marginTop: '0.5em'}}>{this.props.title}</Card.Header>
-                    <Card.Meta>{this.props.author}</Card.Meta>
-                    <Card.Description>
-                        <Grid>
-                            <Grid.Row style={{padding: "1rem", height: '10vh'}}>
-                                {this.props.description}
-                            </Grid.Row>
+
+
+                 <Grid.Row style={{direction:'rtl', fontSize: '0.7em'}}>
+
                             {this.renderRedirect()}
+
                             {priceOrPurchased()}
-                        </Grid>
-                    </Card.Description>
-                </Card.Content>
-            </Card>
+                 </Grid.Row>
+            </Grid>
+
         )
     }
 

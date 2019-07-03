@@ -129,20 +129,27 @@ class BookList extends Component {
                 <Segment
                     style={{
                         width: ' 70%',
-                        backgroundColor: '#020039',
-                        margin: 'auto'
+                       backgroundImage: 'linear-gradient(to left, #bbbbcb, white)',
+                        margin: 'auto',
+                        maxHeight: '76vh',
+                        overflow: 'auto',
+
+
+
                     }}>
                     <Grid style={{
 
                         display: 'flex',
                         flexDirection: 'row',
-                        justifyContent: 'space-around',
+                        justifyContent: 'space-evenly',
                         flexWrap: 'wrap',
-                        margin: 'auto'
+                        margin: 'auto',
+
+
                     }}>
                         {this.state.books.map(book =>
 
-                            <BookCard bookCover={book.cover} title={book.title}
+                            <BookCard  bookCover={book.cover} title={book.title}
                                       author={book.author}
                                       description={book.description} purchased={hasBoughtBook(book)}
                                       chaptersPurchased={this.state.numOfChapters[book.id - 1]} price={book.price}

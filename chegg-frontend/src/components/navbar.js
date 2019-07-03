@@ -28,33 +28,18 @@ class Navbar extends Component {
 
 
     handleLogout = (e) => {
+        axios.get('http://localhost:8000/auth/logout');
         localStorage.removeItem("chegg-token");
         localStorage.removeItem("chegg-username");
-        this.setState({
-            name: ''
-        });
+        window.location.reload();
     };
 
     render() {
         if (localStorage.getItem('username') !== null && !this.state.setName) {
             this.setState({setName: true, name: localStorage.getItem('username')})
         }
-        const Logout = () => {
-            // let url = window.location.href;
-            let userAuth = false;
-            // url = url.replace('3', '8');
-            axios.defaults.withCredentials = true;
-            let self = this;
-            // let bodyFormData = new FormData();
-            // bodyFormData.set('username', localStorage.getItem('username'));
-            axios.get('http://localhost:8000/auth/logout').then(function (response) {
-                localStorage.removeItem('username');
-                localStorage.removeItem('Authorization');
-                self.setState({change: !self.state.change});
-                window.location.reload()
-            });
 
-        };
+
         const Login_Logout = () => {
             if (localStorage.getItem('chegg-token') !== null) {
 
@@ -126,7 +111,7 @@ class Navbar extends Component {
             return (
 
                 <Menu inverted className='borderless'
-                      style={{height: '100%', fontFamily: 'B Yekan'}}>
+                      style={{height: '100%', fontFamily: 'B Yekan' , padding: "0em 1.5em"}}>
 
                     {Login_Logout()}
                     {fixedMenuItems()}
@@ -135,7 +120,6 @@ class Navbar extends Component {
                     {/*    <Icon name='list'/>*/}
                     {/*</Menu.Item>*/}
 
-
                 </Menu>
 
 
@@ -143,7 +127,7 @@ class Navbar extends Component {
         } else {
             return (
 
-                <Menu inverted className='borderless' style={{height: '100%', fontFamily: 'B Yekan'}}>
+                <Menu inverted className='borderless' style={{height: '100%', fontFamily: 'B Yekan', padding: "0em 1.5em"}}>
 
 
                     {Login_Logout()}

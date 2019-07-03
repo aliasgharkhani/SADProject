@@ -9,11 +9,7 @@ import Footer from './footer';
 const templateStyle = {
     height: '100%',
     fontFamily: 'B Yekan',
-    display: 'flex',
-    flexDirection: 'column',
-    flexGrow: '1',
-    alignItems: 'center',
-    justifyContent: 'center'
+
 };
 
 
@@ -26,27 +22,25 @@ constructor(props){
    var a =  document.getElementsByTagName('a');
    console.log(a)
         return (
-            <Grid columns={1} style={templateStyle}>
-                <Grid.Row>
+            <Grid  style={templateStyle}>
+                <Grid.Row style={{maxHeight : '10%'}}>
                     <Grid.Column>
                         <Navbar{...this.props}/>
                     </Grid.Column>
                 </Grid.Row>
 
-                <Grid.Row style={{flexGrow: '1',     display: 'flex',    alignItems: 'center',
-    justifyContent: 'center',
-    flexDirection: 'column'}}>
-                    <Grid.Column>
+                <Grid.Row style={{minHeight:'78vh'}} >
+                    <Grid.Column style={{margin:'auto'}}>
+
                         {this.props.children}
                     </Grid.Column>
                 </Grid.Row>
-                <Grid.Row>
+                <Grid.Row style={{maxHeight : '15%'}}>
                     <Grid.Column>
                         <Footer/>
                     </Grid.Column>
                 </Grid.Row>
             </Grid>
-
         );
     }
 }
