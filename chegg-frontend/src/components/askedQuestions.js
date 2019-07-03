@@ -23,9 +23,9 @@ class AskedQuestions extends Component {
                         flexWrap: 'wrap',
                         margin: 'auto',
                     }}>
-                        {this.props.asked_questions.map(question =>
+                        {this.props.question.map(question =>
 
-                            <Segment color={'teal'}>{question}</Segment>
+                            <Segment color={'teal'}><a href={question.link}> {question.title}</a></Segment>
                         )}
                     </Grid>
 

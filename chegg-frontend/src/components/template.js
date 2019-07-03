@@ -9,6 +9,7 @@ import Footer from './footer';
 const templateStyle = {
     height: '100%',
     fontFamily: 'B Yekan',
+    
 
 };
 
@@ -22,14 +23,14 @@ constructor(props){
    var a =  document.getElementsByTagName('a');
    console.log(a)
         return (
-            <Grid  style={templateStyle}>
+            <Grid  style={templateStyle }>
                 <Grid.Row style={{maxHeight : '10%'}}>
                     <Grid.Column>
                         <Navbar{...this.props}/>
                     </Grid.Column>
                 </Grid.Row>
 
-                <Grid.Row style={{minHeight:'78vh'}} >
+                <Grid.Row style={{minHeight:'78vh' , }} >
                     <Grid.Column style={{margin:'auto'}}>
 
                         {this.props.children}

@@ -10,6 +10,7 @@ import {Route, Switch} from 'react-router';
 import {BrowserRouter} from "react-router-dom";
 import './App.css';
 import BookProblem from "./views/bookProblem";
+import UserProfile from "./views/profile";
 
 
 function App() {
@@ -22,6 +23,7 @@ function App() {
                 <Route exact path='/books/:id' component={Book}/>
                 <Route exact path='/books' component={BookList}/>
                 <Route exact path='/problem' component={BookProblem}/>
+                <Route exact path='/profile' component={UserProfile}/>
             </Switch>
         </BrowserRouter>
     );

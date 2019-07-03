@@ -1,6 +1,6 @@
 import React, {Component} from "react";
 import axios from "axios";
-import {Icon, Menu} from "semantic-ui-react";
+import {Button, Icon, Menu, Sidebar, Dropdown} from "semantic-ui-react";
 
 
 const IconExampleDisabled = () => <Icon name='users'/>;
@@ -10,12 +10,17 @@ const IconExampleDisabled2 = () => <Icon name='users'/>;
 
 class Navbar extends Component {
 
+    constructor(props){
+        super(props)
+        this.handleLogout = this.handleLogout.bind(this);
+    }
     state = {
 
         setName: false,
         name: '',
         change: false,
-        first: true
+        first: true,
+        visible: false,
     };
 
 
@@ -35,25 +40,15 @@ class Navbar extends Component {
     };
 
     render() {
+
         if (localStorage.getItem('username') !== null && !this.state.setName) {
             this.setState({setName: true, name: localStorage.getItem('username')})
         }
 
 
         const Login_Logout = () => {
-            if (localStorage.getItem('chegg-token') !== null) {
+              if (localStorage.getItem('chegg-token') === null) {
 
-                return (
-                    <Menu.Item
-                        onClick={this.handleLogout}
-                        name="خروج"
-                        path='/sport3/login'
-                        position={"LEFT"}
-                    />
-
-
-                )
-            } else {
                 return (
                     <Menu.Menu position='left'>
                         <Menu.Item
@@ -72,13 +67,17 @@ class Navbar extends Component {
             }
         };
         const UserName_or_Icon = () => {
+            const options = [
+                {key: 1, text: 'صفحه ی من', value: 1},
+                /*{key: 2, text: 'Choice 2', value: 2},*/
+                {key: 2, text: 'خروج', value: 2,  onClick:this.handleLogout},
+            ];
             if (localStorage.getItem('chegg-token') !== null) {
-
+                const icons= <div ><Icon name='user'/> {localStorage.getItem('chegg-username')}</div>
                 return (
-                    <Menu.Item
-                        name={localStorage.getItem('chegg-username')}
-                        path='/sport3/login'
-                    />
+                    <Dropdown  text={icons} options={options} simple item/>
+
+                    // path='/sport3/login'
 
 
                 )
@@ -110,15 +109,14 @@ class Navbar extends Component {
         if (localStorage.getItem('chegg-token') !== null) {
             return (
 
-                <Menu inverted className='borderless'
-                      style={{height: '100%', fontFamily: 'B Yekan' , padding: "0em 1.5em"}}>
 
+                <Menu inverted className='borderless'
+                      style={{height: '100%', fontFamily: 'B Yekan', padding: "0em 1.5em"}}>
+                    {UserName_or_Icon()}
                     {Login_Logout()}
                     {fixedMenuItems()}
-                    {UserName_or_Icon()}
-                    {/*<Menu.Item>*/}
-                    {/*    <Icon name='list'/>*/}
-                    {/*</Menu.Item>*/}
+
+
 
                 </Menu>
 
@@ -127,14 +125,13 @@ class Navbar extends Component {
         } else {
             return (
 
-                <Menu inverted className='borderless' style={{height: '100%', fontFamily: 'B Yekan', padding: "0em 1.5em"}}>
+                <Menu inverted className='borderless'
+                      style={{height: '100%', fontFamily: 'B Yekan', padding: "0em 1.5em"}}>
 
 
                     {Login_Logout()}
                     {fixedMenuItems()}
-                    <Menu.Item>
-                        <Icon name='user'/>
-                    </Menu.Item>
+
 
                 </Menu>
 
