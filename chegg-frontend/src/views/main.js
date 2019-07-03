@@ -31,10 +31,10 @@ class Main extends Component {
                 />
 
 
-                <Grid style={{width: ' 70%', margin: 'auto', display: this.state.loaded}}>
+                <Grid style={{width: ' 70%', margin: 'auto', height:'80vh', display: this.state.loaded}}>
                     <Grid.Row style={{
                         minHeight: ' 50vh',
-                        margin: 'auto',
+                        // margin: 'auto',
                         direction: 'rtl',
                         backgroundImage: "url('https://wallimpex.com/data/out/774/old-book-wallpaper-11223624.jpg')",
                         backgroundSize: "cover"
@@ -46,24 +46,6 @@ class Main extends Component {
                             fontSize: "2em",
                             lineHeight: '1.3em'
                         }}>
-                            دیگر نگران تمرین های سختتان نباشید!! راه حل سوالات و پاسخ نامه ی کتاب
-                            ها در در چگ پیدا کنید.
-                            <br/>
-                            <br/>
-                            دیگر نگران تمرین های سختتان نباشید!! راه حل سوالات و پاسخ نامه ی کتاب
-                            ها در در چگ پیدا کنید.
-                            <br/>
-                            <br/>
-                            دیگر نگران تمرین های سختتان نباشید!! راه حل سوالات و پاسخ نامه ی کتاب
-                            ها در در چگ پیدا کنید.
-                            <br/>
-                            <br/>دیگر نگران تمرین های سختتان نباشید!! راه حل سوالات و پاسخ نامه ی کتاب
-                            ها در در چگ پیدا کنید.
-                            <br/>
-                            <br/>دیگر نگران تمرین های سختتان نباشید!! راه حل سوالات و پاسخ نامه ی کتاب
-                            ها در در چگ پیدا کنید.
-                            <br/>
-                            <br/>
                             دیگر نگران تمرین های سختتان نباشید!! راه حل سوالات و پاسخ نامه ی کتاب
                             ها در در چگ پیدا کنید.
                             <br/>

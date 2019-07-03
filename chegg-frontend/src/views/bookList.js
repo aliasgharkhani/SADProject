@@ -127,9 +127,11 @@ class BookList extends Component {
 
             <Template {...this.props}>
                 <Segment
+                    color='grey'
                     style={{
                         width: ' 70%',
-                       backgroundImage: 'linear-gradient(to left, #bbbbcb, white)',
+                       // backgroundImage: 'linear-gradient(to left, #bbbbcb, white)',
+                       // backgroundColor:'#1c1c1c',
                         margin: 'auto',
                         maxHeight: '76vh',
                         overflow: 'auto',
