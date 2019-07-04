@@ -11,7 +11,8 @@ import {
     List,
     Menu,
     Modal,
-    Segment
+    Segment,
+    Accordion
 } from 'semantic-ui-react';
 import axios from 'axios';
 
@@ -44,23 +45,18 @@ class MenuExampleInvertedSegment extends Component {
         super(props);
         this.bookCover = this.props.bookCover;
         this.memberInfo = this.props.memberInfo;
-        this.buyChapterLabel = this.buyChapterLabel.bind(this)
+        this.buyChapterLabel = this.buyChapterLabel.bind(this);
         this.hasBoughtChapter = this.hasBoughtChapter.bind(this);
-        this.getChapterId = this.getChapterId.bind(this)
+        this.getChapterId = this.getChapterId.bind(this);
         this.state = {
             activeItem: 1,
-            modalActive: false
+            modalActive: false,
+            activeItem2: -1,
         };
     }
 
 
-    handleItemClick = (e, {id}) => {
-        console.log(id, 'key')
-        this.setState({
-            activeItem: id,
-        })
-        this.forceUpdate()
-    };
+
 
     onCloseModal() {
         this.setState({
@@ -105,7 +101,7 @@ class MenuExampleInvertedSegment extends Component {
     hasBoughtChapter() {
         if (this.props.memberInfo !== null && this.props.memberInfo !== undefined && this.props.memberInfo.bought_books !== undefined) {
             for (let i = 0; i < this.props.memberInfo.bought_chapters.length; i++) {
-                if (this.props.memberInfo.bought_chapters[i].id == this.getChapterId()) {
+                if (this.props.memberInfo.bought_chapters[i].id === this.getChapterId()) {
                     return true
                 }
             }
@@ -129,10 +125,28 @@ class MenuExampleInvertedSegment extends Component {
             </Label>
         )
     }
+// handleItemClick = (e, {id}) => {
+//         console.log(id, 'key')
+//         this.setState({
+//             activeItem: id,
+//         })
+//         this.forceUpdate()
+//     };
+    handleClick = (e, titleProps) => {
+    const { id } = titleProps;
+    const activeIndex = this.state.activeItem2;
+    const newIndex = activeIndex === id ? -1 : id;
+
+    this.setState({
+        activeItem: id,
+        activeItem2: newIndex
+            })
+  }
 
     render() {
+        console.log('ali\n\n', this.props.chapters);
         if (this.props.chapters === undefined || this.props.chapters[this.state.activeItem - 1] === undefined) {
-            return (<div></div>)
+            return (<div/>)
         }
         return (
             <div>
@@ -166,23 +180,26 @@ class MenuExampleInvertedSegment extends Component {
 
                     </Modal.Actions>
                 </Modal>
-                <Menu attached='top' tabular style={{'direction': 'rtl'}}>
+                <Accordion>
                     {this.props.chapters.map((chapter) => {
-                        return <Menu.Item
-                            name={'فصل' + chapter.chapter_id}
-                            active={this.state.activeItem === chapter.chapter_id}
-                            onClick={this.handleItemClick}
-                            id={chapter.chapter_id}
-                            key={chapter.chapter_id}
-                        />
+                        console.log('ali\n\n\n');
+                        return (
+                            <Segment>
+                                <Accordion.Title style={{direction:'rtl', fontFamily: 'B Yekan'}} active={(this.state.activeItem === chapter.chapter_id) && (this.state.activeItem2 === chapter.chapter_id)} id={chapter.chapter_id} onClick={this.handleClick}>
+                                    <Icon name='dropdown'/>
+                                    {'فصل' + chapter.chapter_id}
+                                </Accordion.Title>
+                                <Accordion.Content active={(this.state.activeItem === chapter.chapter_id) && (this.state.activeItem2 === chapter.chapter_id)}>
+                                    {this.buyChapterLabel()}
+                                    <ProblemList chapter={this.props.chapters[chapter.chapter_id - 1]}/>
+                                </Accordion.Content>
+                            </Segment>)
                     })}
+                </Accordion>
 
-                </Menu>
 
-                <Segment attached='bottom'>
-                    {this.buyChapterLabel()}
-                    <ProblemList chapter={this.props.chapters[this.state.activeItem - 1]}/>
-                </Segment>
+
+
             </div>
         )
     }
