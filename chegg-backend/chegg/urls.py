@@ -23,5 +23,6 @@ urlpatterns = [
     url(r'^jet/dashboard/', include('jet.dashboard.urls', 'jet-dashboard')),
     path('admin/', admin.site.urls),
     path('auth/', include(('authentication.urls', 'authentication'), namespace='authentication')),
-    path('store/', include(('store.urls', 'store'), namespace='store_urls'))
+    path('store/', include(('store.urls', 'store'), namespace='store_urls')),
+    path('qa/', include(('QA.urls', 'qa'), namespace='qa')),
 ] + static.static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
