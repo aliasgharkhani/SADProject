@@ -12,7 +12,7 @@ class PurchasedBooks extends Component {
                     color='red'
                     style={{
                         width: ' 70%',
-                       backgroundImage: 'linear-gradient(to left, #bbbbcb, white)',
+                       backgroundColor:'#e0e6ff',
                         margin: 'auto',
                         maxHeight: '48vh',
                         overflow: 'auto',
