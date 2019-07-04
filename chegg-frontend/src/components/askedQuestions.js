@@ -14,7 +14,7 @@ class AskedQuestions extends Component {
                     width: ' 70%',
                     backgroundImage: 'linear-gradient(to left, #bbbbcb, white)',
                     margin: 'auto',
-                    maxHeight: '44vh',
+                    maxHeight: '425px',
                     overflow: 'auto',
 
 

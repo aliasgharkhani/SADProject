@@ -41,7 +41,7 @@ class Question extends Component {
         return (
 
 
-                <Grid style={{width: '48%', backgroundColor: 'white', margin: '10px 10px', height: '19.5vh', display: 'flex', flexDirection: 'column'}}>
+                <Grid style={{width: '48%', backgroundColor: 'white', margin: '10px 10px', height: '190px', display: 'flex', flexDirection: 'column'}}>
 
                     <Grid.Row style={{ flexGrow: '1' }}>
                         <Grid.Column>
