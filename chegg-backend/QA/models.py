@@ -4,6 +4,9 @@ from django.db import models
 class Tag(models.Model):
     name = models.CharField(max_length=30)
 
+    def __str__(self):
+        return self.name
+
 
 class Question(models.Model):
     date = models.DateTimeField(auto_now_add=True)

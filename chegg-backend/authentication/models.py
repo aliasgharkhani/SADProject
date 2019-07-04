@@ -1,7 +1,9 @@
 from django.contrib.auth.models import AbstractUser
+from django.db import models
 
 
 class Member(AbstractUser):
+    premium = models.BooleanField(default=False)
 
     def has_purchased_book(self, book):
         for chapter in book.chapters.all():
@@ -27,3 +29,9 @@ class Member(AbstractUser):
         from store.models import PurchaseHistory, Chapter
         return Chapter.objects.filter(
             id__in=PurchaseHistory.objects.filter(member=self).values('chapter'))
+
+    def is_able_to_ask(self):
+        from QA.models import Question
+        if self.premium:
+            return True
+        return Question.objects.filter(creator=self).count() < 3

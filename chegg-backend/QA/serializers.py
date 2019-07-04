@@ -1,9 +1,19 @@
-from QA.models import Question
+from QA.models import Question, Tag
 from rest_framework import serializers
+
+
+class TagSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Tag
+        exclude = ()
 
 
 class QuestionSerializer(serializers.ModelSerializer):
     creator = serializers.HiddenField(default=serializers.CurrentUserDefault())
+    tags_with_names = serializers.SerializerMethodField()
+
+    def get_tags_with_names(self, obj):
+        return TagSerializer(obj.tags.all(), many=True).data
 
     class Meta:
         model = Question
@@ -22,3 +32,9 @@ class QuestionSerializer(serializers.ModelSerializer):
                 }
             }
         }
+
+    def validate_creator(self, member):
+        if not member.is_able_to_ask():
+            raise serializers.ValidationError(
+                'شما به حد مجاز پرسش سوال رسیده اید. برای پرسش سوال بیشتر به پریمیوم ارتقا دهید.')
+        return member

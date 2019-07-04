@@ -1,3 +1,5 @@
+from QA.models import Question, Tag
 from django.contrib import admin
 
-# Register your models here.
+admin.site.register(Question)
+admin.site.register(Tag)
