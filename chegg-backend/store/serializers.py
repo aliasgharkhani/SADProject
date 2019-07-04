@@ -17,7 +17,7 @@ class ChapterSerializer(serializers.ModelSerializer):
     problems = serializers.SerializerMethodField()
 
     def get_problems(self, obj):
-        return ProblemSerializer(obj.problems.all(), many=True).data
+        return ProblemWithoutAnswerSerializer(obj.problems.all(), many=True).data
 
     class Meta:
         model = Chapter
@@ -25,12 +25,26 @@ class ChapterSerializer(serializers.ModelSerializer):
 
 
 class ProblemSerializer(serializers.ModelSerializer):
+
     class Meta:
         model = Problem
         exclude = ()
+
+    def to_representation(self, instance):
+        representation = super(ProblemSerializer, self).to_representation(instance)
+        domain_name = "http://127.0.0.1:8000"
+        representation['answer'] = domain_name + instance.answer.url
+        representation['answer_blurred'] = domain_name + instance.answer_blurred.url
+        return representation
 
 
 class ProblemWithoutAnswerSerializer(serializers.ModelSerializer):
     class Meta:
         model = Problem
         exclude = ('answer',)
+
+    def to_representation(self, instance):
+        representation = super(ProblemWithoutAnswerSerializer, self).to_representation(instance)
+        domain_name = "http://127.0.0.1:8000"
+        representation['answer_blurred'] = domain_name + instance.answer_blurred.url
+        return representation
