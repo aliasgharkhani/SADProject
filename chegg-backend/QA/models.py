@@ -11,4 +11,4 @@ class Question(models.Model):
     title = models.CharField(max_length=60)
     body = models.CharField(max_length=1000)
     creator = models.ForeignKey('authentication.Member', on_delete=models.CASCADE)
-    tags = models.ManyToManyField(Tag)
+    tags = models.ManyToManyField(Tag, blank=True, null=True)
