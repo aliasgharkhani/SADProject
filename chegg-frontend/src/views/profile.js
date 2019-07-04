@@ -6,29 +6,34 @@ import BookCard from "../components/bookCard";
 import AskedQuestions from "../components/askedQuestions";
 import PurchasedBooks from "../components/purchasedBooks";
 
-const question = [{
-    'title': 'قلعه ی حیوانات',
-
-    'link': 'google.com',
-},
+const question = [
     {
         'title': 'قلعه ی حیوانات',
+        'description': 'کتاب خوبری  بیمتن طاب متیبمتبس  متیب یسب سیبهعهسیب سیب سیمت یبس ایبل سیبم سیب یسلغ سیب کتاب خوبری  بیمتن طاب متیبمتبس  متیب یسب سیبهعهسیب سیب سیمت یبس ایبل سیبم سیب یسلغ سیب کتاب خوبری  بیمتن طاب متیبمتبس  متیب یسب سیبهعهسیب سیب سیمت یبس ایبل سیبم سیب یسلغ سیب ',
+        'link': 'google.com',
 
+        'tags': ['java', 'python']
+    },
+    {
+        'title': 'قلعه ی حیوانات',
+        'description': 'کتاب بدری بود',
         'link': '',
+        'tags': ['mathematics']
 
     },
     {
         'title': 'قلعه ی حیوانات',
-
+        'description': 'دسکریذتوین',
+        'tags': ['cpp'],
         'link': '',
 
     }, {
         'title': 'قلعه ی حیوانات',
-
+        'description': 'منیم کتاب',
+        'tags': ['C', 'C#'],
         'link': '',
 
     },];
-
 
 
 class Profile extends Component {
@@ -37,14 +42,13 @@ class Profile extends Component {
     state = {
         books: [],
         bought_books: [],
-        myQuestions : question,
+        myQuestions: question,
         numOfChapters: []
 
     };
 
 
-
-     componentWillMount() {
+    componentWillMount() {
         console.log(localStorage.getItem('chegg-token'))
         axios.get(`http://localhost:8000/store/books`)
             .then(res => {
@@ -52,8 +56,6 @@ class Profile extends Component {
                     books: res.data,
                     numOfChapters: new Array(res.data.length).fill(0)
                 })
-
-
 
 
                 var headers = {
@@ -87,9 +89,6 @@ class Profile extends Component {
     }
 
 
-
-
-
     render() {
 
         const hasBoughtBook = (book) => {
@@ -107,32 +106,33 @@ class Profile extends Component {
 
 
         };
-
+        console.log("profile")
 
         return (
 
             <Template {...this.props}>
 
-                    <Grid style={{
-                        margin: 'auto',
+                <Grid style={{
+                    margin: 'auto',
 
 
-                    }}>
-                        <Grid.Row>
+                }}>
+                    <Grid.Row >
 
-                        <PurchasedBooks bought_books={this.state.bought_books} numOfChapters={this.state.numOfChapters} />
+                        <PurchasedBooks  bought_books={this.state.bought_books}
+                                        numOfChapters={this.state.numOfChapters}/>
 
-                        </Grid.Row>
+                    </Grid.Row>
 
-                        <Grid.Row>
-                           <AskedQuestions question ={this.state.myQuestions} />
-                        </Grid.Row>
+                    <Grid.Row
+                        >
+                        <AskedQuestions question={this.state.myQuestions}/>
+                    </Grid.Row>
 
-                        <Grid.Row>
+                    <Grid.Row>
 
-                        </Grid.Row>
-                    </Grid>
-
+                    </Grid.Row>
+                </Grid>
 
 
             </Template>
