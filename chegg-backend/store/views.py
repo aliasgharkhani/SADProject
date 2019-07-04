@@ -1,9 +1,12 @@
+from django.shortcuts import get_object_or_404
+from django.urls import reverse
 from rest_framework.decorators import action
 from rest_framework.permissions import IsAuthenticatedOrReadOnly, IsAuthenticated
 from rest_framework.response import Response
+from rest_framework.views import APIView
 from rest_framework.viewsets import ModelViewSet
-from store.models import Book, PurchaseHistory, Chapter
-from store.serializers import BookSerializer, ChapterSerializer
+from store.models import Book, PurchaseHistory, Chapter, Problem
+from store.serializers import BookSerializer, ChapterSerializer, ProblemSerializer, ProblemWithoutAnswerSerializer
 
 
 class BookViewSet(ModelViewSet):
@@ -13,7 +16,6 @@ class BookViewSet(ModelViewSet):
 
     @action(detail=True, methods=['post'], permission_classes=[IsAuthenticated])
     def buy(self, request, pk):
-        print("here")
         book = self.get_object()
         member = self.request.user
         if member.has_purchased_book(book):
@@ -45,3 +47,19 @@ class ChapterViewSet(ModelViewSet):
             return Response({'done': False, 'message': 'شما این فصل را قبلا خریده اید.'})
         PurchaseHistory.objects.create(member=member, chapter=chapter)
         return Response({'done': True, 'message': 'خرید با موفقیت انجام شد.'})
+
+
+class ProblemAPIView(APIView):
+    permission_classes = [IsAuthenticatedOrReadOnly]
+
+    def get(self, request, *args, **kwargs):
+        book_id = kwargs.get('book_id', -1)
+        chapter_id = kwargs.get('chapter_id', -1)
+        problem_id = kwargs.get('problem_id', -1)
+        book = get_object_or_404(Book, id=book_id)
+        chapter = get_object_or_404(Chapter, book=book, chapter_id=chapter_id)
+        problem = get_object_or_404(Problem, chapter=chapter, problem_id=problem_id)
+        if not self.request.user.is_authenticated or not self.request.user.has_purchased_chapter(chapter):
+            return Response(ProblemWithoutAnswerSerializer(problem).data)
+        return Response(ProblemSerializer(problem).data)
+

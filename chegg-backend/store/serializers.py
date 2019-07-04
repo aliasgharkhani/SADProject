@@ -25,7 +25,12 @@ class ChapterSerializer(serializers.ModelSerializer):
 
 
 class ProblemSerializer(serializers.ModelSerializer):
-
     class Meta:
         model = Problem
         exclude = ()
+
+
+class ProblemWithoutAnswerSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Problem
+        exclude = ('answer',)
