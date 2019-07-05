@@ -114,7 +114,6 @@ class BookList extends Component {
                 }
             }
             return 0;
-
         };
 
         const chaptersBought = () => {

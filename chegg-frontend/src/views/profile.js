@@ -10,7 +10,7 @@ import SidebarMenu from '../components/sidebarMenu'
 const question = [
     {
         'title': 'قلعه ی حیوانات',
-        'description': 'کتاب خوبری  بیمتن طاب متیبمتبس  متیب یسب سیبهعهسیب سیب سیمت یبس ایبل سیبم سیب یسلغ سیب کتاب خوبری  بیمتن طاب متیبمتبس  متیب یسب سیبهعهسیب سیب سیمت یبس ایبل سیبم سیب یسلغ سیب کتاب خوبری  بیمتن طاب متیبمتبس  متیب یسب سیبهعهسیب سیب سیمت یبس ایبل سیبم سیب یسلغ سیب ',
+        'description': 'کتاب خوبری  بیمتن طاب متیبمتبس  متیب یسب سیبهعهسیب سیب سیمت یبس ایبل سیبم سیب یسلغ سیب کتاب خوبری  بیمتن طاب متیبمتبس  متیب یسب سیبهعهسیب سی',
         'link': 'google.com',
 
         'tags': ['java', 'python']
@@ -58,6 +58,7 @@ class Profile extends Component {
         myQuestions: question,
         numOfChapters: [],
         activeItem: 'مشخصات کاربری',
+        username: ''
 
     };
 
@@ -76,12 +77,13 @@ class Profile extends Component {
         }
         else if(this.state.activeItem === 'سوالات پرسیده شده'){
             return(
-                <AskedQuestions question={this.state.myQuestions}/>
+                <AskedQuestions isProfile={1} asker={this.state.username} question={this.state.myQuestions}/>
             )
         }
     }
     componentWillMount() {
         console.log(localStorage.getItem('chegg-token'));
+        this.setState({username: localStorage.getItem('chegg-username')})
         axios.get(`http://localhost:8000/store/books`)
             .then(res => {
                 this.setState({

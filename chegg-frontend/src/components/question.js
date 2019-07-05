@@ -1,5 +1,5 @@
 import React, {Component} from "react";
-import {Button, Card, Image, Menu, Segment} from 'semantic-ui-react'
+import {Button, Card, Dropdown, Icon, Image, Menu, Segment} from 'semantic-ui-react'
 import Grid from "semantic-ui-react/dist/commonjs/collections/Grid";
 import {Redirect} from "react-router-dom";
 
@@ -37,31 +37,64 @@ class Question extends Component {
 
     render() {
 
-        console.log("question")
+        const UserName_or_not = () => {
+
+            if (this.props.isProfile === 1) {
+
+                return (
+                    <div>
+
+                        نویسنده: &nbsp;&nbsp;
+                        {this.props.asker}
+
+                        <br/>
+
+
+                        </div>// path='/sport3/login'
+
+
+                )
+            }
+            else {
+                return (
+                    <div></div>
+
+
+                )
+            }
+        };
+
         return (
 
 
-                <Grid style={{width: '48%', backgroundColor: 'white', margin: '10px 10px', height: '190px', display: 'flex', flexDirection: 'column'}}>
+                <Grid style={{width: '48%', backgroundColor: 'white', margin: '10px 10px', height: '160px', display: 'flex', flexDirection: 'column'}}>
 
-                    <Grid.Row style={{ flexGrow: '1' }}>
-                        <Grid.Column>
-                            <div style={{fontSize: '1.5em'}}><a href={this.props.link}> {this.props.title}</a> <br/><br/></div>
+                    <Grid.Row style={{  paddingBottom: '0'}} >
 
-                            <div>{this.props.description}</div>
-                        </Grid.Column>
+                            <div style={{fontSize: '1.5em'}}><a href={this.props.link}> {this.props.title}</a></div>
+
+
+
+                    </Grid.Row>
+                    <Grid.Row style={{flexGrow: '1'}}>
+                        <div>{this.props.description}</div>
                     </Grid.Row>
 
-
-                    <Grid.Row style={{
-                        marginBottom: '10px',
+                    <Grid.Row  columns={2} style={{
+                        overflow: 'hidden',
+                        padding: '0px',
                         height: '5vh',
                     }}>
-
-                        {this.props.tags.map(tag =>
+                        <Grid.Column style={{padding: '0px'}} width={12} >
+                         {this.props.tags.map(tag =>
 
                             <Button primary disabled={true}>{tag}</Button>
                         )}
 
+                        </Grid.Column >
+                        <Grid.Column style={{textAlign: 'left'}} width={4}>
+                            {UserName_or_not()}
+                        </Grid.Column>
                     </Grid.Row>
                 </Grid>
 
