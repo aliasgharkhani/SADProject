@@ -5,6 +5,7 @@ import {Grid, Segment} from "semantic-ui-react";
 import BookCard from "../components/bookCard";
 import AskedQuestions from "../components/askedQuestions";
 import PurchasedBooks from "../components/purchasedBooks";
+import SidebarMenu from '../components/sidebarMenu'
 
 const question = [
     {
@@ -36,6 +37,18 @@ const question = [
     },];
 
 
+const menuItems=[
+    {
+        'name' : 'مشخصات کاربری'
+    },
+    {
+        'name' : 'کتاب‌های خریداری شده'
+    },
+    {
+        'name' : 'سوالات پرسیده شده'
+    },
+];
+
 class Profile extends Component {
 
 
@@ -43,19 +56,38 @@ class Profile extends Component {
         books: [],
         bought_books: [],
         myQuestions: question,
-        numOfChapters: []
+        numOfChapters: [],
+        activeItem: 'مشخصات کاربری',
 
     };
 
-
+    handleItemClick = (e, {name}) => this.setState({activeItem: name});
+    getPageContent = () => {
+        if(this.state.activeItem === 'مشخصات کاربری'){
+            return(
+                <div>نام</div>
+            )
+        }
+        else if(this.state.activeItem === 'کتاب‌های خریداری شده'){
+            return(
+                <PurchasedBooks bought_books={this.state.bought_books}
+                                        numOfChapters={this.state.numOfChapters}/>
+            )
+        }
+        else if(this.state.activeItem === 'سوالات پرسیده شده'){
+            return(
+                <AskedQuestions question={this.state.myQuestions}/>
+            )
+        }
+    }
     componentWillMount() {
-        console.log(localStorage.getItem('chegg-token'))
+        console.log(localStorage.getItem('chegg-token'));
         axios.get(`http://localhost:8000/store/books`)
             .then(res => {
                 this.setState({
                     books: res.data,
                     numOfChapters: new Array(res.data.length).fill(0)
-                })
+                });
 
 
                 var headers = {
@@ -90,50 +122,20 @@ class Profile extends Component {
 
 
     render() {
-
-        const hasBoughtBook = (book) => {
-
-            for (var i = 0; i < this.state.bought_books.length; i++) {
-                if (this.state.bought_books[i].title === book.title) {
-                    return 1;
-                }
-            }
-            return 0;
-
-        };
-
-        const chaptersBought = () => {
-
-
-        };
-        console.log("profile")
-
         return (
 
             <Template {...this.props}>
 
-                <Grid style={{
-                    margin: 'auto',
-
-
-                }}>
-                    <Grid.Row >
-
-                        <PurchasedBooks  bought_books={this.state.bought_books}
-                                        numOfChapters={this.state.numOfChapters}/>
-
-                    </Grid.Row>
-
-                    <Grid.Row
-                        >
-                        <AskedQuestions question={this.state.myQuestions}/>
-                    </Grid.Row>
-
-                    <Grid.Row>
-
+                <Grid style={{margin: 'auto',direction:'rtl', width:'70%', height:'80%'}}>
+                    <Grid.Row columns={2}>
+                        <Grid.Column width={3}>
+                            <SidebarMenu activeItem={this.state.activeItem} menuItems={menuItems} handleItemClick={this.handleItemClick}/>
+                        </Grid.Column>
+                        <Grid.Column width={13}>
+                           {this.getPageContent()}
+                       </Grid.Column>
                     </Grid.Row>
                 </Grid>
-
 
             </Template>
 

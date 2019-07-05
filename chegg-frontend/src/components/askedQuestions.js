@@ -11,7 +11,6 @@ class AskedQuestions extends Component {
         return (
             <Segment
                 style={{
-                    width: ' 70%',
                     backgroundImage: 'linear-gradient(to left, #bbbbcb, white)',
                     margin: 'auto',
                     maxHeight: '425px',
