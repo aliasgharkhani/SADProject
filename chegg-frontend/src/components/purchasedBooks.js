@@ -11,7 +11,6 @@ class PurchasedBooks extends Component {
                 <Segment
                     color='red'
                     style={{
-                        width: ' 70%',
                        backgroundColor:'#e0e6ff',
                         margin: 'auto',
                         maxHeight: '48vh',

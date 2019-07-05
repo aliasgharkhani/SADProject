@@ -6,12 +6,11 @@ import BookCard from "./bookCard";
 
 class AskedQuestions extends Component {
     render() {
-        console.log('askedquestion')
+        console.log('askedquestion');
 
         return (
             <Segment
                 style={{
-                    width: ' 70%',
                     backgroundImage: 'linear-gradient(to left, #bbbbcb, white)',
                     margin: 'auto',
                     maxHeight: '425px',
@@ -30,7 +29,7 @@ class AskedQuestions extends Component {
 
                     {this.props.question.map(question =>
 
-                            <Question title={question.title} description={question.description} tags={question.tags}
+                            <Question isProfile={this.props.isProfile} asker={this.props.asker} title={question.title} description={question.description} tags={question.tags}
                                       link={question.link}
                             />
 

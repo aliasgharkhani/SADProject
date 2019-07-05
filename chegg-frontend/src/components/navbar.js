@@ -39,6 +39,10 @@ class Navbar extends Component {
         window.location.reload();
     };
 
+
+
+
+
     render() {
 
         if (localStorage.getItem('username') !== null && !this.state.setName) {
@@ -68,7 +72,7 @@ class Navbar extends Component {
         };
         const UserName_or_Icon = () => {
             const options = [
-                {key: 1, text: 'صفحه ی من', value: 1},
+                {key: 1, text: 'صفحه ی من', value: 1, path:'/profile', onClick:this.handleItemClick},
                 /*{key: 2, text: 'Choice 2', value: 2},*/
                 {key: 2, text: 'خروج', value: 2,  onClick:this.handleLogout},
             ];
@@ -76,9 +80,6 @@ class Navbar extends Component {
                 const icons= <div ><Icon name='user'/> {localStorage.getItem('chegg-username')}</div>
                 return (
                     <Dropdown  text={icons} options={options} simple item/>
-
-                    // path='/sport3/login'
-
 
                 )
             }

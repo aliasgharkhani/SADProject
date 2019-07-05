@@ -31,7 +31,7 @@ constructor(props){
                 </Grid.Row>
 
                 <Grid.Row style={{minHeight:'78vh' , }} >
-                    <Grid.Column style={{margin:'auto'}}>
+                    <Grid.Column >
 
                         {this.props.children}
                     </Grid.Column>
