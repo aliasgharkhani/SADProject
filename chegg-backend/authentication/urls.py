@@ -1,4 +1,4 @@
-from authentication.views import HelloView, MemberSignupAPIView, MemberProfileAPIView, Logout
+from authentication.views import HelloView, MemberSignupAPIView, MemberProfileAPIView, Logout, MemberProfileEditAPIView
 from django.conf.urls import url
 from django.urls import path, include
 from rest_framework.authtoken.views import obtain_auth_token
@@ -9,5 +9,6 @@ urlpatterns = [
     path('token/', obtain_auth_token, name='token'),
     path('logout/', Logout.as_view(), name='logout'),
     path('signup/', MemberSignupAPIView.as_view(), name='signup'),
-    path('self/', MemberProfileAPIView.as_view(), name='profile')
+    path('self/', MemberProfileAPIView.as_view(), name='profile'),
+    path('self/edit/', MemberProfileEditAPIView.as_view(), name='profile-edit'),
 ]
