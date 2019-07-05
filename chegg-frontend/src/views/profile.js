@@ -6,6 +6,7 @@ import BookCard from "../components/bookCard";
 import AskedQuestions from "../components/askedQuestions";
 import PurchasedBooks from "../components/purchasedBooks";
 import SidebarMenu from '../components/sidebarMenu'
+import PersonalInfo from '../components/personalInfo'
 
 const question = [
     {
@@ -48,6 +49,13 @@ const menuItems=[
         'name' : 'سوالات پرسیده شده'
     },
 ];
+const userinfo={
+    firstName:'علی',
+    lastName:'خانی',
+    username:'ali',
+    email:'ali@f.com',
+    avatar:'http://localhost:8000/media/the-ahadis-photokade-12.jpg'
+}
 
 class Profile extends Component {
 
@@ -66,7 +74,7 @@ class Profile extends Component {
     getPageContent = () => {
         if(this.state.activeItem === 'مشخصات کاربری'){
             return(
-                <div>نام</div>
+                <PersonalInfo info={userinfo}/>
             )
         }
         else if(this.state.activeItem === 'کتاب‌های خریداری شده'){

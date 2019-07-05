@@ -36,3 +36,8 @@ a{
   font-family: "B Yekan";
 
 }
+
+::placeholder {
+  text-align: right;
+  font-family: "B Yekan";
+}
