@@ -40,13 +40,21 @@ const question = [
 
 const menuItems=[
     {
-        'name' : 'مشخصات کاربری'
+        'name' : 'مشخصات کاربری',
+        'iconName': 'user',
     },
     {
-        'name' : 'کتاب‌های خریداری شده'
+        'name' : 'تغییر گذرواژه',
+        'iconName': 'lock',
     },
     {
-        'name' : 'سوالات پرسیده شده'
+        'name' : 'کتاب‌های خریداری شده',
+        'iconName': 'book',
+    },
+
+    {
+        'name' : 'سوالات پرسیده شده',
+        'iconName': 'question circle',
     },
 ];
 const userinfo={
@@ -56,6 +64,9 @@ const userinfo={
     email:'ali@f.com',
     avatar:'http://localhost:8000/media/the-ahadis-photokade-12.jpg'
 }
+
+
+
 
 class Profile extends Component {
 

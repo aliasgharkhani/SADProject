@@ -12,7 +12,8 @@ import {
     Menu,
     Modal,
     Segment,
-    Accordion
+    Accordion,
+    Rating,
 } from 'semantic-ui-react';
 import axios from 'axios';
 
@@ -125,13 +126,12 @@ class MenuExampleInvertedSegment extends Component {
             </Label>
         )
     }
-// handleItemClick = (e, {id}) => {
-//         console.log(id, 'key')
-//         this.setState({
-//             activeItem: id,
-//         })
-//         this.forceUpdate()
-//     };
+    /* starClick = (value) => {
+
+         console.log(id, 'key')
+         console.log(e)
+
+     };*/
     handleClick = (e, titleProps) => {
     const { id } = titleProps;
     const activeIndex = this.state.activeItem2;
@@ -145,11 +145,13 @@ class MenuExampleInvertedSegment extends Component {
 
     render() {
         console.log('ali\n\n', this.props.chapters);
+
         if (this.props.chapters === undefined || this.props.chapters[this.state.activeItem - 1] === undefined) {
             return (<div/>)
         }
         return (
             <div>
+                {/*<Rating onRate={this.starClick}    maxRating={5} defaultRating={3} icon='star' />*/}
                 <Modal onRequestClose={this.onCloseModal.bind(this)} open={this.state.modalActive}>
                     <Icon name="close" onClick={this.onCloseModal.bind(this)}/>
                     <Header>Select a photo</Header>
