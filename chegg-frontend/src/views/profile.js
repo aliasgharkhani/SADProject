@@ -39,15 +39,26 @@ const question = [
 
 const menuItems=[
     {
-        'name' : 'مشخصات کاربری'
+        'name' : 'مشخصات کاربری',
+        'iconName': 'user',
     },
     {
-        'name' : 'کتاب‌های خریداری شده'
+        'name' : 'تغییر گذرواژه',
+        'iconName': 'lock',
     },
     {
-        'name' : 'سوالات پرسیده شده'
+        'name' : 'کتاب‌های خریداری شده',
+        'iconName': 'book',
+    },
+
+    {
+        'name' : 'سوالات پرسیده شده',
+        'iconName': 'question circle',
     },
 ];
+
+
+
 
 class Profile extends Component {
 
