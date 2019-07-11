@@ -98,7 +98,7 @@ class Profile extends Component {
         }
         else if(this.state.activeItem === 'تغییر گذرواژه'){
             return(
-                <ChangePassword info={userinfo}/>
+                <ChangePassword info={userInfo}/>
             )
         }
 
