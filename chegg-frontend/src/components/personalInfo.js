@@ -121,20 +121,20 @@ class PersonalInfo extends Component {
                         <Form.TextArea label='درباره من' style={{fontFamily:'B Yekan'}} defaultValue={this.props.info.bio} width={16}/>
                     </Form.Group>
                     <Form.Group>
-                        <Form.TextArea style={{resize: 'none', height:'35px', overflow:'hidden', fontFamily:'B Yekan'}} label='نام' defaultValue={this.props.info.first_name} width={8}/>
-                        <Form.TextArea style={{resize: 'none', height:'35px', overflow:'hidden', fontFamily:'B Yekan'}} label='نام خانوادگی' defaultValue={this.props.info.last_name} width={8}/>
+                        <Form.TextArea style={{resize: 'none', height:'37.6px', overflow:'hidden', fontFamily:'B Yekan'}} label='نام' defaultValue={this.props.info.first_name} width={8}/>
+                        <Form.TextArea style={{resize: 'none', height:'37.6px', overflow:'hidden', fontFamily:'B Yekan'}} label='نام خانوادگی' defaultValue={this.props.info.last_name} width={8}/>
                     </Form.Group>
                     <Form.Group>
                         <Form.Field width={8}>
                             <label>نام کاربری</label>
-                            <Segment style={{height:'35px'}}>{this.props.info.username}</Segment>
+                            <Segment style={{height:'37.6px', 'display': 'flex', 'justifyContent': 'center', 'flexDirection': 'column'}}>{this.props.info.username}</Segment>
                         </Form.Field>
                         <Form.Field width={8}>
                             <label>رایانامه</label>
-                            <Segment style={{textAlign:'left', height:'35px'}}>{this.props.info.email}</Segment>
+                            <Segment style={{textAlign:'left', height:'37.6px', 'display': 'flex', 'justifyContent': 'center', 'flexDirection': 'column'}}>{this.props.info.email}</Segment>
                         </Form.Field>
                     </Form.Group>
-                    <Button type='submit'>ذخیره</Button>
+                    <Button type='submit' style={{'fontFamily': 'B Yekan'}}>ذخیره</Button>
                 </Form>
             </div>
         )

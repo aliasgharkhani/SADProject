@@ -60,6 +60,10 @@ class BookList extends Component {
 
     };
 
+    componentDidMount(){
+        document.title = "لیست کتاب ها";
+    }
+
 
     componentWillMount() {
         console.log(localStorage.getItem('chegg-token'))
