@@ -22,7 +22,7 @@ function App() {
                 <Route exact path='/signup' component={SignUp}/>
                 <Route exact path='/books/:id' component={Book}/>
                 <Route exact path='/books' component={BookList}/>
-                <Route exact path='/problem' component={BookProblem}/>
+                <Route exact path='/books/:id/chapters/:id/problems/:id' component={BookProblem}/>
                 <Route exact path='/profile' component={UserProfile}/>
             </Switch>
         </BrowserRouter>
