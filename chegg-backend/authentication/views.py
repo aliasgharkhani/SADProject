@@ -49,6 +49,12 @@ class MemberProfileEditAPIView(APIView):
         last_name = self.request.POST.get('last_name', member.last_name)
         if len(first_name) >= 20 or len(last_name) >= 20:
             raise ValidationError('حداکثر طول مجاز نام/نام خانوادگی 20 کاراکتر است.')
+        if self.request.POST.get('bio', None):
+            bio = self.request.POST.get('bio')
+            if len(bio) < 1000:
+                member.bio = bio
+            else:
+                raise ValidationError('طول بیوگرافی بیش از حد مجاز است.')
         member.first_name = first_name
         member.last_name = last_name
         password = self.request.POST.get('password', None)
