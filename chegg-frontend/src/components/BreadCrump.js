@@ -16,15 +16,15 @@ export default class BreadCrump extends Component {
 
 
                 <Breadcrumb.Section active>
-                    <a href='#'>{this.props.book}</a>
+                    <a href={this.props.book.url}>{this.props.book.name}</a>
                 </Breadcrumb.Section>
                  <Breadcrumb.Divider icon='left angle'/>
                  <Breadcrumb.Section active>
-                    {this.props.chapter_id}
+                    {this.props.chapter}
                 </Breadcrumb.Section>
                  <Breadcrumb.Divider icon='left angle'/>
                  <Breadcrumb.Section active>
-                    سوال {this.props.problem_id}
+                    سوال {this.props.problemId}
                 </Breadcrumb.Section>
 
             </Breadcrumb>
