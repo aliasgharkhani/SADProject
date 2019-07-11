@@ -4,6 +4,7 @@ from django.db import models
 
 class Member(AbstractUser):
     premium = models.BooleanField(default=False)
+    bio = models.CharField(max_length=1000, null=True, blank=True)
 
     def has_purchased_book(self, book):
         for chapter in book.chapters.all():
@@ -35,3 +36,8 @@ class Member(AbstractUser):
         if self.premium:
             return True
         return Question.objects.filter(creator=self).count() < 3
+
+    def get_asked_questions(self):
+        from QA.models import Question
+        return Question.objects.filter(creator=self)
+

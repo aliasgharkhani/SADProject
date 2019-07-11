@@ -20,14 +20,26 @@ class MemberSignupSerializer(serializers.ModelSerializer):
         return member
 
 
-class MemberProfileSerializer(serializers.ModelSerializer):
-    bought_books = serializers.SerializerMethodField()
-    bought_chapters = serializers.SerializerMethodField()
+class MemberBaseInfoSerializer(serializers.ModelSerializer):
+    date_joined = serializers.SerializerMethodField()
 
     class Meta:
         model = Member
-        exclude = (
-        'password', 'is_active', 'is_staff', 'is_superuser', 'groups', 'user_permissions')
+        fields = ('bio', 'first_name', 'last_name', 'username', 'email', 'date_joined')
+
+    def get_date_joined(self, obj):
+        return obj.date_joined.date()
+
+
+class MemberProfileSerializer(serializers.ModelSerializer):
+    bought_books = serializers.SerializerMethodField()
+    bought_chapters = serializers.SerializerMethodField()
+    user_info = serializers.SerializerMethodField()
+    asked_questions = serializers.SerializerMethodField()
+
+    class Meta:
+        model = Member
+        fields = ('user_info', 'bought_books', 'bought_chapters', 'asked_questions')
 
     def get_bought_books(self, obj):
         from store.serializers import BookSerializer
@@ -36,3 +48,10 @@ class MemberProfileSerializer(serializers.ModelSerializer):
     def get_bought_chapters(self, obj):
         from store.serializers import ChapterSerializer
         return ChapterSerializer(obj.get_bought_chapters(), many=True).data
+
+    def get_user_info(self, obj):
+        return MemberBaseInfoSerializer(obj).data
+
+    def get_asked_questions(self, obj):
+        from QA.serializers import QuestionSerializer
+        return QuestionSerializer(obj.get_asked_questions(), many=True).data
