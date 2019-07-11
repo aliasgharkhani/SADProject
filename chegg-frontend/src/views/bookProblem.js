@@ -2,57 +2,52 @@ import React, {Component} from 'react'
 import {Grid, Image, Segment} from "semantic-ui-react";
 import Template from '../components/template'
 import axios from "axios";
+import BreadCrump from '../components/BreadCrump'
 
 class bookProblem extends Component {
-
-
-    state={
-        title: "",
-        image: ""
-    }
+    state = {
+        body: "",
+        answer: "",
+    };
 
     componentWillMount() {
-        let url = window.location.href;
-        url = url.replace('3', '8');
-         axios.get(`http://localhost:8000/store/books/${this.bookId}/`)
+        let url = window.location.pathname;
+        var headers = {
+
+            'Authorization': 'TOKEN ' + localStorage.getItem('chegg-token')
+        };
+        axios.get('http://localhost:8000/store' + url, {headers: headers})
             .then(res => {
-                const chapters = res.data.chapters;
                 this.setState({
-                    ISBN: res.data.ISBN,
-                    score: res.data.score,
-                    publication_date: res.data.publication_date,
-                    edition: res.data.edition,
-                    title: res.data.title,
-                    author: res.data.author,
-                    price: res.data.price,
-                    cover: res.data.cover,
-                    description: res.data.description,
-                    chapters: chapters,
-                    book: res.data
+                    body: res.data.body,
+                    answer: res.data.answer_blurred
                 })
-            })
-        let token = localStorage.getItem('chegg-token');
-        if (token !== undefined) {
-            axios.get('http://localhost:8000/auth/self/', {
-                headers: {Authorization: 'TOKEN ' + token}
-            }).then(response => {
-                if (response.status === 200) {
-                    this.setState({
-                        memberInfo: response.data
-                    })
-                }
-            })
-        }
-
-
+            });
     }
 
-
-
+    getData() {
+        let url = window.location.pathname;
+        let bookName;
+        url = url.split('/');
+        let bookURL = url[0] + '//' + 'localhost:3000/' + url[3] + '/' + url[4];
+        let chapterID = url[6];
+        axios.get('http://localhost:8000/store/books/' + url[4])
+            .then(res => {
+                bookName =  res.data.title
+            });
+        return {
+            book: {
+                name: bookName,
+                url: bookURL
+            },
+            chapterID: chapterID,
+            problemId:url[8]
+        }
+    }
 
     render() {
 
-
+        let data = this.getData();
         return (
             <Template>
                 <Segment piled={true} style={{
@@ -60,11 +55,14 @@ class bookProblem extends Component {
                     margin: 'auto'
                 }}>
                     <Grid>
+                        <Grid.Row style={{margin:'20px'}}>
+                            <BreadCrump book={data.book} chapter={data.chapterID} problemId={data.problemId}/>
+                        </Grid.Row>
                         <Grid.Row style={{padding: '2em'}}>
-                            <div style={{direction: 'rtl', width: '100%', fontSize: '1.56em'}}>{this.props.title}</div>
+                            <div style={{direction: 'rtl', width: '100%', fontSize: '1.56em'}}>{this.state.body}</div>
                         </Grid.Row>
                         <Grid.Row>
-                            <Image style={{margin: '1em 6em', width: '100%'}} src={this.props.image}/>
+                            <Image style={{margin: '1em 6em', width: '100%'}} src={this.state.answer}/>
                         </Grid.Row>
                     </Grid>
 
