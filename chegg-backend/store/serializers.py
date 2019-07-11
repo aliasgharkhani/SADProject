@@ -41,10 +41,10 @@ class ProblemSerializer(serializers.ModelSerializer):
 class ProblemWithoutAnswerSerializer(serializers.ModelSerializer):
     class Meta:
         model = Problem
-        exclude = ('answer',)
+        exclude = ('answer_blurred',)
 
     def to_representation(self, instance):
         representation = super(ProblemWithoutAnswerSerializer, self).to_representation(instance)
         domain_name = "http://127.0.0.1:8000"
-        representation['answer_blurred'] = domain_name + instance.answer_blurred.url
+        representation['answer'] = domain_name + instance.answer_blurred.url
         return representation
