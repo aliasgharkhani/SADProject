@@ -8,6 +8,9 @@ class bookProblem extends Component {
     state = {
         body: "",
         answer: "",
+        book: '',
+        chapterId: '',
+        problemId: ''
     };
 
     componentWillMount() {
@@ -16,38 +19,45 @@ class bookProblem extends Component {
 
             'Authorization': 'TOKEN ' + localStorage.getItem('chegg-token')
         };
-        axios.get('http://localhost:8000/store' + url, {headers: headers})
+        if (localStorage.getItem('chegg-token') === null) {
+            axios.get('http://localhost:8000/store' + url)
+                .then(res => {
+                    console.log('ali    ', res.data);
+                    this.setState({
+                        body: res.data.body,
+                        answer: res.data.answer
+                    })
+                });
+        } else {
+            axios.get('http://localhost:8000/store' + url, {headers: headers})
+                .then(res => {
+                    console.log('ali    ', res.data);
+                    this.setState({
+                        body: res.data.body,
+                        answer: res.data.answer
+                    })
+                });
+        }
+        url = window.location.href;
+        url = url.split('/');
+        console.log('inja  ', url);
+        var bookURL = url[0] + '//' + 'localhost:3000/' + url[3] + '/' + url[4];
+        var chapterID = url[6];
+        axios.get('http://localhost:8000/store/books/' + url[4])
             .then(res => {
                 this.setState({
-                    body: res.data.body,
-                    answer: res.data.answer_blurred
+                    book: {
+                        name: res.data.title,
+                        url: bookURL
+                    },
+                    chapterId: chapterID,
+                    problemId: url[8]
                 })
             });
     }
 
-    getData() {
-        let url = window.location.pathname;
-        let bookName;
-        url = url.split('/');
-        let bookURL = url[0] + '//' + 'localhost:3000/' + url[3] + '/' + url[4];
-        let chapterID = url[6];
-        axios.get('http://localhost:8000/store/books/' + url[4])
-            .then(res => {
-                bookName =  res.data.title
-            });
-        return {
-            book: {
-                name: bookName,
-                url: bookURL
-            },
-            chapterID: chapterID,
-            problemId:url[8]
-        }
-    }
 
     render() {
-
-        let data = this.getData();
         return (
             <Template>
                 <Segment piled={true} style={{
@@ -55,8 +65,11 @@ class bookProblem extends Component {
                     margin: 'auto'
                 }}>
                     <Grid>
-                        <Grid.Row style={{margin:'20px'}}>
-                            <BreadCrump book={data.book} chapter={data.chapterID} problemId={data.problemId}/>
+                        <Grid.Row style={{margin: '20px'}}>
+                            <Grid.Column style={{textAlign: 'right'}}>
+                                <BreadCrump book={this.state.book} chapter={this.state.chapterId}
+                                            problemId={this.state.problemId}/>
+                            </Grid.Column>
                         </Grid.Row>
                         <Grid.Row style={{padding: '2em'}}>
                             <div style={{direction: 'rtl', width: '100%', fontSize: '1.56em'}}>{this.state.body}</div>
