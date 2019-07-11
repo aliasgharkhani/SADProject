@@ -38,34 +38,31 @@ const question = [
     },];
 
 
-const menuItems=[
+const menuItems = [
     {
-        'name' : 'مشخصات کاربری',
+        'name': 'مشخصات کاربری',
         'iconName': 'user',
     },
     {
-        'name' : 'تغییر گذرواژه',
+        'name': 'تغییر گذرواژه',
         'iconName': 'lock',
     },
     {
-        'name' : 'کتاب‌های خریداری شده',
+        'name': 'کتاب‌های خریداری شده',
         'iconName': 'book',
     },
 
     {
-        'name' : 'سوالات پرسیده شده',
+        'name': 'سوالات پرسیده شده',
         'iconName': 'question circle',
     },
 ];
-const userinfo={
-    firstName:'علی',
-    lastName:'خانی',
-    username:'ali',
-    email:'ali@f.com',
-    avatar:'http://localhost:8000/media/the-ahadis-photokade-12.jpg'
-}
-
-
+const userInfo = {
+    first_name: 'علی',
+    last_name: 'خانی',
+    username: 'ali',
+    email: 'ali@f.com',
+};
 
 
 class Profile extends Component {
@@ -77,29 +74,29 @@ class Profile extends Component {
         myQuestions: question,
         numOfChapters: [],
         activeItem: 'مشخصات کاربری',
-        username: ''
+        username: '',
+        userInfo: {},
 
     };
 
     handleItemClick = (e, {name}) => this.setState({activeItem: name});
     getPageContent = () => {
-        if(this.state.activeItem === 'مشخصات کاربری'){
-            return(
-                <PersonalInfo info={userinfo}/>
+        if (this.state.activeItem === 'مشخصات کاربری') {
+            return (
+                <PersonalInfo info={this.state.userInfo}/>
             )
-        }
-        else if(this.state.activeItem === 'کتاب‌های خریداری شده'){
-            return(
+        } else if (this.state.activeItem === 'کتاب‌های خریداری شده') {
+            return (
                 <PurchasedBooks bought_books={this.state.bought_books}
-                                        numOfChapters={this.state.numOfChapters}/>
+                                numOfChapters={this.state.numOfChapters}/>
             )
-        }
-        else if(this.state.activeItem === 'سوالات پرسیده شده'){
-            return(
+        } else if (this.state.activeItem === 'سوالات پرسیده شده') {
+            return (
                 <AskedQuestions isProfile={1} asker={this.state.username} question={this.state.myQuestions}/>
             )
         }
     }
+
     componentWillMount() {
         console.log(localStorage.getItem('chegg-token'));
         this.setState({username: localStorage.getItem('chegg-username')})
@@ -126,11 +123,11 @@ class Profile extends Component {
                             numOfChapters[res.data.bought_chapters[i].book - 1] += 1;
 
                         }
-
                         this.setState(
                             {
                                 numOfChapters: numOfChapters,
                                 bought_books: res.data.bought_books,
+                                userInfo:res.data.user_info
                             }
                         )
                     }).catch((error) => {
@@ -147,14 +144,15 @@ class Profile extends Component {
 
             <Template {...this.props}>
 
-                <Grid style={{margin: 'auto',direction:'rtl', width:'70%', height:'80%'}}>
+                <Grid style={{margin: 'auto', direction: 'rtl', width: '70%', height: '80%'}}>
                     <Grid.Row columns={2}>
                         <Grid.Column width={3}>
-                            <SidebarMenu activeItem={this.state.activeItem} menuItems={menuItems} handleItemClick={this.handleItemClick}/>
+                            <SidebarMenu activeItem={this.state.activeItem} menuItems={menuItems}
+                                         handleItemClick={this.handleItemClick}/>
                         </Grid.Column>
                         <Grid.Column width={13}>
-                           {this.getPageContent()}
-                       </Grid.Column>
+                            {this.getPageContent()}
+                        </Grid.Column>
                     </Grid.Row>
                 </Grid>
 
