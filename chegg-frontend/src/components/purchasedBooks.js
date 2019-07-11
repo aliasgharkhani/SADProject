@@ -11,7 +11,7 @@ class PurchasedBooks extends Component {
                 <Segment
                     color='red'
                     style={{
-                       backgroundColor:'#e0e6ff',
+                        backgroundImage: 'url("https://visme.co/blog/wp-content/uploads/2017/07/50-Beautiful-and-Minimalist-Presentation-Backgrounds-037.jpg")',
                         margin: 'auto',
                         maxHeight: '48vh',
                         overflow: 'auto',
@@ -28,7 +28,7 @@ class PurchasedBooks extends Component {
                     }}>
                         {this.props.bought_books.map(book =>
 
-                            <BookCard  bookCover={book.cover} title={book.title}
+                            <BookCard  bookCover={this.props.prefix + book.cover} title={book.title}
                                       author={book.author}
                                       description={book.description} purchased={1}
                                       chaptersPurchased={this.props.numOfChapters[book.id - 1]} price={book.price}

@@ -44,14 +44,14 @@ class ChangePassword extends Component {
                     console.log(response.data)
 
                     this.setState({
-                        modalMessege: response.data
+                        modalMessage: response.data
                     })
 
 
                 } else {
 
                     this.setState({
-                        modalMessege: response.data
+                        modalMessage: response.data
                     })
                 }
 
@@ -79,7 +79,7 @@ class ChangePassword extends Component {
                             style={{'flexGrow': '1', 'direction': 'rtl', 'textAlign': 'right'}}>
 
                             <p>
-                                {this.state.modalMessege}
+                                {this.state.modalMessage}
                             </p>
 
                         </Modal.Description>

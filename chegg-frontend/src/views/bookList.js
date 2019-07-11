@@ -129,7 +129,7 @@ class BookList extends Component {
                     color='grey'
                     style={{
                         width: ' 70%',
-                       // backgroundImage: 'linear-gradient(to left, #bbbbcb, white)',
+                       backgroundImage: 'url("https://visme.co/blog/wp-content/uploads/2017/07/50-Beautiful-and-Minimalist-Presentation-Backgrounds-037.jpg")',
                        // backgroundColor:'#1c1c1c',
                         margin: 'auto',
                         maxHeight: '76vh',
