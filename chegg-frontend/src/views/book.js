@@ -28,7 +28,7 @@ class ProblemList extends Component {
             return (
                 <List style={{'direction': 'rtl'}}>
                     {this.props.chapter.problems.map((problem) => {
-                        return <List.Item as='a'
+                        return <List.Item as='a' href={'http://localhost:3000/books/'+this.state.id+'/chapters/'+this.props.chapter.chapter_id+'/problems/'+problem.id}
                                           key={problem.problem_id}>{problem.problem_id + '. ' + problem.body}</List.Item>
                     })}
                 </List>
@@ -281,7 +281,7 @@ class Book extends Component {
                     chapters: chapters,
                     book: res.data
                 })
-            })
+            });
         let token = localStorage.getItem('chegg-token');
         if (token !== undefined) {
             axios.get('http://localhost:8000/auth/self/', {
