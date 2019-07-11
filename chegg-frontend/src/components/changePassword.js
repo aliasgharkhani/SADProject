@@ -49,12 +49,14 @@ class ChangePassword extends Component {
             password: this.state.password
         }, {headers: headers})
             .then(response => {
+
                 if (response.status === 200) {
                     console.log(response.data)
 
                     this.setState({
                         modalMessage: response.data
                     })
+
 
                 } else {
 

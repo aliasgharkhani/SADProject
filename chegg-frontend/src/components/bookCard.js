@@ -16,7 +16,7 @@ class BookCard extends Component {
     state = {
         redirect: false,
         path: '',
-    }
+    };
 
 
     routeChange = (e) => {
@@ -33,7 +33,7 @@ class BookCard extends Component {
 
             return <Redirect to={this.state.path}/>
         }
-    }
+    };
 
     render() {
         const priceOrPurchased = () => {
@@ -52,7 +52,7 @@ class BookCard extends Component {
 
                         <Grid.Row   style={{textAlign: 'center'}}>
                             <a href={this.props.link}  style={{ margin: 'auto'}}>
-                            <div style={{ fontFamily: "B Yekan"}}
+                            <div style={{ fontFamily: "B Yekan", backgroundColor:'#baf0ff'}}
                                  className="ui vertical animated button"
                                  tabIndex="0">
                                 <div className="hidden content">
@@ -78,7 +78,7 @@ class BookCard extends Component {
                         </Grid.Row>
                         <Grid.Row  style={{textAlign: 'center'}}>
                             <a href={this.props.link} style={{ margin: 'auto'}}>
-                                <div style={{fontFamily: "B Yekan" }}
+                                <div style={{fontFamily: "B Yekan", backgroundColor:'#baf0ff' }}
                                      className="ui animated fade button" tabIndex="0">
                                     <div className="visible content" style={{padding: '0px'}}>مشاهده و خرید کتاب</div>
                                     <div className="hidden content">
