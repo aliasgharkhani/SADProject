@@ -8,10 +8,13 @@ class ChangePassword extends Component {
         this.state = {
             password: "",
             modalActive: false,
-            modalMessege: "",
+            modalMessage: "",
+            equal: true,
+            pass: "",
         };
         this.handleInput = this.handleInput.bind(this);
         this.handleChange = this.handleChange.bind(this);
+        this.passSave = this.passSave.bind(this)
     }
 
     onCloseModal() {
@@ -21,14 +24,21 @@ class ChangePassword extends Component {
         });
     }
     handleInput(e) {
-
+        if (this.state.pass === e.target.value) {
+            this.setState({equal: true})
+        } else
+            this.setState({equal: false})
         this.setState({
             [e.target.name]: e.target.value
         });
 
     }
+      passSave(event) {
+        this.setState({pass: event.target.value})
+    }
 
     handleChange(e) {
+        e.preventDefault()
 
          var headers = {
 
@@ -39,26 +49,24 @@ class ChangePassword extends Component {
             password: this.state.password
         }, {headers: headers})
             .then(response => {
-
                 if (response.status === 200) {
                     console.log(response.data)
 
                     this.setState({
-                        modalMessege: response.data
+                        modalMessage: response.data
                     })
-
 
                 } else {
 
                     this.setState({
-                        modalMessege: response.data
+                        modalMessage: response.data
                     })
                 }
 
             })
             .catch((error) => {
                 this.setState({
-                    message: "error"
+                    modalMessage:  "رمز عبور باید حداقل ۶ کاراکتر باشد."
                 })
             })
         this.setState({modalActive: true})
@@ -70,7 +78,7 @@ class ChangePassword extends Component {
         return (
 
             <div>
-                <Modal size={"mini"} onRequestClose={this.onCloseModal.bind(this)} open={this.state.modalActive}>
+                <Modal  size={"mini"} onRequestClose={this.onCloseModal.bind(this)} open={this.state.modalActive}>
                     <Icon name="close" onClick={this.onCloseModal.bind(this)}/>
 
                     <Modal.Content image>
@@ -78,8 +86,8 @@ class ChangePassword extends Component {
                         <Modal.Description
                             style={{'flexGrow': '1', 'direction': 'rtl', 'textAlign': 'right'}}>
 
-                            <p>
-                                {this.state.modalMessege}
+                            <p style={{fontFamily: "B Yekan"}}>
+                                {this.state.modalMessage}
                             </p>
 
                         </Modal.Description>
@@ -87,7 +95,7 @@ class ChangePassword extends Component {
                     <Modal.Actions>
                         <Button style={{fontFamily: "B Yekan"}} emphasis="positive"
                                 color='green'
-                                onClick={this.onCloseModal.bind(this)}>فهمیدم</Button>
+                                onClick={this.onCloseModal.bind(this)}>بستن</Button>
 
 
 
@@ -101,8 +109,8 @@ class ChangePassword extends Component {
                 <Divider section/>
                 <Form>
                     <Form.Group>
-                        <Form.Input  label='رمز مورد نظر' width={8}/>
-                        <Form.Input onChange={this.handleInput} name={'password'}  label='تکرار رمز وارد شده '  width={8}/>
+                        <Form.Input onChange={this.passSave} label='رمز جدید' width={8}/>
+                        <Form.Input  error={!this.state.equal} onChange={this.handleInput} name={'password'}  label='تایید رمز'  width={8}/>
                     </Form.Group>
 
                     <Button style={{fontFamily: "B Yekan"}}  onClick={this.handleChange}  type='submit'>ذخیره</Button>
