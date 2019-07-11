@@ -215,6 +215,12 @@ class Book extends Component {
         this.buyBookSection = this.buyBookSection.bind(this);
     }
 
+
+    componentDidMount(){
+
+        document.title = this.state.title;
+    }
+
     onCloseModal() {
         this.setState({
             modalActive: false,
@@ -264,7 +270,7 @@ class Book extends Component {
         memberInfo: ''
     };
 
-    componentDidMount() {
+    componentWillMount() {
         axios.get(`http://localhost:8000/store/books/${this.bookId}/`)
             .then(res => {
                 const chapters = res.data.chapters;

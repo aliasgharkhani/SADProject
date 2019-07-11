@@ -22,6 +22,9 @@ class SignupForm extends Component {
         errors: null
     };
 
+    componentDidMount(){
+        document.title = "ثبت نام";
+    }
 
 
     handleSubmit(event) {

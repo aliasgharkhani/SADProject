@@ -104,6 +104,10 @@ class Profile extends Component {
 
     }
 
+    componentDidMount(){
+        document.title = "پروفایل";
+    }
+
     componentWillMount() {
         console.log(localStorage.getItem('chegg-token'));
         this.setState({username: localStorage.getItem('chegg-username')})
