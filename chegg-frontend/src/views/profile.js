@@ -7,6 +7,7 @@ import AskedQuestions from "../components/askedQuestions";
 import PurchasedBooks from "../components/purchasedBooks";
 import SidebarMenu from '../components/sidebarMenu'
 import PersonalInfo from '../components/personalInfo'
+import ChangePassword from '../components/changePassword'
 
 const question = [
     {
@@ -99,6 +100,12 @@ class Profile extends Component {
                 <AskedQuestions isProfile={1} asker={this.state.username} question={this.state.myQuestions}/>
             )
         }
+        else if(this.state.activeItem === 'تغییر گذرواژه'){
+            return(
+                <ChangePassword info={userinfo}/>
+            )
+        }
+
     }
     componentWillMount() {
         console.log(localStorage.getItem('chegg-token'));

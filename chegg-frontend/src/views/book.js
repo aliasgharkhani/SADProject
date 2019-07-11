@@ -142,7 +142,6 @@ class MenuExampleInvertedSegment extends Component {
         activeItem2: newIndex
             })
   }
-
     render() {
         console.log('ali\n\n', this.props.chapters);
 
@@ -327,7 +326,7 @@ class Book extends Component {
             <Template>
                 <Modal onRequestClose={this.onCloseModal.bind(this)} open={this.state.modalActive}>
                     <Icon name="close" onClick={this.onCloseModal.bind(this)}/>
-                    <Header>Select a photo</Header>
+
                     <Modal.Content image>
                         <Image size="medium" wrapComponent
                                src={this.state.cover}/>
