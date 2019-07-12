@@ -153,7 +153,7 @@ class MenuExampleInvertedSegment extends Component {
                 {/*<Rating onRate={this.starClick}    maxRating={5} defaultRating={3} icon='star' />*/}
                 <Modal onRequestClose={this.onCloseModal.bind(this)} open={this.state.modalActive}>
                     <Icon name="close" onClick={this.onCloseModal.bind(this)}/>
-                    <Header></Header>
+                    <Header/>
                     <Modal.Content image>
                         <Modal.Description
                             style={{'flexGrow': '1', 'direction': 'rtl', 'textAlign': 'right'}}>

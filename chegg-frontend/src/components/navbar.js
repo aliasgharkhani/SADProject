@@ -91,7 +91,7 @@ class Navbar extends Component {
                 <Menu.Menu position={"right"}>
                     <Menu.Item
                         name='سوالات'
-                        path='/problems'
+                        path='/questions'
                         onClick={this.handleItemClick}
                     />
                     <Menu.Item
