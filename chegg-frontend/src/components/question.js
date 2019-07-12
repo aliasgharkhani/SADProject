@@ -39,7 +39,7 @@ class Question extends Component {
 
         const UserName_or_not = () => {
 
-            if (this.props.isProfile === 1) {
+            if (this.props.isProfile === 0) {
 
                 return (
                     <div>
@@ -88,7 +88,7 @@ class Question extends Component {
                         <Grid.Column style={{padding: '0px'}} width={12} >
                          {this.props.tags.map(tag =>
 
-                            <Button primary disabled={true}>{tag}</Button>
+                            <Button id={tag.id} primary disabled={true}>{tag.name}</Button>
                         )}
 
                         </Grid.Column >

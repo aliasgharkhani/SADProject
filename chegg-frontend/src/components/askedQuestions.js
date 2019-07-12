@@ -29,8 +29,8 @@ class AskedQuestions extends Component {
 
                     {this.props.question.map(question =>
 
-                            <Question isProfile={this.props.isProfile} asker={this.props.asker} title={question.title} description={question.description} tags={question.tags}
-                                      link={question.link}
+                            <Question isProfile={this.props.isProfile} asker={this.props.asker} title={question.title} description={question.body} tags={question.tags_with_names}
+                                      link={''}
                             />
 
                     )}
