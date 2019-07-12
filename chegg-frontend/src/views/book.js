@@ -28,7 +28,7 @@ class ProblemList extends Component {
             return (
                 <List style={{'direction': 'rtl'}}>
                     {this.props.chapter.problems.map((problem) => {
-                        return <List.Item as='a'
+                        return <List.Item as='a' href={'http://localhost:3000/books/'+this.props.book.id+'/chapters/'+this.props.chapter.chapter_id+'/problems/'+problem.problem_id}
                                           key={problem.problem_id}>{problem.problem_id + '. ' + problem.body}</List.Item>
                     })}
                 </List>
@@ -153,7 +153,7 @@ class MenuExampleInvertedSegment extends Component {
                 {/*<Rating onRate={this.starClick}    maxRating={5} defaultRating={3} icon='star' />*/}
                 <Modal onRequestClose={this.onCloseModal.bind(this)} open={this.state.modalActive}>
                     <Icon name="close" onClick={this.onCloseModal.bind(this)}/>
-                    <Header>Select a photo</Header>
+                    <Header></Header>
                     <Modal.Content image>
                         <Modal.Description
                             style={{'flexGrow': '1', 'direction': 'rtl', 'textAlign': 'right'}}>
@@ -192,7 +192,7 @@ class MenuExampleInvertedSegment extends Component {
                                 </Accordion.Title>
                                 <Accordion.Content active={(this.state.activeItem === chapter.chapter_id) && (this.state.activeItem2 === chapter.chapter_id)}>
                                     {this.buyChapterLabel()}
-                                    <ProblemList chapter={this.props.chapters[chapter.chapter_id - 1]}/>
+                                    <ProblemList book={this.props.book} chapter={this.props.chapters[chapter.chapter_id - 1]}/>
                                 </Accordion.Content>
                             </Segment>)
                     })}
@@ -213,6 +213,12 @@ class Book extends Component {
         this.bookId = this.props.match.params.id;
         this.hasBoughtBook = this.hasBoughtBook.bind(this);
         this.buyBookSection = this.buyBookSection.bind(this);
+    }
+
+
+    componentDidMount(){
+
+        document.title = this.state.title;
     }
 
     onCloseModal() {
@@ -264,7 +270,7 @@ class Book extends Component {
         memberInfo: ''
     };
 
-    componentDidMount() {
+    componentWillMount() {
         axios.get(`http://localhost:8000/store/books/${this.bookId}/`)
             .then(res => {
                 const chapters = res.data.chapters;
@@ -281,7 +287,7 @@ class Book extends Component {
                     chapters: chapters,
                     book: res.data
                 })
-            })
+            });
         let token = localStorage.getItem('chegg-token');
         if (token !== undefined) {
             axios.get('http://localhost:8000/auth/self/', {
@@ -416,7 +422,7 @@ class Book extends Component {
                             <Grid.Row>
                                 <Grid.Column width={16}>
                                     {console.log(this.state.memberInfo)}
-                                    <MenuExampleInvertedSegment bookCover={this.state.cover}
+                                    <MenuExampleInvertedSegment book={this.state.book} bookCover={this.state.cover}
                                                                 chapters={this.state.chapters}
                                                                 memberInfo={this.state.memberInfo}/>
                                 </Grid.Column>

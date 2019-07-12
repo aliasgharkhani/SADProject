@@ -18,6 +18,10 @@ class Main extends Component {
         loaded: 'none'
     };
 
+    componentDidMount(){
+        document.title = "chegg";
+    }
+
     render() {
         return (
             <Template>

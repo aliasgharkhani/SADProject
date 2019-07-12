@@ -23,6 +23,10 @@ class SignIn extends React.Component {
 
     }
 
+    componentDidMount(){
+        document.title = "ورود";
+    }
+
     handleLogin(e) {
         e.preventDefault();
         axios.post('http://127.0.0.1:8000/auth/token/', {
