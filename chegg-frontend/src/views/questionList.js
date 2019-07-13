@@ -111,7 +111,7 @@ class QuestionList extends Component {
 
                                         {this.state.visible_questions.map(question =>
 
-                                            <Question isProfile={0} asker={'question.asker'} title={question.title}
+                                            <Question isProfile={0} asker={question.asker} title={question.title}
                                                       description={question.body} tags={question.tags_with_names}
                                                       link={''}
                                             />

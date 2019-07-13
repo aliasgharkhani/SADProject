@@ -11,9 +11,13 @@ class TagSerializer(serializers.ModelSerializer):
 class QuestionSerializer(serializers.ModelSerializer):
     creator = serializers.HiddenField(default=serializers.CurrentUserDefault())
     tags_with_names = serializers.SerializerMethodField()
+    asker = serializers.SerializerMethodField()
 
     def get_tags_with_names(self, obj):
         return TagSerializer(obj.tags.all(), many=True).data
+
+    def get_asker(self, obj):
+        return obj.creator.username
 
     class Meta:
         model = Question
