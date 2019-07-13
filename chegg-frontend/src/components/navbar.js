@@ -1,6 +1,6 @@
 import React, {Component} from "react";
 import axios from "axios";
-import {Button, Icon, Menu, Sidebar, Dropdown} from "semantic-ui-react";
+import {Dropdown, Icon, Menu} from "semantic-ui-react";
 
 
 const IconExampleDisabled = () => <Icon name='users'/>;
@@ -10,10 +10,11 @@ const IconExampleDisabled2 = () => <Icon name='users'/>;
 
 class Navbar extends Component {
 
-    constructor(props){
+    constructor(props) {
         super(props)
         this.handleLogout = this.handleLogout.bind(this);
     }
+
     state = {
 
         setName: false,
@@ -40,9 +41,6 @@ class Navbar extends Component {
     };
 
 
-
-
-
     render() {
 
         if (localStorage.getItem('username') !== null && !this.state.setName) {
@@ -51,7 +49,7 @@ class Navbar extends Component {
 
 
         const Login_Logout = () => {
-              if (localStorage.getItem('chegg-token') === null) {
+            if (localStorage.getItem('chegg-token') === null) {
 
                 return (
                     <Menu.Menu position='left'>
@@ -72,14 +70,14 @@ class Navbar extends Component {
         };
         const UserName_or_Icon = () => {
             const options = [
-                {key: 1, text: 'صفحه ی من', value: 1, path:'/profile', onClick:this.handleItemClick},
+                {key: 1, text: 'صفحه ی من', value: 1, path: '/profile', onClick: this.handleItemClick},
                 /*{key: 2, text: 'Choice 2', value: 2},*/
-                {key: 2, text: 'خروج', value: 2,  onClick:this.handleLogout},
+                {key: 2, text: 'خروج', value: 2, onClick: this.handleLogout},
             ];
             if (localStorage.getItem('chegg-token') !== null) {
-                const icons= <div ><Icon name='user'/> {localStorage.getItem('chegg-username')}</div>
+                const icons = <div><Icon name='user'/> {localStorage.getItem('chegg-username')}</div>
                 return (
-                    <Dropdown  text={icons} options={options} simple item/>
+                    <Dropdown text={icons} options={options} simple item/>
 
                 )
             }
@@ -89,6 +87,11 @@ class Navbar extends Component {
         const fixedMenuItems = () => {
             return (
                 <Menu.Menu position={"right"}>
+                    <Menu.Item
+                        name='سوال بپرسید'
+                        path='/questions/submit'
+                        onClick={this.handleItemClick}
+                    />
                     <Menu.Item
                         name='سوالات'
                         path='/questions'
@@ -121,7 +124,6 @@ class Navbar extends Component {
                     {UserName_or_Icon()}
                     {Login_Logout()}
                     {fixedMenuItems()}
-
 
 
                 </Menu>

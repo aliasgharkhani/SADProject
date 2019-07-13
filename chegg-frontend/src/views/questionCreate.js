@@ -158,6 +158,8 @@ class QuestionCreate extends Component {
             //     onSelectedChanged={selectedTags => this.setState({selectedTags})}
             // />
         } else {
+            alert('برای پرسش سوال باید وارد سایت شوید');
+            window.location.replace('http://localhost:3000/signin');
             return (<div></div>)
         }
     }
