@@ -72,14 +72,14 @@ class QuestionList extends Component {
 
         if (this.state.allow) {
             const TagFilter = () => (
-                <Segment style={{maxHeight: '425px', overflow: 'auto'}}>
+                <Segment  style={{maxHeight: '425px', overflow: 'auto', direction: 'ltr'}}>
                     <Form onSubmit={this.handleChange}>
                         {this.state.tags.map(tag =>
-                            <Form.Field>
-                                <Checkbox id={tag.id} label={tag.name}/>
+                            <Form.Field >
+                                <Checkbox  id={tag.id} label={tag.name}/>
                             </Form.Field>
                         )}
-                        <Button fluid={true} floated={'left'} type='submit'>فیلتر</Button>
+                        <Button style={{fontFamily: 'B Yekan'}} fluid={true} floated={'left'} type='submit'>فیلتر</Button>
                     </Form>
                 </Segment>
             );

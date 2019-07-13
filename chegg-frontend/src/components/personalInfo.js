@@ -85,7 +85,8 @@ class PersonalInfo extends Component {
     // }
 
     render() {
-        console.log('jaidid ', this.props.info.first_name)
+        console.log(this.props.info)
+        console.log('jaidid ', this.props.info.email, ' bura')
         return (
             <div>
                 <Modal size={"mini"} onRequestClose={this.onCloseModal.bind(this)} open={this.state.modalActive}>
