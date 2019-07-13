@@ -12,6 +12,7 @@ import './App.css';
 import BookProblem from "./views/bookProblem";
 import UserProfile from "./views/profile";
 import QuestionList from "./views/questionList";
+import QuestionCreate from "./views/questionCreate";
 
 
 function App() {
@@ -26,6 +27,7 @@ function App() {
                 <Route exact path='/books/:id/chapters/:id/problems/:id' component={BookProblem}/>
                 <Route exact path='/profile' component={UserProfile}/>
                 <Route exact path='/questions' component={QuestionList}/>
+                <Route exact path='/questions/submit' component={QuestionCreate}/>
             </Switch>
         </BrowserRouter>
     );

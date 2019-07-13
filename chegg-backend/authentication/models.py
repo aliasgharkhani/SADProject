@@ -35,7 +35,7 @@ class Member(AbstractUser):
         from QA.models import Question
         if self.premium:
             return True
-        return Question.objects.filter(creator=self).count() < 3
+        return Question.objects.filter(creator=self).count() < 200
 
     def get_asked_questions(self):
         from QA.models import Question
