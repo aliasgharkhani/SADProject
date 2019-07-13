@@ -37,7 +37,7 @@ class Navbar extends Component {
         axios.get('http://localhost:8000/auth/logout');
         localStorage.removeItem("chegg-token");
         localStorage.removeItem("chegg-username");
-        window.location.reload();
+        window.location.replace("http://localhost:3000/");
     };
 
 

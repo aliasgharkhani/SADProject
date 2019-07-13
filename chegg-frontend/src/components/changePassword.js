@@ -1,6 +1,6 @@
 import React, {Component} from 'react'
 import {Form, Image, Divider, Grid, Button, Icon, Modal, Header} from 'semantic-ui-react'
-import axios, { put } from "axios";
+import axios, {put} from "axios";
 
 class ChangePassword extends Component {
     constructor(props) {
@@ -11,6 +11,7 @@ class ChangePassword extends Component {
             modalMessage: "",
             equal: true,
             pass: "",
+            lastPassword: '',
         };
         this.handleInput = this.handleInput.bind(this);
         this.handleChange = this.handleChange.bind(this);
@@ -23,6 +24,7 @@ class ChangePassword extends Component {
             memberInfo: null
         });
     }
+
     handleInput(e) {
         if (this.state.pass === e.target.value) {
             this.setState({equal: true})
@@ -33,20 +35,31 @@ class ChangePassword extends Component {
         });
 
     }
-      passSave(event) {
+
+    handleLastPass(e) {
+
+
+        this.setState({
+            [e.target.name]: e.target.value
+        });
+
+    }
+
+    passSave(event) {
         this.setState({pass: event.target.value})
     }
 
     handleChange(e) {
         e.preventDefault()
 
-         var headers = {
+        var headers = {
 
-                    'Authorization': 'TOKEN ' + localStorage.getItem('chegg-token')
-                };
+            'Authorization': 'TOKEN ' + localStorage.getItem('chegg-token')
+        };
         axios.post('http://127.0.0.1:8000/auth/self/edit/', {
 
-            password: this.state.password
+            password: this.state.password,
+            lastPassword: this.state.lastPassword
         }, {headers: headers})
             .then(response => {
 
@@ -68,7 +81,7 @@ class ChangePassword extends Component {
             })
             .catch((error) => {
                 this.setState({
-                    modalMessage:  "رمز عبور باید حداقل ۶ کاراکتر باشد."
+                    modalMessage: "رمز عبور باید حداقل ۶ کاراکتر باشد."
                 })
             })
         this.setState({modalActive: true})
@@ -80,7 +93,7 @@ class ChangePassword extends Component {
         return (
 
             <div>
-                <Modal  size={"mini"} onRequestClose={this.onCloseModal.bind(this)} open={this.state.modalActive}>
+                <Modal size={"mini"} onRequestClose={this.onCloseModal.bind(this)} open={this.state.modalActive}>
                     <Icon name="close" onClick={this.onCloseModal.bind(this)}/>
 
                     <Modal.Content image>
@@ -100,7 +113,6 @@ class ChangePassword extends Component {
                                 onClick={this.onCloseModal.bind(this)}>بستن</Button>
 
 
-
                     </Modal.Actions>
                 </Modal>
 
@@ -111,11 +123,20 @@ class ChangePassword extends Component {
                 <Divider section/>
                 <Form>
                     <Form.Group>
-                        <Form.Input onChange={this.passSave} label='رمز جدید' width={8}/>
-                        <Form.Input  error={!this.state.equal} onChange={this.handleInput} name={'password'}  label='تایید رمز'  width={8}/>
+                        <Form.Input name={'lastPassword'} onChange={this.handleLastPass} required label='رمز قبلی' width={6}/>
                     </Form.Group>
 
-                    <Button style={{fontFamily: "B Yekan"}}  onClick={this.handleChange}  type='submit'>ذخیره</Button>
+                    <Form.Group>
+                        <Form.Input required onChange={this.passSave} label='رمز جدید' width={6}/>
+
+                    </Form.Group>
+
+                    <Form.Group>
+                        <Form.Input required error={!this.state.equal} onChange={this.handleInput} name={'password'}
+                                    label='تایید رمز' width={6}/>
+                    </Form.Group>
+
+                    <Button style={{fontFamily: "B Yekan"}} onClick={this.handleChange} type='submit'>ذخیره</Button>
                 </Form>
             </div>
         )
