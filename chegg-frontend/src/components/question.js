@@ -16,8 +16,24 @@ class Question extends Component {
     state = {
         redirect: false,
         path: '',
-    }
+        asker:null,
+        description:null,
+        tags:[],
+        link:null,
+        title:null,
+        isProfile:null
+    };
 
+    static getDerivedStateFromProps(props, state) {
+        return {
+            asker: props.asker,
+            title: props.title,
+            link: props.link,
+            description: props.description,
+            tags:props.tags,
+            isProfile:props.isProfile
+        };
+    }
 
     routeChange = (e) => {
         this.setState({
@@ -39,13 +55,13 @@ class Question extends Component {
 
         const UserName_or_not = () => {
 
-            if (this.props.isProfile === 0) {
+            if (this.state.isProfile === 0) {
 
                 return (
                     <div>
 
                         نویسنده: &nbsp;&nbsp;
-                        {this.props.asker}
+                        {this.state.asker}
 
                         <br/>
 
@@ -71,13 +87,13 @@ class Question extends Component {
 
                     <Grid.Row style={{  paddingBottom: '0'}} >
 
-                            <div style={{fontSize: '1.5em'}}><a href={this.props.link}> {this.props.title}</a></div>
+                            <div style={{fontSize: '1.5em'}}><a href={this.state.link}> {this.state.title}</a></div>
 
 
 
                     </Grid.Row>
                     <Grid.Row style={{flexGrow: '1'}}>
-                        <div>{this.props.description}</div>
+                        <div>{this.state.description}</div>
                     </Grid.Row>
 
                     <Grid.Row  columns={2} style={{
@@ -86,7 +102,7 @@ class Question extends Component {
                         height: '5vh',
                     }}>
                         <Grid.Column style={{padding: '0px'}} width={12} >
-                         {this.props.tags.map(tag =>
+                         {this.state.tags.map(tag =>
 
                             <Button id={tag.id} primary disabled={true}>{tag.name}</Button>
                         )}

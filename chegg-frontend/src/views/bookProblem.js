@@ -13,7 +13,7 @@ class bookProblem extends Component {
         problemId: ''
     };
 
-    componentWillMount() {
+    componentDidMount() {
         let url = window.location.pathname;
         var headers = {
 
@@ -22,7 +22,6 @@ class bookProblem extends Component {
         if (localStorage.getItem('chegg-token') === null) {
             axios.get('http://localhost:8000/store' + url)
                 .then(res => {
-                    console.log('ali    ', res.data);
                     this.setState({
                         body: res.data.body,
                         answer: res.data.answer
@@ -71,7 +70,7 @@ class bookProblem extends Component {
                                             problemId={this.state.problemId}/>
                             </Grid.Column>
                         </Grid.Row>
-                        <Grid.Row style={{padding: '2em'}}>
+                        <Grid.Row style={{padding: '2em', marginBottom:'15px'}}>
                             <div style={{direction: 'rtl', width: '100%', fontSize: '1.56em'}}>{this.state.body}</div>
                         </Grid.Row>
                         <Grid.Row>

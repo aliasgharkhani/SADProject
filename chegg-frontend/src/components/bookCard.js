@@ -16,8 +16,25 @@ class BookCard extends Component {
     state = {
         redirect: false,
         path: '',
+        purchased: null,
+        title: null,
+        link: null,
+        chaptersPurchased: null,
+        price: null
+
     };
 
+    static getDerivedStateFromProps(props, state) {
+        return {
+            purchased: props.purchased,
+            title: props.title,
+            link: props.link,
+            chaptersPurchased: props.chaptersPurchased,
+            price: props.price,
+            bookCover: props.bookCover
+
+        };
+    }
 
     routeChange = (e) => {
         this.setState({
@@ -37,52 +54,52 @@ class BookCard extends Component {
 
     render() {
         const priceOrPurchased = () => {
-            if (this.props.purchased === 1) {
+            if (this.state.purchased === 1) {
 
                 return (
                     <Grid>
                         <Grid.Row style={{textAlign: 'center'}}>
                             <div style={{margin: 'auto'}}>
-                            {this.props.title}<br/>
-                            این کتاب قبلا خریداری شده است.
+                                {this.state.title}<br/>
+                                این کتاب قبلا خریداری شده است.
                             </div>
 
 
                         </Grid.Row>
 
-                        <Grid.Row   style={{textAlign: 'center'}}>
-                            <a href={this.props.link}  style={{ margin: 'auto'}}>
-                            <div style={{ fontFamily: "B Yekan", backgroundColor:'#baf0ff'}}
-                                 className="ui vertical animated button"
-                                 tabIndex="0">
-                                <div className="hidden content">
-                                    <i className="book icon"></i>
-                                </div>
-                                <div className="visible content">مشاهده ی کتاب</div>
+                        <Grid.Row style={{textAlign: 'center'}}>
+                            <a href={this.state.link} style={{margin: 'auto'}}>
+                                <div style={{fontFamily: "B Yekan", backgroundColor: '#baf0ff'}}
+                                     className="ui vertical animated button"
+                                     tabIndex="0">
+                                    <div className="hidden content">
+                                        <i className="book icon"></i>
+                                    </div>
+                                    <div className="visible content">مشاهده ی کتاب</div>
 
-                            </div>
+                                </div>
                             </a>
                         </Grid.Row>
                     </Grid>
                 )
             } else {
                 return (<Grid>
-                        <Grid.Row  style={{paddingLeft: '0px', textAlign: 'center'}}>
+                        <Grid.Row style={{paddingLeft: '0px', textAlign: 'center'}}>
                             <div style={{margin: 'auto'}}>
-                            {this.props.title}<br/>
-                            تعداد فصل های خریده شده:
-                            {this.props.chaptersPurchased}
+                                {this.state.title}<br/>
+                                تعداد فصل های خریده شده:
+                                {this.state.chaptersPurchased}
                             </div>
 
 
                         </Grid.Row>
-                        <Grid.Row  style={{textAlign: 'center'}}>
-                            <a href={this.props.link} style={{ margin: 'auto'}}>
-                                <div style={{fontFamily: "B Yekan", backgroundColor:'#baf0ff' }}
+                        <Grid.Row style={{textAlign: 'center'}}>
+                            <a href={this.state.link} style={{margin: 'auto'}}>
+                                <div style={{fontFamily: "B Yekan", backgroundColor: '#baf0ff'}}
                                      className="ui animated fade button" tabIndex="0">
                                     <div className="visible content" style={{padding: '0px'}}>مشاهده و خرید کتاب</div>
                                     <div className="hidden content">
-                                        {this.props.price} هزار تومان
+                                        {this.state.price} هزار تومان
                                     </div>
                                 </div>
                             </a>
@@ -98,21 +115,20 @@ class BookCard extends Component {
         return (
 
 
-            <Grid style={{width: '24%' , height: '40vh', margin: '1em 0', fontSize: '1.5em', }} >
+            <Grid style={{width: '24%', height: '40vh', margin: '1em 0', fontSize: '1.5em',}}>
 
                 <Grid.Row>
-                     <img style={{width: "70%", height: "25vh",margin: 'auto'}}
-                         src={this.props.bookCover}/>
+                    <img style={{width: "70%", height: "25vh", margin: 'auto'}}
+                         src={this.state.bookCover}/>
                 </Grid.Row>
 
 
+                <Grid.Row style={{direction: 'rtl', fontSize: '0.7em'}}>
 
-                 <Grid.Row style={{direction:'rtl', fontSize: '0.7em'}}>
+                    {this.renderRedirect()}
 
-                            {this.renderRedirect()}
-
-                            {priceOrPurchased()}
-                 </Grid.Row>
+                    {priceOrPurchased()}
+                </Grid.Row>
             </Grid>
 
         )

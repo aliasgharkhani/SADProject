@@ -52,7 +52,7 @@ class Navbar extends Component {
             if (localStorage.getItem('chegg-token') === null) {
 
                 return (
-                    <Menu.Menu position='left'>
+                    <Menu.Menu   style={{marginRight:'auto'}}>
                         <Menu.Item
                             name='ورود'
                             path='/signin'
@@ -77,7 +77,9 @@ class Navbar extends Component {
             if (localStorage.getItem('chegg-token') !== null) {
                 const icons = <div><Icon name='user'/> {localStorage.getItem('chegg-username')}</div>
                 return (
-                    <Dropdown text={icons} options={options} simple item/>
+                    <Menu.Menu  style={{marginRight:'auto'}}>
+                        <Dropdown text={icons} options={options} simple item/>
+                    </Menu.Menu>
 
                 )
             }
@@ -86,10 +88,17 @@ class Navbar extends Component {
 
         const fixedMenuItems = () => {
             return (
-                <Menu.Menu position={"right"}>
+                <Menu.Menu>
                     <Menu.Item
-                        name='سوال بپرسید'
-                        path='/questions/submit'
+                        name='صفحه ی اصلی'
+                        path='http://localhost:3000/'
+                        onClick={this.handleItemClick}
+                        style={{padding: '20px'}}
+
+                    />
+                    <Menu.Item
+                        name='کتاب ها'
+                        path='/books'
                         onClick={this.handleItemClick}
                     />
                     <Menu.Item
@@ -98,17 +107,11 @@ class Navbar extends Component {
                         onClick={this.handleItemClick}
                     />
                     <Menu.Item
-                        name='کتاب ها'
-                        path='/books'
+                        name='سوال بپرسید'
+                        path='/questions/submit'
                         onClick={this.handleItemClick}
                     />
-                    <Menu.Item
-                        name='صفحه ی اصلی'
-                        path='http://localhost:3000/'
-                        onClick={this.handleItemClick}
-                        style={{padding: '20px'}}
 
-                    />
 
                 </Menu.Menu>
             )
@@ -121,9 +124,8 @@ class Navbar extends Component {
 
                 <Menu inverted className='borderless'
                       style={{height: '100%', fontFamily: 'B Yekan', padding: "0em 1.5em"}}>
-                    {UserName_or_Icon()}
-                    {Login_Logout()}
                     {fixedMenuItems()}
+                    {UserName_or_Icon()}
 
 
                 </Menu>
@@ -137,8 +139,8 @@ class Navbar extends Component {
                       style={{height: '100%', fontFamily: 'B Yekan', padding: "0em 1.5em"}}>
 
 
-                    {Login_Logout()}
                     {fixedMenuItems()}
+                    {Login_Logout()}
 
 
                 </Menu>

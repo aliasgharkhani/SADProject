@@ -4,7 +4,24 @@ import BookCard from '../components/bookCard'
 
 
 class PurchasedBooks extends Component {
-        render() {
+    constructor(props){
+        super(props);
+        this.state = {
+            bought_books:[],
+            prefix:'',
+            numOfChapters:[]
+        }
+    }
+    static getDerivedStateFromProps(props, state) {
+        return {
+            bought_books: props.bought_books,
+            prefix:props.prefix,
+            numOfChapters:props.numOfChapters,
+
+        };
+    }
+
+    render() {
 
 
         return (
@@ -26,12 +43,12 @@ class PurchasedBooks extends Component {
 
 
                     }}>
-                        {this.props.bought_books.map(book =>
+                        {this.state.bought_books.map(book =>
 
-                            <BookCard  bookCover={this.props.prefix + book.cover} title={book.title}
+                            <BookCard  bookCover={this.state.prefix + book.cover} title={book.title}
                                       author={book.author}
                                       description={book.description} purchased={1}
-                                      chaptersPurchased={this.props.numOfChapters[book.id - 1]} price={book.price}
+                                      chaptersPurchased={this.state.numOfChapters[book.id - 1]} price={book.price}
                                       link={'http://localhost:3000/books/' + book.id}/>
                         )}
                     </Grid>

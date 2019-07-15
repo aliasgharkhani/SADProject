@@ -5,9 +5,33 @@ import BookCard from "./bookCard";
 
 
 class AskedQuestions extends Component {
-    render() {
-        console.log('askedquestion');
+    constructor(props) {
+        super(props);
+        this.state = {
+            question: [],
+            asker:null,
+        }
+    }
 
+    static getDerivedStateFromProps(props, state) {
+        return {
+            question: props.question,
+            asker:props.asker,
+        };
+    }
+
+
+    // componentWillReceiveProps(nextProps, nextContext) {
+    //     console.log('oomadam', nextProps.question)
+    //     this.setState({
+    //         question: nextProps.question,
+    //         asker : nextProps.asker
+    //     })
+    // }
+
+
+    render() {
+        console.log('inja oomadam')
         return (
             <Segment
                 style={{
@@ -15,7 +39,6 @@ class AskedQuestions extends Component {
                     margin: 'auto',
                     maxHeight: '425px',
                     overflow: 'auto',
-
 
 
                 }}>
@@ -26,13 +49,12 @@ class AskedQuestions extends Component {
                     flexWrap: 'wrap',
                     direction: 'rtl'
                 }}>
+                    {this.state.question.map(question =>
 
-                    {this.props.question.map(question =>
-
-                            <Question isProfile={this.props.isProfile} asker={this.props.asker} title={question.title} description={question.body} tags={question.tags_with_names}
-                                      link={''}
-                            />
-
+                        <Question isProfile={this.props.isProfile} asker={this.state.asker} title={question.title}
+                                  description={question.body} tags={question.tags_with_names}
+                                  link={''}
+                        />
                     )}
 
                     {/*<Segment color={'teal'}><a href={question.link}> {question.title}</a></Segment>*/}

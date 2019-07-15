@@ -1,7 +1,7 @@
 import React, {Component} from "react";
 import axios from "axios";
 import Template from "../components/template";
-import {Grid, Loader, Dimmer, Segment, Button} from "semantic-ui-react";
+import {Grid, Loader, Dimmer} from "semantic-ui-react";
 import BookCard from "../components/bookCard";
 import AskedQuestions from "../components/askedQuestions";
 import PurchasedBooks from "../components/purchasedBooks";
@@ -31,7 +31,8 @@ const menuItems = [
 ];
 
 
-class Profile extends Component {
+
+class UserPage extends Component {
 
 
     state = {
@@ -42,7 +43,7 @@ class Profile extends Component {
         username: '',
         userInfo: {},
         allow: false,
-        askedQuestions: []
+        askedQuestions:''
     };
 
     handleItemClick = (e, {name}) => this.setState({activeItem: name});
@@ -53,40 +54,38 @@ class Profile extends Component {
                 <PersonalInfo info={this.state.userInfo}/>
             )
         } else if (this.state.activeItem === 'کتاب‌های خریداری شده') {
-            if (this.state.bought_books.length === 0) {
-                return (
-                    <Button><a href={'/books'}>مشاهد‌ه‌ی لیست کتاب ها</a></Button>
-                )
-            } else {
-                return (
-                    <PurchasedBooks prefix={'http://localhost:8000'} bought_books={this.state.bought_books}
-                                    numOfChapters={this.state.numOfChapters}/>
-                )
-            }
+            return (
+                <PurchasedBooks prefix={'http://localhost:8000'} bought_books={this.state.bought_books}
+                                numOfChapters={this.state.numOfChapters}/>
+            )
         } else if (this.state.activeItem === 'سوالات پرسیده شده') {
-            if (this.state.askedQuestions.length === 0) {
-                return (
-                    <Button><a href={'/questions/submit'}>ایجاد سوال</a></Button>
-                )
-            } else {
-                return (
-                    <AskedQuestions isProfile={1} asker={this.state.username} question={this.state.askedQuestions}/>
-                )
-            }
+            return (
+                <AskedQuestions isProfile={1} asker={this.state.username} question={this.state.askedQuestions}/>
+            )
         } else if (this.state.activeItem === 'تغییر گذرواژه') {
             return (
                 <ChangePassword/>
             )
         }
 
-    };
+    }
 
-    componentDidMount() {
+    componentDidMount(){
         document.title = "پروفایل";
+    }
+
+    componentWillMount() {
         console.log(localStorage.getItem('chegg-token'));
+        this.setState({username: localStorage.getItem('chegg-username')})
         axios.get(`http://localhost:8000/store/books`)
             .then(res => {
-                let numOfChapters = new Array(res.data.length).fill(0);
+                this.setState({
+                    books: res.data,
+                    numOfChapters: new Array(res.data.length).fill(0),
+
+                });
+
+
                 var headers = {
 
                     'Authorization': 'TOKEN ' + localStorage.getItem('chegg-token')
@@ -94,27 +93,34 @@ class Profile extends Component {
                 axios.get(`http://localhost:8000/auth/self/`, {headers: headers})
                     .then(res => {
 
+
+                        let numOfChapters = new Array(this.state.books.length).fill(0);
+
                         for (var i = 0; i < res.data.bought_chapters.length; i++) {
 
                             numOfChapters[res.data.bought_chapters[i].book - 1] += 1;
 
                         }
-                        console.log('data', res.data.asked_questions)
                         this.setState(
                             {
                                 numOfChapters: numOfChapters,
                                 bought_books: res.data.bought_books,
                                 userInfo: res.data.user_info,
-                                askedQuestions: res.data.asked_questions,
-                                books: res.data,
-                                username: localStorage.getItem('chegg-username')
+                                askedQuestions:res.data.asked_questions
+
                             }
                         );
                         var that = this;
+                        setTimeout(function () {
+                            that.setState({
+                                allow: true,
+                            })
+                        }, 600)
                     }).catch((error) => {
                     console.log(error)
                 })
             });
+
 
     }
 
@@ -130,18 +136,14 @@ class Profile extends Component {
                 </div>
             )
         }
-        // if (!this.state.allow) {
-        //     return (
-        //
-        //         <Dimmer active>
-        //             <Loader size='massive' style={{textAlign: 'center', fontFamily: 'B Yekan'}}>
-        //                 در حال بارگذاری
-        //             </Loader>
-        //
-        //         </Dimmer>
-        //     )
-        // }
-        else {
+        if (!this.state.allow) {
+            return (
+                <Dimmer active>
+                    <Loader style={{textAlign: 'center', fontFamily: 'B Yekan', fontSize: '2em'}}>در
+                        حال بارگذاری</Loader>
+                </Dimmer>
+            )
+        } else {
             return (
 
                 <Template {...this.props}>
@@ -168,4 +170,4 @@ class Profile extends Component {
 
 }
 
-export default Profile;
+export default UserPage;

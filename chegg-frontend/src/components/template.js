@@ -24,7 +24,7 @@ constructor(props){
    console.log(a)
         return (
             <Grid  style={templateStyle }>
-                <Grid.Row style={{maxHeight : '10%', paddingBottom:'0px'}}>
+                <Grid.Row style={{maxHeight : '10%', paddingBottom:'0px', direction:'rtl'}}>
                     <Grid.Column>
                         <Navbar{...this.props}/>
                     </Grid.Column>

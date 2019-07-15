@@ -8,7 +8,11 @@ class PersonalInfo extends Component {
         this.state = {
             modalActive: false,
             modalMessage: "",
-            info:'',
+            bio: "salam",
+            first_name: null,
+            last_name: null,
+            username: null,
+            email: null,
         };
         this.handleChange = this.handleChange.bind(this);
     }
@@ -19,6 +23,7 @@ class PersonalInfo extends Component {
             memberInfo: null
         });
     }
+
     handleInput(e) {
 
         this.setState({
@@ -30,8 +35,6 @@ class PersonalInfo extends Component {
     handleChange(e) {
         e.preventDefault();
         const formFields = e.target;
-        console.log('salam  ', formFields[1].value === '')
-
         var headers = {
 
             'Authorization': 'TOKEN ' + localStorage.getItem('chegg-token')
@@ -39,19 +42,19 @@ class PersonalInfo extends Component {
         var bio = formFields[0].placeholder;
         var firstName = formFields[1].placeholder;
         var lastName = formFields[2].placeholder;
-        if(formFields[0].value !== ''){
+        if (formFields[0].value !== '') {
             bio = formFields[0].value
         }
-        if(formFields[1].value !== ''){
+        if (formFields[1].value !== '') {
             firstName = formFields[1].value
         }
-        if(formFields[2].value !== ''){
+        if (formFields[2].value !== '') {
             lastName = formFields[2].value
         }
         axios.post('http://127.0.0.1:8000/auth/self/edit/', {
             bio: bio,
             first_name: firstName,
-            last_name:lastName,
+            last_name: lastName,
         }, {headers: headers})
             .then(response => {
 
@@ -78,15 +81,23 @@ class PersonalInfo extends Component {
             });
         this.setState({modalActive: true})
     }
-    // componentWillMount(){
-    //     this.setState({
-    //         info:this.props.info.first_name
-    //     })
-    // }
+
+    static getDerivedStateFromProps(props, state) {
+        return {
+            bio: props.info.bio,
+            first_name: props.info.first_name,
+            last_name: props.info.last_name,
+            username: props.info.username,
+            email: props.info.email,
+        };
+    }
+
+    //
+    // // componentDidMount(){
+    // //
+    // // }
 
     render() {
-        console.log(this.props.info)
-        console.log('jaidid ', this.props.info.email, ' bura')
         return (
             <div>
                 <Modal size={"mini"} onRequestClose={this.onCloseModal.bind(this)} open={this.state.modalActive}>
@@ -95,7 +106,7 @@ class PersonalInfo extends Component {
                     <Modal.Content image>
 
                         <Modal.Description
-                            style={{flexGrow: '1', direction: 'rtl',textAlign: 'right', fontFamily:'B Yekan'}}>
+                            style={{flexGrow: '1', direction: 'rtl', textAlign: 'right', fontFamily: 'B Yekan'}}>
 
                             <p>
                                 {this.state.modalMessage}
@@ -109,7 +120,6 @@ class PersonalInfo extends Component {
                                 onClick={this.onCloseModal.bind(this)}>بستن</Button>
 
 
-
                     </Modal.Actions>
                 </Modal>
                 <div style={{fontWeight: 'bold', fontSize: '1.5em'}}>
@@ -119,20 +129,38 @@ class PersonalInfo extends Component {
                 <Divider section/>
                 <Form onSubmit={this.handleChange}>
                     <Form.Group>
-                        <Form.TextArea label='درباره من' style={{fontFamily:'B Yekan'}} defaultValue={this.props.info.bio} width={16}/>
+                        <Form.TextArea label='درباره من' style={{fontFamily: 'B Yekan'}}
+                                       onChange={e => this.setState({bio: e.target.value})}
+                                       value={this.state.bio}
+                                       width={16}/>
                     </Form.Group>
                     <Form.Group>
-                        <Form.TextArea style={{resize: 'none', height:'39px', overflow:'hidden', fontFamily:'B Yekan'}} label='نام' defaultValue={this.props.info.first_name} width={8}/>
-                        <Form.TextArea style={{resize: 'none', height:'39px', overflow:'hidden', fontFamily:'B Yekan'}} label='نام خانوادگی' defaultValue={this.props.info.last_name} width={8}/>
+                        <Form.Input style={{fontFamily: 'B Yekan'}} label='نام'
+                                    defaultValue={this.state.first_name} width={8}/>
+                        <Form.Input style={{fontFamily: 'B Yekan'}} label='نام خانوادگی'
+                                    defaultValue={this.state.last_name} width={8}/>
                     </Form.Group>
                     <Form.Group>
                         <Form.Field width={8}>
                             <label>نام کاربری</label>
-                            <Segment style={{fontFamily:'Arial',height:'37.6px', 'display': 'flex', 'justifyContent': 'center', 'flexDirection': 'column'}}>{this.props.info.username}</Segment>
+                            <Segment style={{
+                                fontFamily: 'Arial',
+                                height: '37.6px',
+                                'display': 'flex',
+                                'justifyContent': 'center',
+                                'flexDirection': 'column'
+                            }}>{this.state.username}</Segment>
                         </Form.Field>
                         <Form.Field width={8}>
                             <label>رایانامه</label>
-                            <Segment style={{fontFamily:'Arial', textAlign:'left', height:'37.6px', 'display': 'flex', 'justifyContent': 'center', 'flexDirection': 'column'}}>{this.props.info.email}</Segment>
+                            <Segment style={{
+                                fontFamily: 'Arial',
+                                textAlign: 'left',
+                                height: '37.6px',
+                                'display': 'flex',
+                                'justifyContent': 'center',
+                                'flexDirection': 'column'
+                            }}>{this.state.email}</Segment>
                         </Form.Field>
                     </Form.Group>
                     <Button type='submit' style={{'fontFamily': 'B Yekan'}}>ذخیره</Button>
