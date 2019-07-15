@@ -8,7 +8,7 @@ class PersonalInfo extends Component {
         this.state = {
             modalActive: false,
             modalMessage: "",
-            bio: "salam",
+            bio: null,
             first_name: null,
             last_name: null,
             username: null,
@@ -82,15 +82,24 @@ class PersonalInfo extends Component {
         this.setState({modalActive: true})
     }
 
-    static getDerivedStateFromProps(props, state) {
-        return {
-            bio: props.info.bio,
-            first_name: props.info.first_name,
-            last_name: props.info.last_name,
-            username: props.info.username,
-            email: props.info.email,
-        };
+    componentDidUpdate(prevProps, prevState) {
+        if (this.props !== prevProps) {
+            this.setState({
+                bio: this.props.info.bio,
+                first_name: this.props.info.first_name,
+                last_name: this.props.info.last_name,
+                username: this.props.info.username,
+                email: this.props.info.email,
+            })
+        }
     }
+
+    // static getDerivedStateFromProps(props, state) {
+    //     console.log('getdrive ali ');
+    //     return {
+    //
+    //     };
+    // }
 
     //
     // // componentDidMount(){
@@ -132,6 +141,9 @@ class PersonalInfo extends Component {
                         <Form.TextArea label='درباره من' style={{fontFamily: 'B Yekan'}}
                                        onChange={e => this.setState({bio: e.target.value})}
                                        value={this.state.bio}
+                                       ref={node => {
+                                           this.textarea = node;
+                                       }}
                                        width={16}/>
                     </Form.Group>
                     <Form.Group>
