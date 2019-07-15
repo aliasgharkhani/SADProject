@@ -55,7 +55,7 @@ class Profile extends Component {
         } else if (this.state.activeItem === 'کتاب‌های خریداری شده') {
             if (this.state.bought_books.length === 0) {
                 return (
-                    <Button><a href={'/books'}>مشاهد‌ه‌ی لیست کتاب ها</a></Button>
+                    <a href={'/books'}><Button>مشاهد‌ه‌ی لیست کتاب ها</Button></a>
                 )
             } else {
                 return (
@@ -66,7 +66,7 @@ class Profile extends Component {
         } else if (this.state.activeItem === 'سوالات پرسیده شده') {
             if (this.state.askedQuestions.length === 0) {
                 return (
-                    <Button><a href={'/questions/submit'}>ایجاد سوال</a></Button>
+                    <a href={'/questions/submit'}><Button>ایجاد سوال</Button></a>
                 )
             } else {
                 return (
