@@ -4,12 +4,8 @@ import {Grid} from "semantic-ui-react";
 import './hoverRight.css';
 import BackgroundImageOnLoad from 'background-image-on-load';
 import Slider from "react-slick";
-import Multiple from 'multiple.js';
 
-var multiple = new Multiple({
-  selector: '.istem',
-  background: 'linear-gradient(#273463, #8B4256)'
-});
+
 
 const Slideshow = require('react-slidez');
 
