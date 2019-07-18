@@ -83,8 +83,8 @@ class QuestionList extends Component {
 
         return (
             <Template {...this.props}>
-                <Grid style={{margin: 'auto', direction: 'rtl', width: '70%', height: '80%'}}>
-                    <Grid.Row columns={2}>
+                <Grid style={{margin: 'auto', direction: 'rtl', width: '70%', height: '90%'}}>
+                    <Grid.Row columns={2} style={{padding:'0'}}>
                         <Grid.Column width={3}>
                             {TagFilter()}
                         </Grid.Column>

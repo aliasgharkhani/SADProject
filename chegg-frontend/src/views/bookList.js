@@ -83,15 +83,15 @@ class BookList extends Component {
                             {
                                 numOfChapters: numOfChapters,
                                 bought_books: res.data.bought_books,
-                                books:books,
+                                books: books,
                             }
                         )
                     }).catch((error) => {
-                        this.setState(
-                            {
-                                books:books,
-                            }
-                        );
+                    this.setState(
+                        {
+                            books: books,
+                        }
+                    );
                     console.log(error)
                 })
             });
@@ -125,12 +125,12 @@ class BookList extends Component {
                     color='grey'
                     style={{
                         width: ' 70%',
-                       backgroundImage: 'url("https://visme.co/blog/wp-content/uploads/2017/07/50-Beautiful-and-Minimalist-Presentation-Backgrounds-037.jpg")',
-                       // backgroundColor:'#1c1c1c',
+                        backgroundImage: 'url("https://visme.co/blog/wp-content/uploads/2017/07/50-Beautiful-and-Minimalist-Presentation-Backgrounds-037.jpg")',
+                        // backgroundColor:'#1c1c1c',
                         margin: 'auto',
-                        maxHeight: '76vh',
-                        overflow: 'auto',
 
+                        maxHeight: '90%',
+                        overflow: 'auto',
 
 
                     }}>
@@ -146,7 +146,7 @@ class BookList extends Component {
                     }}>
                         {this.state.books.map(book =>
 
-                            <BookCard  bookCover={book.cover} title={book.title}
+                            <BookCard bookCover={book.cover} title={book.title}
                                       author={book.author}
                                       description={book.description} purchased={hasBoughtBook(book)}
                                       chaptersPurchased={this.state.numOfChapters[book.id - 1]} price={book.price}

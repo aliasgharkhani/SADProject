@@ -82,7 +82,6 @@ class QuestionCreate extends Component {
     render() {
         let token = localStorage.getItem('chegg-token');
         if (this.state.allow && token !== null && token !== undefined) {
-            console.log(this.state.selectedTags, "nidfdf")
             return (
                 <Template {...this.props}>
                     <Modal size={"mini"} onRequestClose={this.onCloseModal.bind(this)} open={this.state.modalActive}>
@@ -105,7 +104,7 @@ class QuestionCreate extends Component {
                                     onClick={this.onCloseModal.bind(this)}>بستن</Button>
                         </Modal.Actions>
                     </Modal>
-                    <Container>
+                    <Container  style={{height:'90%'}}>
                         <Segment>
                             <Form onSubmit={this.handleSubmit} style={{'direction': 'rtl'}}>
                                 <Form.Group>
