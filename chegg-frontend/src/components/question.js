@@ -61,7 +61,7 @@ class Question extends Component {
                     <div>
 
                         نویسنده: &nbsp;&nbsp;
-                        {this.state.asker}
+                        <a href={this.state.link}>{this.state.asker}</a>
 
                         <br/>
 

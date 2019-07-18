@@ -109,7 +109,7 @@ class QuestionList extends Component {
 
                                         <Question isProfile={0} asker={question.asker} title={question.title}
                                                   description={question.body} tags={question.tags_with_names}
-                                                  link={''}
+                                                  link={'http://localhost:3000/profile/'+ question.asker }
                                         />
                                     )}
                                 </Grid>

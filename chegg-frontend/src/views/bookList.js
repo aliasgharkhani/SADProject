@@ -3,7 +3,7 @@ import {Grid, Menu, Segment} from 'semantic-ui-react'
 import BookCard from '../components/bookCard'
 import Template from '../components/template';
 import axios from "axios";
-
+import Ad from "../components/ad"
 
 const books1 = [{
     'title': 'قلعه ی حیوانات',
@@ -120,41 +120,56 @@ class BookList extends Component {
 
         return (
 
-            <Template {...this.props}>
-                <Segment
-                    color='grey'
-                    style={{
-                        width: ' 70%',
-                        backgroundImage: 'url("https://visme.co/blog/wp-content/uploads/2017/07/50-Beautiful-and-Minimalist-Presentation-Backgrounds-037.jpg")',
-                        // backgroundColor:'#1c1c1c',
-                        margin: 'auto',
+            <Template   {...this.props}>
 
-                        maxHeight: '90%',
-                        overflow: 'auto',
+                <Grid style={{height: '90%'}}>
+
+                        <Grid.Column width={3} style={{height: '100%', padding:'0px', margin:'auto'}}>
+                            <Ad/>
+
+                        </Grid.Column>
+                        <Grid.Column width={10} style={{height: '100%', padding:'0px', margin:'auto'}}>
+                            <Segment
+
+                                color='grey'
+                                style={{
+
+                                    backgroundImage: 'url("https://visme.co/blog/wp-content/uploads/2017/07/50-Beautiful-and-Minimalist-Presentation-Backgrounds-037.jpg")',
+                                    // backgroundColor:'#1c1c1c',
+                                    margin: 'auto',
+                                    overflow: 'auto',
+                                    maxHeight:'100%'
+
+                                }}>
+                                <Grid style={{
+
+                                    display: 'flex',
+                                    flexDirection: 'row',
+                                    justifyContent: 'space-evenly',
+                                    flexWrap: 'wrap',
+                                    margin: 'auto',
 
 
-                    }}>
-                    <Grid style={{
+                                }}>
+                                    {this.state.books.map(book =>
 
-                        display: 'flex',
-                        flexDirection: 'row',
-                        justifyContent: 'space-evenly',
-                        flexWrap: 'wrap',
-                        margin: 'auto',
+                                        <BookCard bookCover={book.cover} title={book.title}
+                                                  author={book.author}
+                                                  description={book.description} purchased={hasBoughtBook(book)}
+                                                  chaptersPurchased={this.state.numOfChapters[book.id - 1]}
+                                                  price={book.price}
+                                                  link={'http://localhost:3000/books/' + book.id}/>
+                                    )}
+                                </Grid>
 
+                            </Segment>
+                        </Grid.Column>
+                        <Grid.Column width={3} style={{height: '100%', padding:'0px', margin:'auto'}}>
+                            <Ad/>
 
-                    }}>
-                        {this.state.books.map(book =>
+                        </Grid.Column>
 
-                            <BookCard bookCover={book.cover} title={book.title}
-                                      author={book.author}
-                                      description={book.description} purchased={hasBoughtBook(book)}
-                                      chaptersPurchased={this.state.numOfChapters[book.id - 1]} price={book.price}
-                                      link={'http://localhost:3000/books/' + book.id}/>
-                        )}
-                    </Grid>
-
-                </Segment>
+                </Grid>
 
             </Template>
 
