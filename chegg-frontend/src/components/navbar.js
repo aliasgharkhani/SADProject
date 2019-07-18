@@ -79,8 +79,8 @@ class Navbar extends Component {
             if (localStorage.getItem('chegg-token') !== null) {
                 const icons = <div><Icon name='user'/> {localStorage.getItem('chegg-username')}</div>
                 return (
-                    <Menu.Menu  style={{marginRight:'auto'}}>
-                        <Dropdown text={icons} options={options} simple item/>
+                    <Menu.Menu  style={{marginRight:'auto', padding:'0'}}>
+                        <Dropdown style={{margin:'0'}} text={icons} options={options} item/>
                     </Menu.Menu>
 
                 )

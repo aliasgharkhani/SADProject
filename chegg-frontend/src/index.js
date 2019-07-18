@@ -6,8 +6,15 @@ import * as serviceWorker from './serviceWorker';
 
 
 
+ReactDOM.render(<App/>, document.getElementById('root'));
 
-ReactDOM.render(<App />, document.getElementById('root'));
+if (document.getElementsByClassName('slick-prev')[0] !== undefined) {
+    document.getElementsByClassName('slick-prev')[0].style.left = '20px';
+    document.getElementsByClassName('slick-prev')[0].style.zIndex = '20';
+    document.getElementsByClassName('slick-next')[0].style.right = '20px';
+    document.getElementsByClassName('slick-next')[0].style.zIndex = '20';
+}
+
 
 // If you want your app to work offline and load faster, you can change
 // unregister() to register() below. Note this comes with some pitfalls.

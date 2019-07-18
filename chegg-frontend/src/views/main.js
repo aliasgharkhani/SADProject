@@ -4,6 +4,12 @@ import {Grid} from "semantic-ui-react";
 import './hoverRight.css';
 import BackgroundImageOnLoad from 'background-image-on-load';
 import Slider from "react-slick";
+import Multiple from 'multiple.js';
+
+var multiple = new Multiple({
+  selector: '.istem',
+  background: 'linear-gradient(#273463, #8B4256)'
+});
 
 const Slideshow = require('react-slidez');
 
@@ -34,7 +40,7 @@ class Main extends Component {
             slidesToShow: 1,
             slidesToScroll: 1,
             rtl:false,
-            accessibility:false,
+            accessibility:true,
             arrows:true,
         };
         return (
@@ -47,7 +53,6 @@ class Main extends Component {
                         })}
                     onError={err => console.log('error', err)}
                 />
-
 
                 <Slider {...settings}>
                     <Grid style={{width: ' 70%', margin: 'auto', display: this.state.loaded}}>
@@ -70,6 +75,7 @@ class Main extends Component {
                                 fontSize: "2em",
                                 lineHeight: '1.3em'
                             }}>
+
                                 دیگر نگران تمرین های سختتان نباشید!! راه حل سوالات و پاسخ نامه ی کتاب
                                 ها در در چگ پیدا کنید.
                                 <br/>
@@ -124,5 +130,7 @@ class Main extends Component {
         )
     }
 }
+
+// console.log(document.getElementsByClassName('slick-slider'));
 
 export default Main;
