@@ -24,19 +24,18 @@ constructor(props){
    console.log(a)
         return (
             <Grid  style={templateStyle }>
-                <Grid.Row style={{maxHeight : '10%', paddingBottom:'0px', direction:'rtl'}}>
+                <Grid.Row style={{height : '7%', paddingBottom:'0px', direction:'rtl'}}>
                     <Grid.Column>
                         <Navbar{...this.props}/>
                     </Grid.Column>
                 </Grid.Row>
 
-                <Grid.Row style={{minHeight:'78vh' , padding:'10px'}} >
-                    <Grid.Column >
-
+                <Grid.Row style={{height:'83%' , padding:'0'}} >
+                    <Grid.Column style={{padding:'0', display: 'flex', flexDirection: 'column', justifyContent: 'center',height:'100%'}}>
                         {this.props.children}
                     </Grid.Column>
                 </Grid.Row>
-                <Grid.Row style={{maxHeight : '15%', padding:'0px'}}>
+                <Grid.Row style={{height : '10%', padding:'0px'}}>
                     <Grid.Column>
                         <Footer/>
                     </Grid.Column>

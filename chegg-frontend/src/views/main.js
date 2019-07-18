@@ -3,7 +3,9 @@ import Template from '../components/template';
 import {Grid} from "semantic-ui-react";
 import './hoverRight.css';
 import BackgroundImageOnLoad from 'background-image-on-load';
+import Slider from "react-slick";
 
+const Slideshow = require('react-slidez');
 
 class Main extends Component {
 
@@ -18,11 +20,23 @@ class Main extends Component {
         loaded: 'none'
     };
 
-    componentDidMount(){
+    componentDidMount() {
         document.title = "chegg";
     }
 
     render() {
+
+        var settings = {
+            adaptiveHeight: true,
+            autoplay:true,
+            infinite: true,
+            speed: 2000,
+            slidesToShow: 1,
+            slidesToScroll: 1,
+            rtl:false,
+            accessibility:false,
+            arrows:true,
+        };
         return (
             <Template>
                 <BackgroundImageOnLoad
@@ -35,35 +49,78 @@ class Main extends Component {
                 />
 
 
-                <Grid style={{width: ' 70%', margin: 'auto', height:'80vh', display: this.state.loaded}}>
-                    <Grid.Row style={{
-                        minHeight: ' 50vh',
-                        // margin: 'auto',
-                        direction: 'rtl',
-                        backgroundImage: "url('https://wallimpex.com/data/out/774/old-book-wallpaper-11223624.jpg')",
-                        backgroundSize: "cover"
-                    }}>
-                        <Grid.Column width={6} style={{
-                            margin: 'auto 0',
-                            padding: 20,
-                            color: '#e2ccba',
-                            fontSize: "2em",
-                            lineHeight: '1.3em'
+                <Slider {...settings}>
+                    <Grid style={{width: ' 70%', margin: 'auto', display: this.state.loaded}}>
+
+
+                        <Grid.Row style={{
+                            // minHeight: ' 50vh',
+                            // margin: 'auto',
+                            height: '86.3vh',
+                            direction: 'rtl',
+                            backgroundImage: "url('https://wallimpex.com/data/out/774/old-book-wallpaper-11223624.jpg')",
+                            backgroundSize: "cover"
                         }}>
-                            دیگر نگران تمرین های سختتان نباشید!! راه حل سوالات و پاسخ نامه ی کتاب
-                            ها در در چگ پیدا کنید.
-                            <br/>
-                            <br/>
-
-                            <a href={'books'} className='myHover'
-                               style={{fontSize: '1.5em',}}> پاسخ نامه ی کتاب
-                                ها</a>
-                        </Grid.Column>
-                    </Grid.Row>
-                </Grid>
 
 
+                            <Grid.Column width={6} style={{
+                                margin: 'auto 0',
+                                padding: 20,
+                                color: '#e2ccba',
+                                fontSize: "2em",
+                                lineHeight: '1.3em'
+                            }}>
+                                دیگر نگران تمرین های سختتان نباشید!! راه حل سوالات و پاسخ نامه ی کتاب
+                                ها در در چگ پیدا کنید.
+                                <br/>
+                                <br/>
+
+                                <a href={'books'} className='myHover'
+                                   style={{fontSize: '1.5em',}}> پاسخ نامه ی کتاب
+                                    ها</a>
+                            </Grid.Column>
+
+                        </Grid.Row>
+
+
+                    </Grid>
+                    <Grid style={{width: ' 70%', margin: 'auto', display: this.state.loaded}}>
+
+
+                        <Grid.Row style={{
+                            // minHeight: ' 50vh',
+                            // margin: 'auto',
+                            height: '86.3vh',
+                            direction: 'rtl',
+                            backgroundImage: "url('https://www.loginradius.com/blog/wp-content/uploads/2019/01/ask-blackboard-356079.jpg')",
+                            backgroundSize: "cover"
+                        }}>
+
+
+                            <Grid.Column width={6} style={{
+                                margin: 'auto 0',
+                                padding: 20,
+                                color: '#e2ccba',
+                                fontSize: "2em",
+                                lineHeight: '1.3em'
+                            }}>
+                                دیگر نگران تمرین های سختتان نباشید!! راه حل سوالات و پاسخ نامه ی کتاب
+                                ها در در چگ پیدا کنید.
+                                <br/>
+                                <br/>
+
+                                <a href={'books'} className='myHover'
+                                   style={{fontSize: '1.5em',}}> پاسخ نامه ی کتاب
+                                    ها</a>
+                            </Grid.Column>
+
+                        </Grid.Row>
+
+
+                    </Grid>
+                </Slider>
             </Template>
+
         )
     }
 }
