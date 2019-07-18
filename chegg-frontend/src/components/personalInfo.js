@@ -83,6 +83,7 @@ class PersonalInfo extends Component {
     }
 
     componentDidUpdate(prevProps, prevState) {
+        console.log(this.state, 'this. state in presonal info')
         if (this.props !== prevProps) {
             this.setState({
                 bio: this.props.info.bio,
@@ -93,7 +94,6 @@ class PersonalInfo extends Component {
             })
         }
     }
-
     // static getDerivedStateFromProps(props, state) {
     //     console.log('getdrive ali ');
     //     return {
@@ -138,16 +138,17 @@ class PersonalInfo extends Component {
                 <Divider section/>
                 <Form onSubmit={this.handleChange}>
                     <Form.Group>
-                        <Form.TextArea label='درباره من' style={{fontFamily: 'B Yekan'}}
+                        <Form.TextArea  label='درباره من' style={{fontFamily: 'B Yekan'}}
                                        onChange={e => this.setState({bio: e.target.value})}
                                        value={this.state.bio}
                                        ref={node => {
                                            this.textarea = node;
                                        }}
                                        width={16}/>
+
                     </Form.Group>
                     <Form.Group>
-                        <Form.Input style={{fontFamily: 'B Yekan'}} label='نام'
+                        <Form.Input  style={{fontFamily: 'B Yekan'}} label='نام'
                                     defaultValue={this.state.first_name} width={8}/>
                         <Form.Input style={{fontFamily: 'B Yekan'}} label='نام خانوادگی'
                                     defaultValue={this.state.last_name} width={8}/>

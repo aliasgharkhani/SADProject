@@ -69,8 +69,10 @@ class Navbar extends Component {
             }
         };
         const UserName_or_Icon = () => {
+            var username = 5;
+
             const options = [
-                {key: 1, text: 'صفحه ی من', value: 1, path: '/profile', onClick: this.handleItemClick},
+                {key: 1, text: 'صفحه ی من', value: 1, path: '/profile/' + localStorage.getItem('chegg-username'), onClick: this.handleItemClick},
                 /*{key: 2, text: 'Choice 2', value: 2},*/
                 {key: 2, text: 'خروج', value: 2, onClick: this.handleLogout},
             ];

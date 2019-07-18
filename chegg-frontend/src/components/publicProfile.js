@@ -8,6 +8,7 @@ import PurchasedBooks from "../components/purchasedBooks";
 import SidebarMenu from '../components/sidebarMenu'
 import PersonalInfo from '../components/personalInfo'
 import ChangePassword from '../components/changePassword'
+import UpgradeUserLevel from '../components/upgradeUserLevel';
 
 
 const menuItems = [
@@ -15,19 +16,19 @@ const menuItems = [
         'name': 'مشخصات کاربری',
         'iconName': 'user',
     },
-    {
-        'name': 'تغییر گذرواژه',
-        'iconName': 'lock',
-    },
-    {
-        'name': 'کتاب‌های خریداری شده',
-        'iconName': 'book',
-    },
+
 
     {
         'name': 'سوالات پرسیده شده',
         'iconName': 'question circle',
     },
+     {
+        'name': 'سوالات جواب داده',
+        'iconName': 'check circle',
+    },
+
+
+
 ];
 
 
@@ -42,8 +43,20 @@ class Profile extends Component {
         username: '',
         userInfo: {},
         allow: false,
-        askedQuestions: []
+        askedQuestions: [],
+        answeredQuestions: [],
+        level: false,
+
+
     };
+
+     reloadWhenUpgraded = () => {
+        this.setState({level: true})
+
+    };
+
+
+
 
     handleItemClick = (e, {name}) => this.setState({activeItem: name});
     getPageContent = () => {
@@ -52,32 +65,29 @@ class Profile extends Component {
             return (
                 <PersonalInfo info={this.state.userInfo}/>
             )
-        } else if (this.state.activeItem === 'کتاب‌های خریداری شده') {
-            if (this.state.bought_books.length === 0) {
-                return (
-                    <a href={'/books'}><Button>مشاهد‌ه‌ی لیست کتاب ها</Button></a>
-                )
-            } else {
-                return (
-                    <PurchasedBooks prefix={'http://localhost:8000'} bought_books={this.state.bought_books}
-                                    numOfChapters={this.state.numOfChapters}/>
-                )
-            }
-        } else if (this.state.activeItem === 'سوالات پرسیده شده') {
+        }  else if (this.state.activeItem === 'سوالات پرسیده شده') {
             if (this.state.askedQuestions.length === 0) {
                 return (
-                    <a href={'/questions/submit'}><Button>ایجاد سوال</Button></a>
+                    <a href={'/questions/submit'}><Button style={{fontFamily: 'B Yekan'}}>ایجاد سوال</Button></a>
                 )
             } else {
                 return (
                     <AskedQuestions isProfile={1} asker={this.state.username} question={this.state.askedQuestions}/>
                 )
             }
-        } else if (this.state.activeItem === 'تغییر گذرواژه') {
-            return (
-                <ChangePassword/>
-            )
         }
+        else if (this.state.activeItem === 'سوالات جواب داده') {
+            if (this.state.answeredQuestions.length === 0) {
+                return (
+                    <p style={{fontSize: '2em'}}> هنوز به سوالی جواب نداده اید.</p>
+                )
+            } else {
+                return (
+                    <AskedQuestions isProfile={0}  question={this.state.answeredQuestions}/>
+                )
+            }
+        }
+
 
     };
 
@@ -107,7 +117,9 @@ class Profile extends Component {
                                 userInfo: res.data.user_info,
                                 askedQuestions: res.data.asked_questions,
                                 books: res.data,
-                                username: localStorage.getItem('chegg-username')
+                                username: localStorage.getItem('chegg-username'),
+                                level: res.data.premium,
+                                answeredQuestions: res.data.userInfo.answered_questions,
                             }
                         );
                         var that = this;
@@ -120,35 +132,14 @@ class Profile extends Component {
 
 
     render() {
-        if (localStorage.getItem('chegg-username') === null) {
-            return (
-                <div style={{textAlign: 'center', marginTop: '300px', fontFamily: 'B Yekan', fontSize: '2em'}}>
-                    صفحه مورد نظر یافت نشد
-                    <br/>
-                    <br/>
-                    <a href={'/'}>صفحه اصلی</a>
-                </div>
-            )
-        }
-        // if (!this.state.allow) {
-        //     return (
-        //
-        //         <Dimmer active>
-        //             <Loader size='massive' style={{textAlign: 'center', fontFamily: 'B Yekan'}}>
-        //                 در حال بارگذاری
-        //             </Loader>
-        //
-        //         </Dimmer>
-        //     )
-        // }
-        else {
+
             return (
 
                 <Template {...this.props}>
 
                     <Grid style={{margin: 'auto', direction: 'rtl', width: '70%', height: '80%'}}>
-                        <Grid.Row columns={2}>
-                            <Grid.Column width={3}>
+                        <Grid.Row columns={2} style={{padding: '0'}}>
+                            <Grid.Column width={3} >
                                 <SidebarMenu activeItem={this.state.activeItem} menuItems={menuItems}
                                              handleItemClick={this.handleItemClick}/>
                             </Grid.Column>
@@ -163,7 +154,7 @@ class Profile extends Component {
 
             )
         }
-    }
+
 
 
 }

@@ -10,9 +10,10 @@ import {Route, Switch} from 'react-router';
 import {BrowserRouter} from "react-router-dom";
 import './App.css';
 import BookProblem from "./views/bookProblem";
-import UserProfile from "./views/profile";
+import UserProfile from "./views/userProfile";
 import QuestionList from "./views/questionList";
 import QuestionCreate from "./views/questionCreate";
+
 
 
 function App() {
@@ -25,7 +26,7 @@ function App() {
                 <Route exact path='/books/:id' component={Book}/>
                 <Route exact path='/books' component={BookList}/>
                 <Route exact path='/books/:id/chapters/:id/problems/:id' component={BookProblem}/>
-                <Route exact path='/profile' component={UserProfile}/>
+                <Route exact path='/profile/:username' component={UserProfile}/>
                 <Route exact path='/questions' component={QuestionList}/>
                 <Route exact path='/questions/submit' component={QuestionCreate}/>
             </Switch>
