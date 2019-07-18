@@ -83,11 +83,9 @@ class QuestionList extends Component {
 
         return (
             <Template {...this.props}>
-                <Grid style={{margin: 'auto', direction: 'rtl', width: '70%', height: '90%'}}>
+                <Grid style={{margin: 'auto', width: '70%', height: '90%'}}>
                     <Grid.Row columns={2} style={{padding:'0'}}>
-                        <Grid.Column width={3}>
-                            {TagFilter()}
-                        </Grid.Column>
+
                         <Grid.Column width={13}>
                             <Segment
                                 style={{
@@ -115,6 +113,9 @@ class QuestionList extends Component {
                                 </Grid>
 
                             </Segment>
+                        </Grid.Column>
+                        <Grid.Column width={3}>
+                            {TagFilter()}
                         </Grid.Column>
                     </Grid.Row>
                 </Grid>
