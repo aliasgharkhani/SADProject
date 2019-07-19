@@ -68,7 +68,7 @@ class Profile extends Component {
         }  else if (this.state.activeItem === 'سوالات پرسیده شده') {
             if (this.state.askedQuestions.length === 0) {
                 return (
-                    <a href={'/questions/submit'}><Button style={{fontFamily: 'B Yekan'}}>ایجاد سوال</Button></a>
+                     <p style={{fontSize: '2em'}}>این کاربر سوالی نپرسیده است.</p>
                 )
             } else {
                 return (
@@ -79,7 +79,7 @@ class Profile extends Component {
         else if (this.state.activeItem === 'سوالات جواب داده') {
             if (this.state.answeredQuestions.length === 0) {
                 return (
-                    <p style={{fontSize: '2em'}}> هنوز به سوالی جواب نداده اید.</p>
+                    <p style={{fontSize: '2em'}}> این کاربر جوابی نداده است.</p>
                 )
             } else {
                 return (
