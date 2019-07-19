@@ -110,7 +110,7 @@ class UserProfile extends Component {
                 )
             } else {
                 return (
-                    <AskedQuestions isProfile={0}  question={this.state.answeredQuestions}/>
+                    <AskedQuestions isProfile={0} asker={this.state.username} question={this.state.answeredQuestions}/>
                 )
             }
         }
@@ -147,7 +147,7 @@ class UserProfile extends Component {
                             numOfChapters[res.data.bought_chapters[i].book - 1] += 1;
 
                         }
-                        console.log('data', res.data.asked_questions)
+                        console.log('data', res.data)
                         this.setState(
                             {
                                 numOfChapters: numOfChapters,

@@ -11,7 +11,6 @@ var multiple = new Multiple({
   background: 'linear-gradient(#273463, #8B4256)'
 });
 
-const Slideshow = require('react-slidez');
 
 class Main extends Component {
 
@@ -42,6 +41,7 @@ class Main extends Component {
             rtl:false,
             accessibility:true,
             arrows:true,
+            dots:true,
         };
         return (
             <Template>
@@ -98,7 +98,7 @@ class Main extends Component {
                             // margin: 'auto',
                             height: '86.3vh',
                             direction: 'rtl',
-                            backgroundImage: "url('https://www.loginradius.com/blog/wp-content/uploads/2019/01/ask-blackboard-356079.jpg')",
+                            backgroundImage: "url('https://www.loginradius.com/blog/wp-content/uploads/2019/01/ask-blackboard-356079-1024x620.jpg')",
                             backgroundSize: "cover"
                         }}>
 

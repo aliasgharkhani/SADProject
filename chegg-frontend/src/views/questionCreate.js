@@ -1,8 +1,10 @@
 import React, {Component} from "react";
 import axios from "axios";
-import {Button, Container, Form, Icon, Modal, Segment} from "semantic-ui-react";
+import {Button, Container, Form, Grid, Icon, Modal, Segment} from "semantic-ui-react";
 import Template from "../components/template";
 import MultiSelect from "@khanacademy/react-multi-select";
+import BookCard from "../components/bookCard";
+import Ad from "../components/ad";
 
 
 class QuestionCreate extends Component {
@@ -84,7 +86,12 @@ class QuestionCreate extends Component {
         if (this.state.allow && token !== null && token !== undefined) {
             return (
                 <Template {...this.props}>
-                    <Modal size={"mini"} onRequestClose={this.onCloseModal.bind(this)} open={this.state.modalActive}>
+
+                    <Grid style={{margin: 'auto', width: '70%', height: '90%'}}>
+                    <Grid.Row columns={2} style={{padding: '0', maxHeight: '100%',}}>
+
+                        <Grid.Column width={13} style={{maxHeight: '100%',}}>
+                            <Modal size={"mini"} onRequestClose={this.onCloseModal.bind(this)} open={this.state.modalActive}>
                         <Icon name="close" onClick={this.onCloseModal.bind(this)}/>
 
                         <Modal.Content image>
@@ -144,6 +151,32 @@ class QuestionCreate extends Component {
 
                         </Segment>
                     </Container>
+                        </Grid.Column>
+                        <Grid.Column width={3}>
+                           <Ad/>
+                        </Grid.Column>
+                    </Grid.Row>
+                </Grid>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
                 </Template>
             )
             // return <MultiSelect

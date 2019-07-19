@@ -13,6 +13,8 @@ if (document.getElementsByClassName('slick-prev')[0] !== undefined) {
     document.getElementsByClassName('slick-prev')[0].style.zIndex = '20';
     document.getElementsByClassName('slick-next')[0].style.right = '20px';
     document.getElementsByClassName('slick-next')[0].style.zIndex = '20';
+    document.getElementsByClassName('slick-dots')[0].style.bottom = '7px';
+    document.getElementsByClassName('slick-dots')[0].style.zIndex = '20';
 }
 
 

@@ -137,7 +137,7 @@ class Profile extends Component {
 
                 <Template {...this.props}>
 
-                    <Grid style={{margin: 'auto', direction: 'rtl', width: '70%', height: '80%'}}>
+                    <Grid style={{margin: 'auto', direction: 'rtl', width: '70%', height: '90%'}}>
                         <Grid.Row columns={2} style={{padding: '0'}}>
                             <Grid.Column width={3} >
                                 <SidebarMenu activeItem={this.state.activeItem} menuItems={menuItems}

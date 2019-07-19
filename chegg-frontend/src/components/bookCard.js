@@ -58,18 +58,19 @@ class BookCard extends Component {
 
                 return (
                     <Grid>
-                        <Grid.Row style={{textAlign: 'center'}}>
+                        <Grid.Row style={{textAlign: 'center', paddingBottom:'0px'}}>
                             <div style={{margin: 'auto'}}>
-                                {this.state.title}<br/>
+                                <strong style={{fontSize:'1.2em'}}>{this.state.title}</strong>
+                                <br/>
                                 این کتاب قبلا خریداری شده است.
                             </div>
 
 
                         </Grid.Row>
 
-                        <Grid.Row style={{textAlign: 'center'}}>
+                        <Grid.Row style={{textAlign: 'center', padding:'0'}}>
                             <a href={this.state.link} style={{margin: 'auto'}}>
-                                <div style={{fontFamily: "B Yekan", backgroundColor: '#baf0ff'}}
+                                <div style={{fontFamily: "B Yekan", backgroundColor: '#e3fff1', fontSize:'0.85em'}}
                                      className="ui vertical animated button"
                                      tabIndex="0">
                                     <div className="hidden content">
@@ -84,18 +85,19 @@ class BookCard extends Component {
                 )
             } else {
                 return (<Grid>
-                        <Grid.Row style={{paddingLeft: '0px', textAlign: 'center'}}>
+                        <Grid.Row style={{paddingLeft: '0px', textAlign: 'center', paddingBottom:'0px'}}>
                             <div style={{margin: 'auto'}}>
-                                {this.state.title}<br/>
+                                <strong style={{fontSize:'1.2em'}}>{this.state.title}</strong>
+                                <br/>
                                 تعداد فصل های خریده شده:
                                 {this.state.chaptersPurchased}
                             </div>
 
 
                         </Grid.Row>
-                        <Grid.Row style={{textAlign: 'center'}}>
+                        <Grid.Row style={{textAlign: 'center', padding:'0'}}>
                             <a href={this.state.link} style={{margin: 'auto'}}>
-                                <div style={{fontFamily: "B Yekan", backgroundColor: '#baf0ff'}}
+                                <div style={{fontFamily: "B Yekan", backgroundColor: '#e3fff1', fontSize:'0.85em'}}
                                      className="ui animated fade button" tabIndex="0">
                                     <div className="visible content" style={{padding: '0px'}}>مشاهده و خرید کتاب</div>
                                     <div className="hidden content">
@@ -115,15 +117,15 @@ class BookCard extends Component {
         return (
 
 
-            <Grid style={{width: '24%', height: '40vh', margin: '1em 0', fontSize: '1.5em',}}>
+            <Grid style={{width: '20%', height: '30vh', margin: '1em 0', fontSize: '1.3em',}}>
 
-                <Grid.Row>
-                    <img style={{width: "70%", height: "25vh", margin: 'auto'}}
+                <Grid.Row style={{padding:'0'}}>
+                    <img style={{width: "78%", height: "20vh", margin: 'auto'}}
                          src={this.state.bookCover}/>
                 </Grid.Row>
 
 
-                <Grid.Row style={{direction: 'rtl', fontSize: '0.7em'}}>
+                <Grid.Row style={{direction: 'rtl', fontSize: '0.7em', padding:'0'}}>
 
                     {this.renderRedirect()}
 

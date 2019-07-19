@@ -84,14 +84,14 @@ class QuestionList extends Component {
         return (
             <Template {...this.props}>
                 <Grid style={{margin: 'auto', width: '70%', height: '90%'}}>
-                    <Grid.Row columns={2} style={{padding:'0'}}>
+                    <Grid.Row columns={2} style={{padding:'0', maxHeight: '100%',}}>
 
-                        <Grid.Column width={13}>
+                        <Grid.Column width={13} style={{maxHeight: '100%',}}>
                             <Segment
                                 style={{
                                     backgroundImage: 'url("https://visme.co/blog/wp-content/uploads/2017/07/50-Beautiful-and-Minimalist-Presentation-Backgrounds-037.jpg")',
                                     margin: 'auto',
-                                    maxHeight: '425px',
+                                    maxHeight: '100%',
                                     overflow: 'auto',
 
                                 }}>
