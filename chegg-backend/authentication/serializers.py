@@ -36,10 +36,11 @@ class MemberProfileSerializer(serializers.ModelSerializer):
     bought_chapters = serializers.SerializerMethodField()
     user_info = serializers.SerializerMethodField()
     asked_questions = serializers.SerializerMethodField()
+    replies = serializers.SerializerMethodField()
 
     class Meta:
         model = Member
-        fields = ('user_info', 'bought_books', 'bought_chapters', 'asked_questions')
+        fields = ('user_info', 'bought_books', 'bought_chapters', 'asked_questions', 'replies')
 
     def get_bought_books(self, obj):
         from store.serializers import BookSerializer
@@ -55,3 +56,28 @@ class MemberProfileSerializer(serializers.ModelSerializer):
     def get_asked_questions(self, obj):
         from QA.serializers import QuestionSerializer
         return QuestionSerializer(obj.get_asked_questions(), many=True).data
+
+    def get_replies(self, obj):
+        from QA.serializers import ReplySerializer
+        return ReplySerializer(obj.get_replies(), many=True).data
+
+
+class MemberPageSerializer(serializers.ModelSerializer):
+    user_info = serializers.SerializerMethodField()
+    asked_questions = serializers.SerializerMethodField()
+    replies = serializers.SerializerMethodField()
+
+    class Meta:
+        model = Member
+        fields = ('user_info', 'asked_questions', 'replies')
+
+    def get_user_info(self, obj):
+        return MemberBaseInfoSerializer(obj).data
+
+    def get_asked_questions(self, obj):
+        from QA.serializers import QuestionSerializer
+        return QuestionSerializer(obj.get_asked_questions(), many=True).data
+
+    def get_replies(self, obj):
+        from QA.serializers import ReplySerializer
+        return ReplySerializer(obj.get_replies(), many=True).data
