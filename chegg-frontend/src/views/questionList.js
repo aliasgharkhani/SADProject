@@ -20,6 +20,7 @@ class QuestionList extends Component {
     componentDidMount() {
         axios.get('http://localhost:8000/qa/questions/').then(res1 => {
                 axios.get('http://localhost:8000/qa/tags/').then(res2 => {
+                        console.log('reza', res2.data);
                         this.setState({
                             questions: res1.data,
                             tags: res2.data,
@@ -65,8 +66,6 @@ class QuestionList extends Component {
 
 
     render() {
-
-
         const TagFilter = () => (
             <Segment style={{maxHeight: '425px', overflow: 'auto', direction: 'ltr'}}>
                 <Form onSubmit={this.handleChange}>
@@ -84,7 +83,7 @@ class QuestionList extends Component {
         return (
             <Template {...this.props}>
                 <Grid style={{margin: 'auto', width: '70%', height: '90%'}}>
-                    <Grid.Row columns={2} style={{padding:'0', maxHeight: '100%',}}>
+                    <Grid.Row columns={2} style={{padding: '0', maxHeight: '100%',}}>
 
                         <Grid.Column width={13} style={{maxHeight: '100%',}}>
                             <Segment
@@ -107,7 +106,7 @@ class QuestionList extends Component {
 
                                         <Question isProfile={0} asker={question.asker} title={question.title}
                                                   description={question.body} tags={question.tags_with_names}
-                                                  link={'http://localhost:3000/profile/'+ question.asker }
+                                                  link={'http://localhost:3000/profile/' + question.asker}
                                         />
                                     )}
                                 </Grid>

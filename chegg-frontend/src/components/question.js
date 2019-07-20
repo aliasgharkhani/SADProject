@@ -83,7 +83,7 @@ class Question extends Component {
         return (
 
 
-                <Grid style={{width: '48%', backgroundColor: 'white', margin: '10px 10px', height: '160px', display: 'flex', flexDirection: 'column'}}>
+                <Grid style={{width: '100%', backgroundColor: 'white', margin: '10px 10px', height: '160px', display: 'flex', flexDirection: 'column'}}>
 
                     <Grid.Row style={{  paddingBottom: '0'}} >
 
