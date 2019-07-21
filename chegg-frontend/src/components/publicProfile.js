@@ -89,13 +89,9 @@ class Profile extends Component {
 
     componentDidMount() {
         document.title = "پروفایل";
-        console.log(localStorage.getItem('chegg-token'));
-        var headers = {
-
-            'Authorization': 'TOKEN ' + localStorage.getItem('chegg-token')
-        };
-        axios.get('http://localhost:8000/auth/profile/' + this.props.urlParameters.username, {headers: headers})
+        axios.get('http://localhost:8000/auth/profile/' + this.props.urlParameters.username)
             .then(res => {
+                console.log('salm salam');
                 this.setState(
                     {
                         userInfo: res.data.user_info,

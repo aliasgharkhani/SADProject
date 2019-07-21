@@ -338,9 +338,9 @@ class Book extends Component {
             <Template>
 
                 <Grid style={{margin: 'auto', width: '70%', minHeight: '100%'}}>
-                    <Grid.Row columns={2} style={{padding: '0',}}>
+                    <Grid.Row columns={2} style={{padding: '0',height:'100%'}}>
 
-                        <Grid.Column width={13} style={{}}>
+                        <Grid.Column width={13} style={{height:'100%'}}>
 
                             <Modal onRequestClose={this.onCloseModal.bind(this)} open={this.state.modalActive}>
                                 <Icon name="close" onClick={this.onCloseModal.bind(this)}/>
@@ -373,12 +373,12 @@ class Book extends Component {
 
                                 </Modal.Actions>
                             </Modal>
-                            <Segment style={{height:'100%', overflowY:'auto', overflowX:'hidden', width:'100%'}}>
+                            <Segment style={{maxHeight:'100%', overflowY:'auto', overflowX:'hidden', width:'100%'}}>
                                 <Grid columns={2} relaxed={"very"}
-                                      style={{height: '100%', display: 'flex', flexDirection: 'row', width:'100%', margin:'auto'}}>
-                                    <Grid.Row style={{direction: 'rtl', fontFamily: 'B Yekan',  height:'60%'}}>
+                                      style={{height: '100%', width:'100%', margin:'auto', gridTemplateRows:'70% 30%'}}>
+                                    <Grid.Row style={{direction: 'rtl', fontFamily: 'B Yekan',  height:'50%', alignItems: 'stretch'}}>
 
-                                        <Grid.Column width={10} style={{height: '100%', display: 'flex', flexDirection: 'column'}}>
+                                        <Grid.Column width={10} style={{display: 'flex', flexDirection: 'column'}}>
 
                                             <Grid.Row>
                                                 <h3 style={{fontFamily: 'B Yekan'}}>{this.state.title}</h3>
