@@ -22,11 +22,10 @@ const menuItems = [
         'name': 'سوالات پرسیده شده',
         'iconName': 'question circle',
     },
-     {
+    {
         'name': 'سوالات جواب داده',
         'iconName': 'check circle',
     },
-
 
 
 ];
@@ -50,12 +49,10 @@ class Profile extends Component {
 
     };
 
-     reloadWhenUpgraded = () => {
+    reloadWhenUpgraded = () => {
         this.setState({level: true})
 
     };
-
-
 
 
     handleItemClick = (e, {name}) => this.setState({activeItem: name});
@@ -65,25 +62,24 @@ class Profile extends Component {
             return (
                 <PersonalInfo info={this.state.userInfo}/>
             )
-        }  else if (this.state.activeItem === 'سوالات پرسیده شده') {
+        } else if (this.state.activeItem === 'سوالات پرسیده شده') {
             if (this.state.askedQuestions.length === 0) {
                 return (
-                     <p style={{fontSize: '2em'}}>این کاربر سوالی نپرسیده است.</p>
+                    <p style={{fontSize: '2em'}}>این کاربر سوالی نپرسیده است.</p>
                 )
             } else {
                 return (
                     <AskedQuestions isProfile={1} asker={this.state.username} question={this.state.askedQuestions}/>
                 )
             }
-        }
-        else if (this.state.activeItem === 'سوالات جواب داده') {
+        } else if (this.state.activeItem === 'سوالات جواب داده') {
             if (this.state.answeredQuestions.length === 0) {
                 return (
                     <p style={{fontSize: '2em'}}> این کاربر جوابی نداده است.</p>
                 )
             } else {
                 return (
-                    <AskedQuestions isProfile={0}  question={this.state.answeredQuestions}/>
+                    <AskedQuestions isProfile={0} question={this.state.answeredQuestions}/>
                 )
             }
         }
@@ -94,69 +90,51 @@ class Profile extends Component {
     componentDidMount() {
         document.title = "پروفایل";
         console.log(localStorage.getItem('chegg-token'));
-        axios.get(`http://localhost:8000/store/books`)
+        var headers = {
+
+            'Authorization': 'TOKEN ' + localStorage.getItem('chegg-token')
+        };
+        axios.get('http://localhost:8000/auth/profile/' + this.props.urlParameters.username, {headers: headers})
             .then(res => {
-                let numOfChapters = new Array(res.data.length).fill(0);
-                var headers = {
-
-                    'Authorization': 'TOKEN ' + localStorage.getItem('chegg-token')
-                };
-                axios.get(`http://localhost:8000/auth/self/`, {headers: headers})
-                    .then(res => {
-
-                        for (var i = 0; i < res.data.bought_chapters.length; i++) {
-
-                            numOfChapters[res.data.bought_chapters[i].book - 1] += 1;
-
-                        }
-                        console.log('data', res.data.asked_questions)
-                        this.setState(
-                            {
-                                numOfChapters: numOfChapters,
-                                bought_books: res.data.bought_books,
-                                userInfo: res.data.user_info,
-                                askedQuestions: res.data.asked_questions,
-                                books: res.data,
-                                username: localStorage.getItem('chegg-username'),
-                                level: res.data.premium,
-                                answeredQuestions: res.data.userInfo.answered_questions,
-                            }
-                        );
-                        var that = this;
-                    }).catch((error) => {
-                    console.log(error)
-                })
-            });
+                this.setState(
+                    {
+                        userInfo: res.data.user_info,
+                        askedQuestions: res.data.asked_questions,
+                        username: localStorage.getItem('chegg-username'),
+                        level: res.data.premium,
+                        answeredQuestions: res.data.userInfo.answered_questions,
+                    }
+                );
+                var that = this;
+            }).catch((error) => {
+            console.log(error)
+        })
 
     }
 
 
     render() {
 
-            return (
+        return (
 
-                <Template {...this.props}>
+            <Template {...this.props}>
 
-                    <Grid style={{margin: 'auto', direction: 'rtl', width: '70%', height: '90%'}}>
-                        <Grid.Row columns={2} style={{padding: '0'}}>
-                            <Grid.Column width={3} >
-                                <SidebarMenu activeItem={this.state.activeItem} menuItems={menuItems}
-                                             handleItemClick={this.handleItemClick}/>
-                            </Grid.Column>
-                            <Grid.Column width={13}>
-                                {this.getPageContent()}
-                            </Grid.Column>
-                        </Grid.Row>
-                    </Grid>
+                <Grid style={{margin: 'auto', direction: 'rtl', width: '70%', height: '100%'}}>
+                    <Grid.Row columns={2} style={{padding: '0'}}>
+                        <Grid.Column width={3}>
+                            <SidebarMenu activeItem={this.state.activeItem} menuItems={menuItems}
+                                         handleItemClick={this.handleItemClick}/>
+                        </Grid.Column>
+                        <Grid.Column width={13}>
+                            {this.getPageContent()}
+                        </Grid.Column>
+                    </Grid.Row>
+                </Grid>
 
-                </Template>
-
-
-            )
-        }
+            </Template>
 
 
-
+        )
+    }
 }
-
 export default Profile;

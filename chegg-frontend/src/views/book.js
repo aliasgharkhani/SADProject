@@ -16,6 +16,7 @@ import {
     Rating,
 } from 'semantic-ui-react';
 import axios from 'axios';
+import Ad from "../components/ad";
 
 
 class ProblemList extends Component {
@@ -28,7 +29,8 @@ class ProblemList extends Component {
             return (
                 <List style={{'direction': 'rtl'}}>
                     {this.props.chapter.problems.map((problem) => {
-                        return <List.Item as='a' href={'http://localhost:3000/books/'+this.props.book.id+'/chapters/'+this.props.chapter.chapter_id+'/problems/'+problem.problem_id}
+                        return <List.Item as='a'
+                                          href={'http://localhost:3000/books/' + this.props.book.id + '/chapters/' + this.props.chapter.chapter_id + '/problems/' + problem.problem_id}
                                           key={problem.problem_id}>{problem.problem_id + '. ' + problem.body}</List.Item>
                     })}
                 </List>
@@ -55,8 +57,6 @@ class MenuExampleInvertedSegment extends Component {
             activeItem2: -1,
         };
     }
-
-
 
 
     onCloseModal() {
@@ -121,11 +121,12 @@ class MenuExampleInvertedSegment extends Component {
             )
         }
         return (
-            <Label as='a' color='blue' ribbon>
-                شما این فصل را قبلا خریده اید.
+            <Label as='a' color='blue' style={{fontFamily: 'B Yekan'}} ribbon>
+                شما این فصل را قبلا خریده اید
             </Label>
         )
     }
+
     /* starClick = (value) => {
 
          console.log(id, 'key')
@@ -133,15 +134,16 @@ class MenuExampleInvertedSegment extends Component {
 
      };*/
     handleClick = (e, titleProps) => {
-    const { id } = titleProps;
-    const activeIndex = this.state.activeItem2;
-    const newIndex = activeIndex === id ? -1 : id;
+        const {id} = titleProps;
+        const activeIndex = this.state.activeItem2;
+        const newIndex = activeIndex === id ? -1 : id;
 
-    this.setState({
-        activeItem: id,
-        activeItem2: newIndex
-            })
-  }
+        this.setState({
+            activeItem: id,
+            activeItem2: newIndex
+        })
+    }
+
     render() {
         console.log('ali\n\n', this.props.chapters);
 
@@ -186,19 +188,21 @@ class MenuExampleInvertedSegment extends Component {
                         console.log('ali\n\n\n');
                         return (
                             <Segment>
-                                <Accordion.Title style={{direction:'rtl', fontFamily: 'B Yekan'}} active={(this.state.activeItem === chapter.chapter_id) && (this.state.activeItem2 === chapter.chapter_id)} id={chapter.chapter_id} onClick={this.handleClick}>
+                                <Accordion.Title style={{direction: 'rtl', fontFamily: 'B Yekan'}}
+                                                 active={(this.state.activeItem === chapter.chapter_id) && (this.state.activeItem2 === chapter.chapter_id)}
+                                                 id={chapter.chapter_id} onClick={this.handleClick}>
                                     <Icon name='dropdown'/>
                                     {'فصل' + chapter.chapter_id}
                                 </Accordion.Title>
-                                <Accordion.Content active={(this.state.activeItem === chapter.chapter_id) && (this.state.activeItem2 === chapter.chapter_id)}>
+                                <Accordion.Content
+                                    active={(this.state.activeItem === chapter.chapter_id) && (this.state.activeItem2 === chapter.chapter_id)}>
                                     {this.buyChapterLabel()}
-                                    <ProblemList book={this.props.book} chapter={this.props.chapters[chapter.chapter_id - 1]}/>
+                                    <ProblemList book={this.props.book}
+                                                 chapter={this.props.chapters[chapter.chapter_id - 1]}/>
                                 </Accordion.Content>
                             </Segment>)
                     })}
                 </Accordion>
-
-
 
 
             </div>
@@ -216,7 +220,7 @@ class Book extends Component {
     }
 
 
-    componentDidMount(){
+    componentDidMount() {
 
         document.title = this.state.title;
     }
@@ -317,10 +321,12 @@ class Book extends Component {
 
     buyBookSection() {
         if (this.hasBoughtBook()) {
-            return (<Button primary fluid> شما این کتاب را خریده اید.</Button>)
+            return (<Button primary fluid style={{fontFamily: 'B Yekan'}} disabled={true}> شما این کتاب را خریده
+                اید.</Button>)
         }
         return (
             <Button
+                style={{fontFamily: 'B Yekan'}}
                 onClick={() => this.setState({modalActive: true})}
                 content={'خرید کل کتاب به قیمت ' + `${this.state.price}` + ' تومان'}
                 primary fluid/>
@@ -330,108 +336,106 @@ class Book extends Component {
     render() {
         return (
             <Template>
-                <Modal onRequestClose={this.onCloseModal.bind(this)} open={this.state.modalActive}>
-                    <Icon name="close" onClick={this.onCloseModal.bind(this)}/>
 
-                    <Modal.Content image>
-                        <Image size="medium" wrapComponent
-                               src={this.state.cover}/>
-                        <Modal.Description
-                            style={{'flexGrow': '1', 'direction': 'rtl', 'textAlign': 'right'}}>
-                            <Header>{this.state.title}</Header>
-                            <p>
-                                شما در حال خرید این کتاب به قیمت
-                                {this.state.price}
-                                هستید.
-                            </p>
-                            <p>
-                                آیا کتاب مورد نظر همین کتاب است؟
-                            </p>
-                        </Modal.Description>
-                    </Modal.Content>
-                    <Modal.Actions>
-                        <Button emphasis="positive"
-                                color='red'
-                                onClick={this.onCloseModal.bind(this)}>انصراف</Button>
-                        <Button emphasis="negative"
-                                color='green'
-                                onClick={this.buyBook.bind(this)}>خرید</Button>
+                <Grid style={{margin: 'auto', width: '70%', minHeight: '100%'}}>
+                    <Grid.Row columns={2} style={{padding: '0',}}>
+
+                        <Grid.Column width={13} style={{}}>
+
+                            <Modal onRequestClose={this.onCloseModal.bind(this)} open={this.state.modalActive}>
+                                <Icon name="close" onClick={this.onCloseModal.bind(this)}/>
+
+                                <Modal.Content image>
+                                    <Image size="medium" wrapComponent
+                                           src={this.state.cover}/>
+                                    <Modal.Description
+                                        style={{'flexGrow': '1', 'direction': 'rtl', 'textAlign': 'right'}}>
+                                        <Header>{this.state.title}</Header>
+                                        <p>
+                                            شما در حال خرید این کتاب به قیمت
+                                            {this.state.price}
+                                            هستید.
+                                        </p>
+                                        <p>
+                                            آیا کتاب مورد نظر همین کتاب است؟
+                                        </p>
+                                    </Modal.Description>
+                                </Modal.Content>
+                                <Modal.Actions>
+                                    <Button emphasis="positive"
+                                            color='red'
+                                            onClick={this.onCloseModal.bind(this)}>انصراف</Button>
+                                    <Button emphasis="negative"
+                                            color='green'
+                                            style={{fontFamily: 'B Yekan'}}
+                                            onClick={this.buyBook.bind(this)}>خرید</Button>
 
 
-                    </Modal.Actions>
-                </Modal>
-                <Container>
-                    <Segment>
-                        <Grid columns={2} relaxed={"very"}>
-                            <Grid.Row style={{'direction': 'rtl', fontFamily: 'B Yekan'}}>
-                                <Grid.Column width={10}>
-                                    <h3>{this.state.title}</h3>
-                                    {this.state.description}
-                                </Grid.Column>
-                                <Grid.Column width={6}>
+                                </Modal.Actions>
+                            </Modal>
+                            <Segment style={{height:'100%', overflowY:'auto', overflowX:'hidden', width:'100%'}}>
+                                <Grid columns={2} relaxed={"very"}
+                                      style={{height: '100%', display: 'flex', flexDirection: 'row', width:'100%', margin:'auto'}}>
+                                    <Grid.Row style={{direction: 'rtl', fontFamily: 'B Yekan',  height:'60%'}}>
 
-                                    <Grid>
-                                        <Grid.Row>
-                                            <img className="ui small image"
+                                        <Grid.Column width={10} style={{height: '100%', display: 'flex', flexDirection: 'column'}}>
+
+                                            <Grid.Row>
+                                                <h3 style={{fontFamily: 'B Yekan'}}>{this.state.title}</h3>
+                                            </Grid.Row>
+                                            <Grid.Row style={{flexGrow: '1'}}>
+                                                {this.state.description}
+                                            </Grid.Row>
+                                            <Grid.Row>
+                                                <Grid.Column style={{fontSize: '1.3em'}}>
+                                                    نویسنده : {this.state.author}
+                                                </Grid.Column>
+                                            </Grid.Row>
+                                            <Grid.Row>
+                                                <Grid.Column style={{fontSize: '1.3em'}}>
+                                                    تاریخ انتشار :{this.state.publication_date}
+                                                </Grid.Column>
+                                            </Grid.Row>
+                                            <Grid.Row>
+                                                <Grid.Column style={{fontSize: '1.3em'}}>
+                                                    ویرایش : {this.state.edition}
+                                                </Grid.Column>
+                                            </Grid.Row>
+                                            <Grid.Row>
+                                                <Grid.Column width={16} style={{marginTop: '5px'}}>
+                                                    {this.buyBookSection()}
+                                                </Grid.Column>
+                                            </Grid.Row>
+
+
+                                        </Grid.Column>
+                                        <Grid.Column width={6}>
+
+                                            <img style={{width: '80%', height:'100%'}} className="ui small image"
                                                  src={this.state.cover}/><br/>
-                                        </Grid.Row>
-
-                                        {/*<Grid.Row>*/}
-                                        {/*    <Grid.Column width={8}>*/}
-                                        {/*        امتیاز*/}
-                                        {/*    </Grid.Column>*/}
-                                        {/*    <Grid.Column width={8}>*/}
-                                        {/*        {this.state.score}*/}
-                                        {/*    </Grid.Column>*/}
-                                        {/*</Grid.Row>*/}
-                                        <Grid.Row>
-                                            <Grid.Column width={8}>
-                                                نویسنده
-                                            </Grid.Column>
-                                            <Grid.Column width={8}>
-                                                {this.state.author}
-                                            </Grid.Column>
-                                        </Grid.Row>
-                                        <Grid.Row>
-                                            <Grid.Column width={8}>
-                                                تاریخ انتشار
-                                            </Grid.Column>
-                                            <Grid.Column width={8}>
-                                                {this.state.publication_date}
-                                            </Grid.Column>
-                                        </Grid.Row>
-                                        <Grid.Row>
-                                            <Grid.Column width={8}>
-                                                ویرایش
-                                            </Grid.Column>
-                                            <Grid.Column width={8}>
-                                                {this.state.edition}
-                                            </Grid.Column>
-                                        </Grid.Row>
-                                        <Grid.Row>
-                                            <Grid.Column width={16}>
-                                                {this.buyBookSection()}
-                                            </Grid.Column>
-                                        </Grid.Row>
-
-                                    </Grid>
 
 
-                                </Grid.Column>
-                            </Grid.Row>
-                            <Grid.Row>
-                                <Grid.Column width={16}>
-                                    {console.log(this.state.memberInfo)}
-                                    <MenuExampleInvertedSegment book={this.state.book} bookCover={this.state.cover}
-                                                                chapters={this.state.chapters}
-                                                                memberInfo={this.state.memberInfo}/>
-                                </Grid.Column>
-                            </Grid.Row>
+                                        </Grid.Column>
+                                    </Grid.Row>
+                                    <Grid.Row>
+                                        <Grid.Column width={16}>
+                                            {console.log(this.state.memberInfo)}
+                                            <MenuExampleInvertedSegment book={this.state.book}
+                                                                        bookCover={this.state.cover}
+                                                                        chapters={this.state.chapters}
+                                                                        memberInfo={this.state.memberInfo}/>
+                                        </Grid.Column>
+                                    </Grid.Row>
 
 
-                        </Grid>
-                    </Segment>
-                </Container>
+                                </Grid>
+                            </Segment>
+                        </Grid.Column>
+                        <Grid.Column width={3}>
+                            <Ad/>
+                        </Grid.Column>
+                    </Grid.Row>
+                </Grid>
             </Template>
         )
     }

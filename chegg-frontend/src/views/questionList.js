@@ -9,6 +9,7 @@ class QuestionList extends Component {
     constructor(props) {
         super(props);
         this.handleChange = this.handleChange.bind(this);
+        this.getQuestionsOrEmpty = this.getQuestionsOrEmpty.bind(this);
         this.state = {
             questions: [],
             tags: [],
@@ -20,7 +21,6 @@ class QuestionList extends Component {
     componentDidMount() {
         axios.get('http://localhost:8000/qa/questions/').then(res1 => {
                 axios.get('http://localhost:8000/qa/tags/').then(res2 => {
-                        console.log('reza', res2.data);
                         this.setState({
                             questions: res1.data,
                             tags: res2.data,
@@ -64,28 +64,45 @@ class QuestionList extends Component {
 
     }
 
+    getQuestionsOrEmpty() {
+        if(this.state.visible_questions.length === 0){
+            return (
+                <div style={{marginTop:'0.6vh'}}>سوالی برای نمایش وجود ندارد.</div>
+            )
+        }
+        else {
+            return (
+                this.state.visible_questions.map(question =>
+                    <Question isProfile={0} asker={question.asker} title={question.title}
+                              description={question.body} tags={question.tags_with_names}
+                              link={question.link}
+                    />
+                )
+            )
+        }
+    }
 
     render() {
         const TagFilter = () => (
-            <Segment style={{maxHeight: '425px', overflow: 'auto', direction: 'ltr'}}>
-                <Form onSubmit={this.handleChange}>
+            <Form onSubmit={this.handleChange} style={{height: '100%', overflow: 'auto'}}>
+                <Segment style={{maxHeight: '92.6%', overflow: 'auto'}}>
                     {this.state.tags.map(tag =>
                         <Form.Field>
                             <Checkbox id={tag.id} label={tag.name}/>
                         </Form.Field>
                     )}
-                    <Button style={{fontFamily: 'B Yekan'}} fluid={true} floated={'left'} type='submit'>فیلتر</Button>
-                </Form>
-            </Segment>
+                </Segment>
+                <Button style={{fontFamily: 'B Yekan'}} fluid={true} floated={'left'} type='submit'>فیلتر</Button>
+            </Form>
+
         );
 
 
         return (
             <Template {...this.props}>
-                <Grid style={{margin: 'auto', width: '70%', height: '90%'}}>
+                <Grid style={{margin: 'auto', width: '70%', height: '100%'}}>
                     <Grid.Row columns={2} style={{padding: '0', maxHeight: '100%',}}>
-
-                        <Grid.Column width={13} style={{maxHeight: '100%',}}>
+                        <Grid.Column width={13} style={{maxHeight: '100%'}}>
                             <Segment
                                 style={{
                                     backgroundImage: 'url("https://visme.co/blog/wp-content/uploads/2017/07/50-Beautiful-and-Minimalist-Presentation-Backgrounds-037.jpg")',
@@ -102,18 +119,12 @@ class QuestionList extends Component {
                                     direction: 'rtl'
                                 }}>
 
-                                    {this.state.visible_questions.map(question =>
-
-                                        <Question isProfile={0} asker={question.asker} title={question.title}
-                                                  description={question.body} tags={question.tags_with_names}
-                                                  link={'http://localhost:3000/profile/' + question.asker}
-                                        />
-                                    )}
+                                    {this.getQuestionsOrEmpty()}
                                 </Grid>
 
                             </Segment>
                         </Grid.Column>
-                        <Grid.Column width={3}>
+                        <Grid.Column width={3} style={{maxHeight: '100%',}}>
                             {TagFilter()}
                         </Grid.Column>
                     </Grid.Row>

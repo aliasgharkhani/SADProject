@@ -9,7 +9,8 @@ import Footer from './footer';
 const templateStyle = {
     height: '100%',
     fontFamily: 'B Yekan',
-    
+    display: "flex",
+    flexDirection: 'row'
 
 };
 
@@ -21,7 +22,7 @@ constructor(props){
     }
     render() {
    var a =  document.getElementsByTagName('a');
-   console.log(a)
+   console.log(a);
         return (
             <Grid  style={templateStyle }>
                 <Grid.Row style={{height : '8%', paddingBottom:'0px', direction:'rtl'}}>

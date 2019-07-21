@@ -13,6 +13,7 @@ class PersonalInfo extends Component {
             last_name: null,
             username: null,
             email: null,
+            user: '',
         };
         this.handleChange = this.handleChange.bind(this);
     }
@@ -60,9 +61,16 @@ class PersonalInfo extends Component {
 
                 if (response.status === 200) {
                     console.log(response.data)
+                    var info = this.state.user
+                    info.bio = bio
+                    info.first_name = firstName
+                      info.last_name = lastName
+                    console.log(info.first_name, "info . first name")
+                    this.props.handler(info)
 
                     this.setState({
                         modalMessage: response.data
+
                     })
 
 
@@ -81,9 +89,9 @@ class PersonalInfo extends Component {
             });
         this.setState({modalActive: true})
     }
-
+    //
     componentDidUpdate(prevProps, prevState) {
-        console.log(this.state, 'this. state in presonal info')
+        console.log('afaaada     ', this.props)
         if (this.props !== prevProps) {
             this.setState({
                 bio: this.props.info.bio,
@@ -91,9 +99,23 @@ class PersonalInfo extends Component {
                 last_name: this.props.info.last_name,
                 username: this.props.info.username,
                 email: this.props.info.email,
+                user: this.props.info,
             })
         }
     }
+
+    componentDidMount() {
+        this.setState({
+            bio: this.props.info.bio,
+                first_name: this.props.info.first_name,
+                last_name: this.props.info.last_name,
+                username: this.props.info.username,
+                email: this.props.info.email,
+                user: this.props.info,
+        })
+    }
+
+
     // static getDerivedStateFromProps(props, state) {
     //     console.log('getdrive ali ');
     //     return {
@@ -107,6 +129,7 @@ class PersonalInfo extends Component {
     // // }
 
     render() {
+        console.log('ataata  ', this.props);
         return (
             <div>
                 <Modal size={"mini"} onRequestClose={this.onCloseModal.bind(this)} open={this.state.modalActive}>

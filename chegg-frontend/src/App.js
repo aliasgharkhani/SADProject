@@ -25,7 +25,7 @@ function App() {
                 <Route exact path='/signup' component={SignUp}/>
                 <Route exact path='/books/:id' component={Book}/>
                 <Route exact path='/books' component={BookList}/>
-                <Route exact path='/books/:id/chapters/:id/problems/:id' component={BookProblem}/>
+                <Route exact path='/books/:bookId/chapters/:chapterId/problems/:problemId' component={BookProblem}/>
                 <Route exact path='/profile/:username' component={UserProfile}/>
                 <Route exact path='/questions' component={QuestionList}/>
                 <Route exact path='/questions/submit' component={QuestionCreate}/>

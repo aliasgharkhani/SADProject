@@ -61,7 +61,7 @@ class Question extends Component {
                     <div>
 
                         نویسنده: &nbsp;&nbsp;
-                        <a href={this.state.link}>{this.state.asker}</a>
+                        <a href={this.state.asker}>{this.state.asker}</a>
 
                         <br/>
 
@@ -83,7 +83,7 @@ class Question extends Component {
         return (
 
 
-                <Grid style={{width: '100%', backgroundColor: 'white', margin: '10px 10px', height: '160px', display: 'flex', flexDirection: 'column'}}>
+                <Grid style={{width: '48%', backgroundColor: 'white', margin: '10px 10px', height: '160px', display: 'flex', flexDirection: 'column'}}>
 
                     <Grid.Row style={{  paddingBottom: '0'}} >
 
@@ -104,7 +104,7 @@ class Question extends Component {
                         <Grid.Column style={{padding: '0px'}} width={12} >
                          {this.state.tags.map(tag =>
 
-                            <Button id={tag.id} primary disabled={true}>{tag.name}</Button>
+                            <Button primary disabled={true} style={{direction:'ltr'}} content={tag.name}/>
                         )}
 
                         </Grid.Column >

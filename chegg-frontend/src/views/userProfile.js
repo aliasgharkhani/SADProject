@@ -31,7 +31,7 @@ const menuItems = [
         'name': 'سوالات پرسیده شده',
         'iconName': 'question circle',
     },
-     {
+    {
         'name': 'سوالات جواب داده',
         'iconName': 'check circle',
     },
@@ -62,12 +62,10 @@ class UserProfile extends Component {
 
     };
 
-     reloadWhenUpgraded = () => {
+    reloadWhenUpgraded = () => {
         this.setState({level: true})
 
     };
-
-
 
 
     handleItemClick = (e, {name}) => this.setState({activeItem: name});
@@ -102,8 +100,7 @@ class UserProfile extends Component {
             return (
                 <ChangePassword/>
             )
-        }
-        else if (this.state.activeItem === 'سوالات جواب داده') {
+        } else if (this.state.activeItem === 'سوالات جواب داده') {
             if (this.state.answeredQuestions.length === 0) {
                 return (
                     <p style={{fontSize: '2em'}}> هنوز به سوالی جواب نداده اید.</p>
@@ -113,8 +110,7 @@ class UserProfile extends Component {
                     <AskedQuestions isProfile={0} asker={this.state.username} question={this.state.answeredQuestions}/>
                 )
             }
-        }
-         else if (this.state.activeItem === 'ارتقای سطح کاربری') {
+        } else if (this.state.activeItem === 'ارتقای سطح کاربری') {
             if (this.state.level) {
                 return (
                     <p style={{fontSize: '2em'}}> حساب کاربری شما ارتقا یافته است.</p>
@@ -128,59 +124,60 @@ class UserProfile extends Component {
         }
 
     };
-
-    componentDidMount() {
-        document.title = "پروفایل";
-        console.log(localStorage.getItem('chegg-token'));
-        axios.get(`http://localhost:8000/store/books`)
-            .then(res => {
-                let numOfChapters = new Array(res.data.length).fill(0);
-                var headers = {
-
-                    'Authorization': 'TOKEN ' + localStorage.getItem('chegg-token')
-                };
-                axios.get(`http://localhost:8000/auth/self/`, {headers: headers})
-                    .then(res => {
-
-                        for (var i = 0; i < res.data.bought_chapters.length; i++) {
-
-                            numOfChapters[res.data.bought_chapters[i].book - 1] += 1;
-
-                        }
-                        console.log('data', res.data)
-                        this.setState(
-                            {
-                                numOfChapters: numOfChapters,
-                                bought_books: res.data.bought_books,
-                                userInfo: res.data.user_info,
-                                askedQuestions: res.data.asked_questions,
-                                books: res.data,
-                                username: localStorage.getItem('chegg-username'),
-                                level: res.data.premium,
-                                answeredQuestions: res.data.user_info.answered_questions,
-                            }
-                        );
-                        var that = this;
-                    }).catch((error) => {
-                    console.log(error)
-                })
-            });
-
-    }
+    //
+    // componentDidMount() {
+    //     document.title = "پروفایل";
+    //     console.log(localStorage.getItem('chegg-token'));
+    //     console.log('mahdi  ', this.props.match.params);
+    //
+    //     axios.get(`http://localhost:8000/store/books`)
+    //         .then(res => {
+    //             let numOfChapters = new Array(res.data.length).fill(0);
+    //             var headers = {
+    //
+    //                 'Authorization': 'TOKEN ' + localStorage.getItem('chegg-token')
+    //             };
+    //             axios.get(`http://localhost:8000/auth/self/`, {headers: headers})
+    //                 .then(res => {
+    //
+    //                     for (var i = 0; i < res.data.bought_chapters.length; i++) {
+    //
+    //                         numOfChapters[res.data.bought_chapters[i].book - 1] += 1;
+    //
+    //                     }
+    //                     console.log('data', res.data)
+    //                     this.setState(
+    //                         {
+    //                             numOfChapters: numOfChapters,
+    //                             bought_books: res.data.bought_books,
+    //                             userInfo: res.data.user_info,
+    //                             askedQuestions: res.data.asked_questions,
+    //                             books: res.data,
+    //                             username: localStorage.getItem('chegg-username'),
+    //                             level: res.data.premium,
+    //                             answeredQuestions: res.data.user_info.answered_questions,
+    //                         }
+    //                     );
+    //                     var that = this;
+    //                 }).catch((error) => {
+    //                 console.log(error)
+    //             })
+    //         });
+    //
+    // }
 
 
     render() {
+        var urlParameters = this.props.match.params;
         if (localStorage.getItem('chegg-username') === null) {
 
             return (
-               <PublicProfile/>
+                <PublicProfile urlParameters={urlParameters}/>
             )
-        }
-
-        else {
+        } else {
             return (
 
-                <MyProfile/>
+                <MyProfile urlParameters={urlParameters}/>
 
 
             )

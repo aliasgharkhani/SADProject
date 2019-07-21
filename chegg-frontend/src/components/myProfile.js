@@ -64,7 +64,11 @@ class MyProfile extends Component {
         this.setState({level: true})
 
     };
+    reloadWhenPerssonalChanged = (e) => {
+        console.log("ata", e)
+        this.setState({userInfo: e})
 
+    };
 
 
 
@@ -73,7 +77,7 @@ class MyProfile extends Component {
         if (this.state.activeItem === 'مشخصات کاربری') {
             console.log('personal info', this.state.userInfo)
             return (
-                <PersonalInfo info={this.state.userInfo}/>
+                <PersonalInfo handler={this.reloadWhenPerssonalChanged} info={this.state.userInfo}/>
             )
         } else if (this.state.activeItem === 'کتاب‌های خریداری شده') {
             if (this.state.bought_books.length === 0) {
@@ -194,7 +198,7 @@ class MyProfile extends Component {
 
                 <Template {...this.props}>
 
-                    <Grid style={{margin: 'auto', direction: 'rtl', width: '70%', height: '90%'}}>
+                    <Grid style={{margin: 'auto', direction: 'rtl', width: '70%', height: '100%'}}>
                         <Grid.Row columns={2} style={{padding: '0'}}>
                             <Grid.Column width={3}>
                                 <SidebarMenu activeItem={this.state.activeItem} menuItems={menuItems}

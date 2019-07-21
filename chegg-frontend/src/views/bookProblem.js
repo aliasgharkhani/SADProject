@@ -14,13 +14,16 @@ class bookProblem extends Component {
     };
 
     componentDidMount() {
-        let url = window.location.pathname;
+        // let url = window.location.pathname;
+        // console.log(url);
+        var urlParameters = this.props.match.params;
+
         var headers = {
 
             'Authorization': 'TOKEN ' + localStorage.getItem('chegg-token')
         };
         if (localStorage.getItem('chegg-token') === null) {
-            axios.get('http://localhost:8000/store' + url)
+            axios.get('http://localhost:8000/store/books/' + urlParameters.bookId + '/chapters/' + urlParameters.chapterId + '/problems/' + urlParameters.problemId)
                 .then(res => {
                     this.setState({
                         body: res.data.body,
@@ -28,7 +31,7 @@ class bookProblem extends Component {
                     })
                 });
         } else {
-            axios.get('http://localhost:8000/store' + url, {headers: headers})
+            axios.get('http://localhost:8000/store/books/' + urlParameters.bookId + '/chapters/' + urlParameters.chapterId + '/problems/' + urlParameters.problemId, {headers: headers})
                 .then(res => {
                     console.log('ali    ', res.data);
                     this.setState({
@@ -37,20 +40,16 @@ class bookProblem extends Component {
                     })
                 });
         }
-        url = window.location.href;
-        url = url.split('/');
-        console.log('inja  ', url);
-        var bookURL = url[0] + '//' + 'localhost:3000/' + url[3] + '/' + url[4];
-        var chapterID = url[6];
-        axios.get('http://localhost:8000/store/books/' + url[4])
+        var bookURL = 'http://localhost:8000/store/books/' + urlParameters.bookId;
+        axios.get(bookURL)
             .then(res => {
                 this.setState({
                     book: {
                         name: res.data.title,
                         url: bookURL
                     },
-                    chapterId: chapterID,
-                    problemId: url[8]
+                    chapterId: urlParameters.chapterId,
+                    problemId: urlParameters.problemId
                 })
             });
     }
@@ -70,7 +69,7 @@ class bookProblem extends Component {
                                             problemId={this.state.problemId}/>
                             </Grid.Column>
                         </Grid.Row>
-                        <Grid.Row style={{padding: '2em', marginBottom:'15px'}}>
+                        <Grid.Row style={{padding: '2em', marginBottom: '15px'}}>
                             <div style={{direction: 'rtl', width: '100%', fontSize: '1.56em'}}>{this.state.body}</div>
                         </Grid.Row>
                         <Grid.Row>
