@@ -41,3 +41,13 @@ class Member(AbstractUser):
         from QA.models import Question
         return Question.objects.filter(creator=self)
 
+    def get_replied_questions(self):
+        from QA.models import Question, Reply
+        replies = Reply.objects.filter(creator=self).values('question')
+        return Question.objects.filter(id__in=replies)
+
+    def get_replies(self):
+        from QA.models import Reply
+        return Reply.objects.filter(creator=self)
+
+

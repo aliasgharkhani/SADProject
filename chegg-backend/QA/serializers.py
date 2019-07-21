@@ -1,4 +1,4 @@
-from QA.models import Question, Tag
+from QA.models import Question, Tag, Reply
 from rest_framework import serializers
 
 
@@ -42,3 +42,20 @@ class QuestionSerializer(serializers.ModelSerializer):
             raise serializers.ValidationError(
                 'شما به حد مجاز پرسش سوال رسیده اید. برای پرسش سوال بیشتر به پریمیوم ارتقا دهید.')
         return member
+
+
+class ReplySerializer(serializers.ModelSerializer):
+    creator = serializers.HiddenField(default=serializers.CurrentUserDefault())
+
+    class Meta:
+        model = Reply
+        exclude = ()
+
+    extra_kwargs = {
+        "body": {
+            "error_messages": {
+                "required": "این فیلد الزامی است.",
+                "max_length": "تعداد کاراکترها بیش از حد مجاز است."
+            }
+        }
+    }

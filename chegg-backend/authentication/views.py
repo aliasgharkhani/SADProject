@@ -1,10 +1,13 @@
-from authentication.serializers import MemberSignupSerializer, MemberProfileSerializer
+from authentication.serializers import MemberSignupSerializer, MemberProfileSerializer, MemberPageSerializer
+from django.http import Http404
+from django.views.generic import DetailView
 from rest_framework import status
 from rest_framework.exceptions import ValidationError
-from rest_framework.generics import CreateAPIView
+from rest_framework.generics import CreateAPIView, RetrieveAPIView
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.response import Response
 from rest_framework.views import APIView
+from authentication.models import Member
 
 
 class MemberSignupAPIView(CreateAPIView):
@@ -66,4 +69,14 @@ class MemberProfileEditAPIView(APIView):
             member.set_password(password)
         member.save()
         return Response('تغییرات با موفقیت اعمال شد.')
+
+
+class MemberPageAPIView(APIView):
+    permission_classes = []
+
+    def get(self, request, *args, **kwargs):
+        username = kwargs.get('username')
+        if not username or not Member.objects.filter(username=username).exists():
+            raise Http404
+        return Response(MemberPageSerializer(Member.objects.get(username=username)).data)
 
