@@ -113,8 +113,11 @@ class Question extends Component {
                         </Grid.Column>
                     </Grid.Row>
                 </Grid>
+
         )
     }
+
+
 }
 
 export default Question;

@@ -89,7 +89,7 @@ class PublicProfile extends Component {
 
 
             .then(res => {
-                console.log("fuck pox shit cos")
+
                 this.setState(
                     {
                         userInfo: res.data.user_info,

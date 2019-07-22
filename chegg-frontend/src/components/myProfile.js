@@ -65,9 +65,8 @@ class MyProfile extends Component {
 
     };
     reloadWhenPerssonalChanged = (e) => {
-        console.log("ata", e)
+        console.log("ata", e);
         this.setState({userInfo: e})
-
     };
 
 
@@ -75,7 +74,6 @@ class MyProfile extends Component {
     handleItemClick = (e, {name}) => this.setState({activeItem: name});
     getPageContent = () => {
         if (this.state.activeItem === 'مشخصات کاربری') {
-            console.log('personal info', this.state.userInfo)
             return (
                 <PersonalInfo handler={this.reloadWhenPerssonalChanged} info={this.state.userInfo}/>
             )
@@ -136,20 +134,17 @@ class MyProfile extends Component {
         console.log(localStorage.getItem('chegg-token'));
         axios.get(`http://localhost:8000/store/books`)
             .then(res => {
-                let numOfChapters = new Array(res.data.length).fill(0);
+                var numOfChapters = new Array(res.data.length).fill(0);
                 var headers = {
 
                     'Authorization': 'TOKEN ' + localStorage.getItem('chegg-token')
                 };
-                axios.get(`http://localhost:8000/auth/self/`, {headers: headers})
+                axios.get('http://localhost:8000/auth/self/', {headers: headers})
                     .then(res => {
-
                         for (var i = 0; i < res.data.bought_chapters.length; i++) {
-
                             numOfChapters[res.data.bought_chapters[i].book - 1] += 1;
-
                         }
-                        console.log('data', res.data.asked_questions)
+                        console.log('data', res.data);
                         this.setState(
                             {
                                 numOfChapters: numOfChapters,

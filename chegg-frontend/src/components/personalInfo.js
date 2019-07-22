@@ -91,7 +91,7 @@ class PersonalInfo extends Component {
     }
     //
     componentDidUpdate(prevProps, prevState) {
-        console.log('afaaada     ', this.props)
+        console.log('ali bia ali bia');
         if (this.props !== prevProps) {
             this.setState({
                 bio: this.props.info.bio,
