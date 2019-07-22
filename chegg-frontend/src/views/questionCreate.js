@@ -117,7 +117,6 @@ class QuestionCreate extends Component {
                                     </Modal.Actions>
                                 </Modal>
                                 <Container style={{height: '100%'}}>
-                                    <Segment>
                                         <Form onSubmit={this.handleSubmit} style={{'direction': 'rtl'}}>
                                             <Form.Group>
                                                 <Form.TextArea width={16} required
@@ -154,11 +153,10 @@ class QuestionCreate extends Component {
                                             <Button type='submit' style={{'fontFamily': 'B Yekan'}}>ایجاد</Button>
                                         </Form>
 
-                                    </Segment>
                                 </Container>
                             </Grid.Column>
                             <Grid.Column width={3}>
-                                <Ad/>
+                                <Ad ad1={"https://cdn.zoomg.ir/2019/3/4db9f81a-8796-431d-9ef0-80fbc174257c.gif"} ad2={"https://cdn.zoomg.ir/2019/3/4db9f81a-8796-431d-9ef0-80fbc174257c.gif"} ad3={"https://cdn.zoomg.ir/2019/3/4db9f81a-8796-431d-9ef0-80fbc174257c.gif"}/>
                             </Grid.Column>
                         </Grid.Row>
                     </Grid>

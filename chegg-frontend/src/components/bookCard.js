@@ -1,5 +1,5 @@
 import React, {Component} from "react";
-import {Button, Card, Image, Menu} from 'semantic-ui-react'
+import {Button, Card, Icon, Image, Popup } from 'semantic-ui-react'
 import Grid from "semantic-ui-react/dist/commonjs/collections/Grid";
 import {Redirect} from "react-router-dom";
 
@@ -11,6 +11,7 @@ class BookCard extends Component {
 
         super(props);
         this.routeChange = this.routeChange.bind(this);
+        this.onhover = this.onhover.bind(this)
     }
 
     state = {
@@ -25,6 +26,7 @@ class BookCard extends Component {
     };
 
     static getDerivedStateFromProps(props, state) {
+        console.log('mehdi   ', props);
         return {
             purchased: props.purchased,
             title: props.title,
@@ -43,7 +45,9 @@ class BookCard extends Component {
 
         })
     };
-
+    onhover = (e) => {
+        console.log('salam')
+    }
     renderRedirect = () => {
 
         if (this.state.redirect) {
@@ -57,7 +61,7 @@ class BookCard extends Component {
             if (this.state.purchased === 1) {
 
                 return (
-                    <Grid>
+                    <Grid style={{height:'100%'}}>
                         <Grid.Row style={{textAlign: 'center', paddingBottom:'0px'}}>
                             <div style={{margin: 'auto'}}>
                                 <strong style={{fontSize:'1.2em'}}>{this.state.title}</strong>
@@ -84,17 +88,20 @@ class BookCard extends Component {
                     </Grid>
                 )
             } else {
-                return (<Grid>
-                        <Grid.Row style={{paddingLeft: '0px', textAlign: 'center', paddingBottom:'0px'}}>
-                            <div style={{margin: 'auto'}}>
+                return (<Grid style={{height:'100%'}}>
+                        <Grid.Row style={{paddingBottom:'0', textAlign: 'center'}}>
+                            <Grid.Column>
                                 <strong style={{fontSize:'1.2em'}}>{this.state.title}</strong>
-                                <br/>
-                                تعداد فصل های خریده شده:
-                                {this.state.chaptersPurchased}
-                            </div>
-
-
+                            </Grid.Column>
                         </Grid.Row>
+
+                        <Grid.Row style={{padding: '0px', textAlign: 'center'}}>
+                            <Grid.Column>
+                                 <Popup style={{fontFamily:'B Yekan'}} content={'تعداد فصل های خریداری شده:' + this.state.chaptersPurchased} trigger={<Icon name={'question circle'}/>} />
+                            </Grid.Column>
+                        </Grid.Row>
+
+
                         <Grid.Row style={{textAlign: 'center', padding:'0'}}>
                             <a href={this.state.link} style={{margin: 'auto'}}>
                                 <div style={{fontFamily: "B Yekan", backgroundColor: '#e3fff1', fontSize:'0.85em'}}
@@ -117,7 +124,7 @@ class BookCard extends Component {
         return (
 
 
-            <Grid style={{width: '20%', height: '30vh', margin: '1em 0', fontSize: '1.3em',}}>
+            <Grid style={{width: '20%', height: '34vh', margin: '1em 0', fontSize: '1.3em',}}>
 
                 <Grid.Row style={{padding:'0'}}>
                     <img style={{width: "78%", height: "20vh", margin: 'auto'}}
