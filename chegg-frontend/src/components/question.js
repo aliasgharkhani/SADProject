@@ -56,12 +56,12 @@ class Question extends Component {
         const UserName_or_not = () => {
 
             if (this.state.isProfile === 0) {
-
+                var links = 'profile/' + this.state.asker;
                 return (
                     <div>
 
                         نویسنده: &nbsp;&nbsp;
-                        <a href={this.state.asker}>{this.state.asker}</a>
+                        <a href={links}>{this.state.asker}</a>
 
                         <br/>
 
@@ -113,11 +113,8 @@ class Question extends Component {
                         </Grid.Column>
                     </Grid.Row>
                 </Grid>
-
         )
     }
-
-
 }
 
 export default Question;
