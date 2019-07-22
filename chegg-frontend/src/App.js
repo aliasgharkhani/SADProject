@@ -13,6 +13,7 @@ import BookProblem from "./views/bookProblem";
 import UserProfile from "./views/userProfile";
 import QuestionList from "./views/questionList";
 import QuestionCreate from "./views/questionCreate";
+import QuestionPage from "./views/questionPage";
 
 
 
@@ -29,6 +30,7 @@ function App() {
                 <Route exact path='/profile/:username' component={UserProfile}/>
                 <Route exact path='/questions' component={QuestionList}/>
                 <Route exact path='/questions/submit' component={QuestionCreate}/>
+                 <Route exact path='/question/:id' component={QuestionPage}/>
             </Switch>
         </BrowserRouter>
     );
