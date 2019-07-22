@@ -143,7 +143,7 @@ class BookList extends Component {
                                 <Grid style={{
 
                                     display: 'flex',
-                                    flexDirection: 'row',
+                                    flexDirection: 'row-reverse',
                                     // justifyContent: 'space-evenly',
                                     flexWrap: 'wrap',
                                     margin: 'auto',
@@ -164,7 +164,7 @@ class BookList extends Component {
                             </Segment>
                         </Grid.Column>
                         <Grid.Column width={3}>
-                           <Ad/>
+                           <Ad ad1={"https://cdn.zoomg.ir/2019/3/4db9f81a-8796-431d-9ef0-80fbc174257c.gif"} ad2={"https://cdn.zoomg.ir/2019/3/4db9f81a-8796-431d-9ef0-80fbc174257c.gif"} ad3={"https://cdn.zoomg.ir/2019/3/4db9f81a-8796-431d-9ef0-80fbc174257c.gif"}/>
                         </Grid.Column>
                     </Grid.Row>
                 </Grid>
