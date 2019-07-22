@@ -21,17 +21,11 @@ class AskedQuestions extends Component {
     }
 
 
-    // componentWillReceiveProps(nextProps, nextContext) {
-    //     console.log('oomadam', nextProps.question)
-    //     this.setState({
-    //         question: nextProps.question,
-    //         asker : nextProps.asker
-    //     })
-    // }
+
 
 
     render() {
-        console.log('inja oomadam')
+
         return (
             <Segment
                 style={{

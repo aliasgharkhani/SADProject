@@ -56,12 +56,12 @@ class Question extends Component {
         const UserName_or_not = () => {
 
             if (this.state.isProfile === 0) {
-
+                var links = 'profile/' + this.state.asker;
                 return (
                     <div>
 
                         نویسنده: &nbsp;&nbsp;
-                        <a href={'profile/' + this.state.asker}>{this.state.asker}</a>
+                        <a href={links}>{this.state.asker}</a>
 
                         <br/>
 

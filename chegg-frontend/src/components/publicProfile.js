@@ -6,9 +6,8 @@ import BookCard from "../components/bookCard";
 import AskedQuestions from "../components/askedQuestions";
 import PurchasedBooks from "../components/purchasedBooks";
 import SidebarMenu from '../components/sidebarMenu'
-import PersonalInfo from '../components/personalInfo'
-import ChangePassword from '../components/changePassword'
-import UpgradeUserLevel from '../components/upgradeUserLevel';
+
+import PublicInfo from '../components/publicInfo'
 
 
 const menuItems = [
@@ -31,7 +30,7 @@ const menuItems = [
 ];
 
 
-class Profile extends Component {
+class PublicProfile extends Component {
 
 
     state = {
@@ -49,18 +48,13 @@ class Profile extends Component {
 
     };
 
-    reloadWhenUpgraded = () => {
-        this.setState({level: true})
-
-    };
-
 
     handleItemClick = (e, {name}) => this.setState({activeItem: name});
     getPageContent = () => {
         if (this.state.activeItem === 'مشخصات کاربری') {
             console.log('personal info', this.state.userInfo)
             return (
-                <PersonalInfo info={this.state.userInfo}/>
+                <PublicInfo info={this.state.userInfo}/>
             )
         } else if (this.state.activeItem === 'سوالات پرسیده شده') {
             if (this.state.askedQuestions.length === 0) {
@@ -89,18 +83,24 @@ class Profile extends Component {
 
     componentDidMount() {
         document.title = "پروفایل";
-        axios.get('http://localhost:8000/auth/profile/' + this.props.urlParameters.username)
+
+
+        axios.get('http://localhost:8000/auth/profile/' + this.props.urlParameters.username, )
+
+
             .then(res => {
-                console.log('salm salam');
+
                 this.setState(
                     {
                         userInfo: res.data.user_info,
                         askedQuestions: res.data.asked_questions,
-                        username: localStorage.getItem('chegg-username'),
-                        level: res.data.premium,
-                        answeredQuestions: res.data.userInfo.answered_questions,
+                        username: this.props.urlParameters.username,
+
+                        answeredQuestions: res.data.user_info.answered_questions,
                     }
                 );
+
+
                 var that = this;
             }).catch((error) => {
             console.log(error)
@@ -133,4 +133,4 @@ class Profile extends Component {
         )
     }
 }
-export default Profile;
+export default PublicProfile;
