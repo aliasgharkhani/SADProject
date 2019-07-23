@@ -5,6 +5,11 @@ import Template from "../components/template";
 import MultiSelect from "@khanacademy/react-multi-select";
 import Ad from "../components/ad";
 
+import 'react-draft-wysiwyg/dist/react-draft-wysiwyg.css';
+import {EditorState, convertToRaw, ContentState} from 'draft-js';
+import {Editor} from 'react-draft-wysiwyg';
+import draftToHtml from 'draftjs-to-html';
+
 
 class QuestionCreate extends Component {
     constructor(props) {
@@ -16,8 +21,23 @@ class QuestionCreate extends Component {
             allow: false,
             tags: null,
             selectedTags: [],
+            editorState: EditorState.createEmpty(),
         };
     }
+
+    onContentStateChange: Function = (editorState) => {
+        console.log('content', editorState.blocks)
+        this.setState({
+            text: editorState
+        })
+    };
+    onEditorStateChange: Function = (editorState) => {
+        // console.log('editor', editorState)
+
+        this.setState({
+            editorState,
+        });
+    };
 
 
     componentWillMount() {
@@ -81,6 +101,13 @@ class QuestionCreate extends Component {
 
 
     render() {
+        const editorState = this.state.editorState;
+        const styleObj = {
+            border: '2px solid gray',
+            padding: '5px',
+            maxHeight:'200px',
+            overFlow:'auto'
+        };
         let token = localStorage.getItem('chegg-token');
         if (this.state.allow && token !== null && token !== undefined) {
             return (
@@ -117,46 +144,59 @@ class QuestionCreate extends Component {
                                     </Modal.Actions>
                                 </Modal>
                                 <Container style={{height: '100%'}}>
-                                        <Form onSubmit={this.handleSubmit} style={{'direction': 'rtl'}}>
-                                            <Form.Group>
-                                                <Form.TextArea width={16} required
-                                                               style={{
-                                                                   resize: 'none',
-                                                                   height: '37.6px',
-                                                                   overflow: 'hidden',
-                                                                   fontFamily: 'B Yekan'
-                                                               }}
-                                                               label='عنوان'/>
+                                    <Form onSubmit={this.handleSubmit} style={{'direction': 'rtl'}}>
+                                        <Form.Group>
+                                            <Form.TextArea width={16} required
+                                                           style={{
+                                                               resize: 'none',
+                                                               height: '37.6px',
+                                                               overflow: 'hidden',
+                                                               fontFamily: 'B Yekan'
+                                                           }}
+                                                           label='عنوان'/>
 
-                                            </Form.Group>
-                                            <Form.Group>
-                                                <Form.TextArea label='متن' style={{fontFamily: 'B Yekan'}} required
-                                                               width={16}/>
-                                            </Form.Group>
-                                            برچسب ها
-                                            <MultiSelect overrideStrings={{
-                                                selectSomeItems: "انتخاب کنید",
-                                                allItemsAreSelected: "همه انتخاب شدند",
-                                                selectAll: "انتخاب همه",
-                                                search: "جستوجو",
-                                            }}
-                                                         options={this.state.tags.map(tag => {
-                                                             return {
-                                                                 label: tag.name,
-                                                                 value: tag.id
-                                                             }
-                                                         })}
-                                                         selected={this.state.selectedTags}
-                                                         onSelectedChanged={selectedTags => this.setState({selectedTags})}
+                                        </Form.Group>
+
+                                        <div style={{marginBottom: '40px', direction:'ltr'}}
+                                        >
+                                            <div style={{direction:'rtl'}}>متن</div>
+
+                                            <Editor
+                                                editorState={editorState}
+                                                wrapperClassName="demo-wrapper"
+                                                editorClassName="demo-editor"
+                                                editorStyle={styleObj}
+                                                onEditorStateChange={this.onEditorStateChange}
+                                                onContentStateChange={this.onContentStateChange}
                                             />
-                                            <br/>
-                                            <Button type='submit' style={{'fontFamily': 'B Yekan'}}>ایجاد</Button>
-                                        </Form>
+
+                                        </div>
+                                        برچسب ها
+                                        <MultiSelect overrideStrings={{
+                                            selectSomeItems: "انتخاب کنید",
+                                            allItemsAreSelected: "همه انتخاب شدند",
+                                            selectAll: "انتخاب همه",
+                                            search: "جستوجو",
+                                        }}
+                                                     options={this.state.tags.map(tag => {
+                                                         return {
+                                                             label: tag.name,
+                                                             value: tag.id
+                                                         }
+                                                     })}
+                                                     selected={this.state.selectedTags}
+                                                     onSelectedChanged={selectedTags => this.setState({selectedTags})}
+                                        />
+                                        <br/>
+                                        <Button type='submit' style={{'fontFamily': 'B Yekan'}}>ایجاد</Button>
+                                    </Form>
 
                                 </Container>
                             </Grid.Column>
                             <Grid.Column width={3}>
-                                <Ad ad1={"https://cdn.zoomg.ir/2019/3/4db9f81a-8796-431d-9ef0-80fbc174257c.gif"} ad2={"https://cdn.zoomg.ir/2019/3/4db9f81a-8796-431d-9ef0-80fbc174257c.gif"} ad3={"https://cdn.zoomg.ir/2019/3/4db9f81a-8796-431d-9ef0-80fbc174257c.gif"}/>
+                                <Ad ad1={"https://cdn.zoomg.ir/2019/3/4db9f81a-8796-431d-9ef0-80fbc174257c.gif"}
+                                    ad2={"https://cdn.zoomg.ir/2019/3/4db9f81a-8796-431d-9ef0-80fbc174257c.gif"}
+                                    ad3={"https://cdn.zoomg.ir/2019/3/4db9f81a-8796-431d-9ef0-80fbc174257c.gif"}/>
                             </Grid.Column>
                         </Grid.Row>
                     </Grid>
