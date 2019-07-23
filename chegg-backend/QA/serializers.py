@@ -11,7 +11,15 @@ class TagSerializer(serializers.ModelSerializer):
 class QuestionSerializer(serializers.ModelSerializer):
     creator = serializers.HiddenField(default=serializers.CurrentUserDefault())
     tags_with_names = serializers.SerializerMethodField()
+    is_answered = serializers.SerializerMethodField()
+    num_of_replies = serializers.SerializerMethodField()
     asker = serializers.SerializerMethodField()
+
+    def get_is_answered(self, obj):
+        return obj.replies.filter(best=True).exists()
+
+    def get_num_of_replies(self, obj):
+        return obj.replies.all().count()
 
     def get_tags_with_names(self, obj):
         return TagSerializer(obj.tags.all(), many=True).data
