@@ -60,7 +60,7 @@ class QuestionOfQuestionPage extends Component {
 
         return (
 
-            <Segment  style={{width: '70%',margin: 'auto'}}>
+            <Segment  style={{margin: 'auto'}}>
                 <Grid>
 
                     <Grid.Row columns={2}>
@@ -69,8 +69,8 @@ class QuestionOfQuestionPage extends Component {
                         <Grid.Column width={14}>
                             <Grid style={{direction: 'rtl'}}>
                                 <Grid.Row columns={2} style={{paddingBottom: '0', direction: 'rtl', minHeight: '4vh'}}>
-                                    <Grid.Column width={12}>
-                                        <div style={{fontSize: '1.9em'}}> {this.state.question.title}</div>
+                                    <Grid.Column style={{paddingRight: '0px'}} width={12}>
+                                        <div style={{fontSize: '1.9em', paddingRight: '0px'}}>{this.state.question.title}</div>
                                     </Grid.Column>
 
                                     <Grid.Column width={4}>
