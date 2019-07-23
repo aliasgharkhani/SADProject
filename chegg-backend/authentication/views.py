@@ -1,4 +1,5 @@
 from authentication.serializers import MemberSignupSerializer, MemberProfileSerializer, MemberPageSerializer
+from django.contrib.auth import authenticate
 from django.http import Http404
 from django.views.generic import DetailView
 from rest_framework import status
@@ -62,6 +63,12 @@ class MemberProfileEditAPIView(APIView):
         member.last_name = last_name
         password = self.request.data.get('password', None)
         if password is not None:
+            prev_password = self.request.data.get('lastPassword', None)
+            print(password, "nice", prev_password)
+            if not prev_password:
+                raise ValidationError('پسورد قبلی الزامی است.')
+            if not authenticate(username=member.username, password=prev_password):
+                raise ValidationError('پسورد قبلی نادرست است.')
             if password.count(' ') > 0:
                 raise ValidationError('رمز عبور نباید حاوی کاراکتر فاصله باشد.')
             if len(password) < 6:
