@@ -1,14 +1,13 @@
+from authentication.models import Member
 from authentication.serializers import MemberSignupSerializer, MemberProfileSerializer, MemberPageSerializer
 from django.contrib.auth import authenticate
 from django.http import Http404
-from django.views.generic import DetailView
 from rest_framework import status
 from rest_framework.exceptions import ValidationError
-from rest_framework.generics import CreateAPIView, RetrieveAPIView
+from rest_framework.generics import CreateAPIView
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.response import Response
 from rest_framework.views import APIView
-from authentication.models import Member
 
 
 class MemberSignupAPIView(CreateAPIView):
@@ -64,7 +63,6 @@ class MemberProfileEditAPIView(APIView):
         password = self.request.data.get('password', None)
         if password is not None:
             prev_password = self.request.data.get('lastPassword', None)
-            print(password, "nice", prev_password)
             if not prev_password:
                 raise ValidationError('پسورد قبلی الزامی است.')
             if not authenticate(username=member.username, password=prev_password):
@@ -87,3 +85,14 @@ class MemberPageAPIView(APIView):
             raise Http404
         return Response(MemberPageSerializer(Member.objects.get(username=username)).data)
 
+
+class MemberUpgradeAPIView(APIView):
+    permission_classes = [IsAuthenticated]
+
+    def post(self, request, *args, **kwargs):
+        member = self.request.user
+        if member.premium:
+            raise ValidationError('شما از قبل حساب کاربری خود را ارتقا داده اید.')
+        member.premium = True
+        member.save()
+        return Response('حساب کاربری شما با موفقیت ارتقا داده شد.')
