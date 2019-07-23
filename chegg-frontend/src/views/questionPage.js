@@ -5,56 +5,39 @@ import Template from '../components/template';
 import axios from "axios";
 import Question from "../components/question";
 import Ad from '../components/ad'
-
-
+import QuestionPart from '../components/questionOfQuestionPage'
 
 
 class QuestionPage extends Component {
 
 
-    state = {
-        books: [],
-        bought_books: [],
+    constructor(props) {
+        super(props);
 
-        numOfChapters: []
+        this.state = {
+            question: [],
 
-    };
+        };
+    }
 
-
-    componentDidMount() {
-        document.title = "لیست کتاب ها";
-        console.log(localStorage.getItem('chegg-token'))
-        axios.get(`http://localhost:8000/store/books`)
+    componentWillMount() {
+        document.title = "صفحه ی سوال";
+        var urlParameters = this.props.match.params;
+        var that = this;
+        console.log('http://localhost:8000/qa/questions/' + urlParameters.id)
+        axios.get('http://localhost:8000/qa/questions/' + urlParameters.id + '/')
             .then(res => {
-                let books = res.data;
-                let numOfChapters = new Array(res.data.length).fill(0);
-                var headers = {
+               // console.log(res.data, ' question form question page get axios')
+                this.setState({
+                        question: res.data
 
-                    'Authorization': 'TOKEN ' + localStorage.getItem('chegg-token')
-                };
-                axios.get(`http://localhost:8000/auth/self/`, {headers: headers})
-                    .then(res => {
-                        for (var i = 0; i < res.data.bought_chapters.length; i++) {
+                    }
+                )
 
-                            numOfChapters[res.data.bought_chapters[i].book - 1] += 1;
+            })
+            .catch(
 
-                        }
-                        this.setState(
-                            {
-                                numOfChapters: numOfChapters,
-                                bought_books: res.data.bought_books,
-                                books: books,
-                            }
-                        )
-                    }).catch((error) => {
-                    this.setState(
-                        {
-                            books: books,
-                        }
-                    );
-                    console.log(error)
-                })
-            });
+            )
 
 
     }
@@ -63,15 +46,14 @@ class QuestionPage extends Component {
     render() {
 
 
-
+        console.log('question from question page', this.state.question)
 
         return (
 
             <Template {...this.props}>
 
 
-
-
+                <QuestionPart question={this.state.question}/>
 
             </Template>
 

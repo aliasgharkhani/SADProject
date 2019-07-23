@@ -47,7 +47,7 @@ class AskedQuestions extends Component {
 
                         <Question isProfile={this.props.isProfile} asker={this.state.asker} title={question.title}
                                   description={question.body} tags={question.tags_with_names}
-                                  link={''}
+                                  link={'http://localhost:3000/question/' +  question.id}
                         />
                     )}
 
