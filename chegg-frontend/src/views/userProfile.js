@@ -18,16 +18,17 @@ class UserProfile extends Component {
 
     render() {
         var urlParameters = this.props.match.params;
+        var username = urlParameters.username;
         console.log('username ', localStorage.getItem('chegg-username'))
-        if (localStorage.getItem('chegg-username') === null) {
+        if (localStorage.getItem('chegg-username') === username) {
 
             return (
-                <PublicProfile urlParameters={urlParameters}/>
+                <MyProfile urlParameters={urlParameters}/>
             )
         } else {
             return (
+<PublicProfile urlParameters={urlParameters}/>
 
-                <MyProfile urlParameters={urlParameters}/>
 
 
             )

@@ -1,5 +1,5 @@
 import React, {Component} from 'react'
-import {Form, Image, Divider, Grid, Button, Icon, Modal, Header} from 'semantic-ui-react'
+import {Button, Divider, Form, Icon, Modal} from 'semantic-ui-react'
 import axios, {put} from "axios";
 
 class ChangePassword extends Component {
@@ -15,13 +15,15 @@ class ChangePassword extends Component {
         };
         this.handleInput = this.handleInput.bind(this);
         this.handleChange = this.handleChange.bind(this);
-        this.passSave = this.passSave.bind(this)
+        this.passSave = this.passSave.bind(this);
+        this.handleLastPass = this.handleLastPass.bind(this);
     }
 
     onCloseModal() {
         this.setState({
             modalActive: false,
-            memberInfo: null
+            memberInfo: null,
+            modalMessage: "",
         });
     }
 
@@ -37,7 +39,6 @@ class ChangePassword extends Component {
     }
 
     handleLastPass(e) {
-
 
         this.setState({
             [e.target.name]: e.target.value
@@ -64,7 +65,6 @@ class ChangePassword extends Component {
             .then(response => {
 
                 if (response.status === 200) {
-                    console.log(response.data)
 
                     this.setState({
                         modalMessage: response.data
@@ -80,8 +80,12 @@ class ChangePassword extends Component {
 
             })
             .catch((error) => {
+                let errors = "";
+                for (let i = 0; i < error.response.data.length; i++) {
+                    errors += error.response.data[i] + "\n";
+                }
                 this.setState({
-                    modalMessage: "رمز عبور باید حداقل ۶ کاراکتر باشد."
+                    modalMessage: errors
                 })
             })
         this.setState({modalActive: true})
@@ -111,8 +115,6 @@ class ChangePassword extends Component {
                         <Button style={{fontFamily: "B Yekan"}} emphasis="positive"
                                 color='green'
                                 onClick={this.onCloseModal.bind(this)}>بستن</Button>
-
-
                     </Modal.Actions>
                 </Modal>
 
@@ -123,17 +125,18 @@ class ChangePassword extends Component {
                 <Divider section/>
                 <Form>
                     <Form.Group>
-                        <Form.Input name={'lastPassword'} onChange={this.handleLastPass} required label='رمز قبلی' width={6}/>
+                        <Form.Input name={'lastPassword'} onChange={this.handleLastPass} required label='رمز قبلی'
+                                    width={6} type='password'/>
                     </Form.Group>
 
                     <Form.Group>
-                        <Form.Input required onChange={this.passSave} label='رمز جدید' width={6}/>
+                        <Form.Input required onChange={this.passSave} label='رمز جدید' width={6} type='password'/>
 
                     </Form.Group>
 
                     <Form.Group>
                         <Form.Input required error={!this.state.equal} onChange={this.handleInput} name={'password'}
-                                    label='تایید رمز' width={6}/>
+                                    label='تایید رمز' width={6} type='password'/>
                     </Form.Group>
 
                     <Button style={{fontFamily: "B Yekan"}} onClick={this.handleChange} type='submit'>ذخیره</Button>
