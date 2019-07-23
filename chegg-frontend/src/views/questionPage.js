@@ -5,19 +5,32 @@ import Template from '../components/template';
 import axios from "axios";
 import Question from "../components/question";
 import Ad from '../components/ad'
-
-
-
+import {Editor} from 'react-draft-wysiwyg';
+import 'react-draft-wysiwyg/dist/react-draft-wysiwyg.css';
+import {EditorState, convertToRaw} from 'draft-js';
 
 class QuestionPage extends Component {
 
+    constructor(props) {
+        super(props);
+        this.state = {
+            editorState: EditorState.createEmpty(),
+            text : ''
+        };
+    }
 
-    state = {
-        books: [],
-        bought_books: [],
+    onContentStateChange: Function = (editorState) => {
+        console.log('content', editorState.blocks)
+        this.setState({
+            text:editorState
+        })
+    };
+    onEditorStateChange: Function = (editorState) => {
+                // console.log('editor', editorState)
 
-        numOfChapters: []
-
+        this.setState({
+            editorState,
+        });
     };
 
 
@@ -62,15 +75,36 @@ class QuestionPage extends Component {
 
     render() {
 
-
-
+        const {editorState} = this.state;
+        const styleObj = {
+            border: '2px solid gray',
+            padding: '5px'
+        };
 
         return (
 
             <Template {...this.props}>
+                <Grid style={{margin: 'auto', width: '70%', height: '100%'}}>
+                    <Grid.Row columns={1} style={{padding: '0', height: '100%',}}>
 
+                        <Grid.Column width={13} style={{height: '100%',}}>
 
-
+                            <Editor
+                                editorState={editorState}
+                                wrapperClassName="demo-wrapper"
+                                editorClassName="demo-editor"
+                                editorStyle={styleObj}
+                                onEditorStateChange={this.onEditorStateChange}
+                                onContentStateChange={this.onContentStateChange}
+                            />
+                        </Grid.Column>
+                        <Grid.Column width={3}>
+                            <Ad ad1={"https://cdn.zoomg.ir/2019/3/4db9f81a-8796-431d-9ef0-80fbc174257c.gif"}
+                                ad2={"https://cdn.zoomg.ir/2019/3/4db9f81a-8796-431d-9ef0-80fbc174257c.gif"}
+                                ad3={"https://cdn.zoomg.ir/2019/3/4db9f81a-8796-431d-9ef0-80fbc174257c.gif"}/>
+                        </Grid.Column>
+                    </Grid.Row>
+                </Grid>
 
 
             </Template>
