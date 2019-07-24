@@ -1,17 +1,17 @@
 import React, {Component} from "react";
 import axios from "axios";
 import Template from "../components/template";
-import {Grid, Loader, Dimmer, Segment, Button} from "semantic-ui-react";
-import BookCard from "../components/bookCard";
+import {Button, Grid} from "semantic-ui-react";
 import AskedQuestions from "../components/askedQuestions";
 import PurchasedBooks from "../components/purchasedBooks";
 import SidebarMenu from '../components/sidebarMenu'
 import PersonalInfo from '../components/personalInfo'
 import ChangePassword from '../components/changePassword'
 import UpgradeUserLevel from '../components/upgradeUserLevel';
+import Messages from '../components/messages';
 
 
-const menuItems = [
+let menuItems = [
     {
         'name': 'مشخصات کاربری',
         'iconName': 'user',
@@ -29,7 +29,7 @@ const menuItems = [
         'name': 'سوالات پرسیده شده',
         'iconName': 'question circle',
     },
-     {
+    {
         'name': 'سوالات جواب داده',
         'iconName': 'check circle',
     },
@@ -37,6 +37,11 @@ const menuItems = [
         'name': 'ارتقای سطح کاربری',
         'iconName': 'toggle up',
     },
+    {
+        'name': 'پیام ها',
+        'iconName': 'envelope',
+        'label': '0'
+    }
 
 
 ];
@@ -56,22 +61,21 @@ class MyProfile extends Component {
         askedQuestions: [],
         answeredQuestions: [],
         level: false,
-
-
+        messages: []
     };
 
-     reloadWhenUpgraded = () => {
+    reloadWhenUpgraded = () => {
         this.setState({level: true})
 
     };
     reloadWhenPerssonalChanged = (e) => {
-        console.log("ata", e);
         this.setState({userInfo: e})
     };
 
 
-
-    handleItemClick = (e, {name}) => this.setState({activeItem: name});
+    handleItemClick = (e, {name}) => {
+        this.setState({activeItem: name});
+    }
     getPageContent = () => {
         if (this.state.activeItem === 'مشخصات کاربری') {
             return (
@@ -110,11 +114,11 @@ class MyProfile extends Component {
                 )
             } else {
                 return (
-                    <AskedQuestions isProfile={0}  question={this.state.answeredQuestions}/>
+                    <AskedQuestions isProfile={0} question={this.state.answeredQuestions}/>
                 )
             }
         }
-         else if (this.state.activeItem === 'ارتقای سطح کاربری') {
+        else if (this.state.activeItem === 'ارتقای سطح کاربری') {
             if (this.state.level) {
                 return (
                     <p style={{fontSize: '2em'}}> حساب کاربری شما ارتقا یافته است.</p>
@@ -126,8 +130,39 @@ class MyProfile extends Component {
                 )
             }
         }
+        else if (this.state.activeItem === 'پیام ها') {
+            if (this.state.messages.length === 0) {
+                return (
+                    <p style={{fontSize: '2em'}}>پیامی برای مشاهده وجود ندارد</p>
+                )
+            } else {
+                return (
+                    <Messages messages={this.state.messages} readMessages={this.readMessages}/>
+                )
+            }
+        }
 
     };
+
+    readMessages = () => {
+        console.log("her232323eeeeeeeeeeee", this.state.messages)
+        var headers = {
+
+            'Authorization': 'TOKEN ' + localStorage.getItem('chegg-token')
+        };
+        axios.get('http://localhost:8000/auth/self/', {headers: headers})
+            .then(res => {
+                this.setState(
+                    {
+                        messages: res.data.messages
+                    }
+                );
+                var that = this;
+            }).catch((error) => {
+            console.log(error)
+        })
+        console.log("hereeeeeeeeeeee", this.state.messages)
+    }
 
     componentDidMount() {
         document.title = "پروفایل";
@@ -155,6 +190,7 @@ class MyProfile extends Component {
                                 username: localStorage.getItem('chegg-username'),
                                 level: res.data.premium,
                                 answeredQuestions: res.data.user_info.answered_questions,
+                                messages: res.data.messages
                             }
                         );
                         var that = this;
@@ -196,7 +232,9 @@ class MyProfile extends Component {
                     <Grid style={{margin: 'auto', direction: 'rtl', width: '70%', height: '100%'}}>
                         <Grid.Row columns={2} style={{padding: '0'}}>
                             <Grid.Column width={3}>
-                                <SidebarMenu activeItem={this.state.activeItem} menuItems={menuItems}
+                                <SidebarMenu activeItem={this.state.activeItem}
+                                             messagesLen={this.state.messages.filter((message) => !message.read).length}
+                                             menuItems={menuItems}
                                              handleItemClick={this.handleItemClick}/>
                             </Grid.Column>
                             <Grid.Column width={13}>

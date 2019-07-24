@@ -1,4 +1,4 @@
-from authentication.models import Member
+from authentication.models import Member, Message
 from authentication.serializers import MemberSignupSerializer, MemberProfileSerializer, MemberPageSerializer
 from django.contrib.auth import authenticate
 from django.http import Http404
@@ -96,3 +96,13 @@ class MemberUpgradeAPIView(APIView):
         member.premium = True
         member.save()
         return Response('حساب کاربری شما با موفقیت ارتقا داده شد.')
+
+
+class ReadMessageAPIView(APIView):
+    permission_classes = [IsAuthenticated]
+
+    def post(self, request, *args, **kwargs):
+        member = self.request.user
+        messages = member.get_messages()
+        messages.update(read=True)
+        return Response('done')

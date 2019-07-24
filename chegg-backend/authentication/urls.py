@@ -1,4 +1,4 @@
-from authentication.views import HelloView, MemberSignupAPIView, MemberProfileAPIView, Logout, MemberProfileEditAPIView, MemberPageAPIView, MemberUpgradeAPIView
+from authentication.views import HelloView, MemberSignupAPIView, MemberProfileAPIView, Logout, MemberProfileEditAPIView, MemberPageAPIView, MemberUpgradeAPIView, ReadMessageAPIView
 from django.conf.urls import url
 from django.urls import path, include
 from rest_framework.authtoken.views import obtain_auth_token
@@ -13,4 +13,5 @@ urlpatterns = [
     path('self/upgrade/', MemberUpgradeAPIView.as_view(), name='upgrade'),
     path('profile/<str:username>/', MemberPageAPIView.as_view(), name='member-page'),
     path('self/edit/', MemberProfileEditAPIView.as_view(), name='profile-edit'),
+    path('self/read/', ReadMessageAPIView.as_view(), name='message-read'),
 ]
