@@ -196,7 +196,7 @@ class QuestionPage extends Component {
 
             <Template {...this.props}>
                 <Grid style={{margin: 'auto', width: '70%', height: '100%'}}>
-                    <Grid.Row columns={1} style={{padding: '0', height: '100%',}}>
+                    <Grid.Row columns={1} style={{height: '100%',}}>
 
                         <Grid.Column width={13} style={{height: '100%',}}>
                             <Segment>

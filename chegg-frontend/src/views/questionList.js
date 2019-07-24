@@ -3,9 +3,49 @@ import {Grid, Menu, Segment, Button, Checkbox, Form, Icon} from 'semantic-ui-rea
 import Question from '../components/question'
 import axios from "axios";
 import Template from '../components/template';
+import _ from 'lodash'
+import {Search, Header} from 'semantic-ui-react'
+
+
+
+const initialState = {isLoading: false, results: [], value: ''}
+
+const source = [
+    {
+        "title": "لینوکس خوبه",
+        "description": "خیلی خیلی خوبه",
+        "image": "https://s3.amazonaws.com/uifaces/faces/twitter/arpitnj/128.jpg",
+        "price": "$58.98"
+    },
+    {
+        "title": "Terry - Bernier",
+        "description": "Multi-layered full-range customer loyalty",
+        "image": "https://s3.amazonaws.com/uifaces/faces/twitter/robergd/128.jpg",
+        "price": "$98.43"
+    },
+    {
+        "title": "Kris, Stokes and Runolfsdottir",
+        "description": "Optimized explicit workforce",
+        "image": "https://s3.amazonaws.com/uifaces/faces/twitter/curiousoffice/128.jpg",
+        "price": "$0.57"
+    },
+    {
+        "title": "Olson LLC",
+        "description": "Mandatory 5th generation interface",
+        "image": "https://s3.amazonaws.com/uifaces/faces/twitter/operatino/128.jpg",
+        "price": "$19.91"
+    },
+    {
+        "title": "Kuhic, Hoppe and Prohaska",
+        "description": "Up-sized value-added customer loyalty",
+        "image": "https://s3.amazonaws.com/uifaces/faces/twitter/samscouto/128.jpg",
+        "price": "$73.30"
+    }
+]
 
 
 class QuestionList extends Component {
+
     constructor(props) {
         super(props);
         this.handleChange = this.handleChange.bind(this);
@@ -13,9 +53,33 @@ class QuestionList extends Component {
         this.state = {
             questions: [],
             tags: [],
-            visible_questions: []
+            visible_questions: [],
+            isLoading: false,
+            value: '',
+            results: []
         };
     }
+
+    handleResultSelect = (e, {result}) => {
+        this.props.history.push('question/' + result.id);
+        console.log('salam bacheha', result)
+    };
+
+    handleSearchChange = (e, {value}) => {
+        this.setState({isLoading: true, value});
+
+        setTimeout(() => {
+            if (this.state.value.length < 1) return this.setState(initialState);
+
+            const re = new RegExp(_.escapeRegExp(this.state.value), 'i');
+            const isMatch = result => re.test(result.title);
+
+            this.setState({
+                isLoading: false,
+                results: _.filter(this.state.visible_questions, isMatch),
+            })
+        }, 300)
+    };
 
 
     componentDidMount() {
@@ -65,17 +129,16 @@ class QuestionList extends Component {
     }
 
     getQuestionsOrEmpty() {
-        if(this.state.visible_questions.length === 0){
+        if (this.state.visible_questions.length === 0) {
             return (
-                <div style={{marginTop:'0.6vh'}}>سوالی برای نمایش وجود ندارد.</div>
+                <div style={{marginTop: '0.6vh'}}>سوالی برای نمایش وجود ندارد.</div>
             )
-        }
-        else {
+        } else {
             return (
                 this.state.visible_questions.map(question =>
                     <Question isProfile={0} asker={question.asker} title={question.title}
-                              description={question.body} tags={question.tags_with_names}
-                              link={'http://localhost:3000/question/' +  question.id}
+                              description={question.description} tags={question.tags_with_names}
+                              link={'http://localhost:3000/question/' + question.id}
                     />
                 )
             )
@@ -83,16 +146,18 @@ class QuestionList extends Component {
     }
 
     render() {
+
         const TagFilter = () => (
             <Form onSubmit={this.handleChange} style={{height: '100%', overflow: 'auto'}}>
-                <Segment style={{maxHeight: '92.6%', overflow: 'auto'}}>
+                <Segment style={{maxHeight: '92.6%', overflow: 'auto', border: '0.7px groove',
+                borderRadius: '10px'}}>
                     {this.state.tags.map(tag =>
                         <Form.Field>
-                            <Checkbox id={tag.id} label={tag.name}/>
+                            <Checkbox style={{color:'black'}} id={tag.id} label={tag.name}/>
                         </Form.Field>
                     )}
                 </Segment>
-                <Button style={{fontFamily: 'B Yekan'}} fluid={true} floated={'left'} type='submit'>فیلتر</Button>
+                <Button style={{fontFamily: 'B Yekan', backgroundColor:'black', color:'white'}} fluid={true} floated={'left'} type='submit'>فیلتر</Button>
             </Form>
 
         );
@@ -100,31 +165,49 @@ class QuestionList extends Component {
 
         return (
             <Template {...this.props}>
-                <Grid style={{margin: 'auto', width: '70%', height: '100%'}}>
-                    <Grid.Row columns={2} style={{padding: '0', maxHeight: '100%',}}>
+                <Grid style={{margin: 'auto', width: '70%', height: '82vh'}}>
+                    <Grid.Row columns={2} style={{maxHeight: '100%',}}>
                         <Grid.Column width={13} style={{maxHeight: '100%'}}>
-                            <Segment
-                                style={{
-                                    backgroundImage: 'url("https://visme.co/blog/wp-content/uploads/2017/07/50-Beautiful-and-Minimalist-Presentation-Backgrounds-037.jpg")',
-                                    margin: 'auto',
-                                    maxHeight: '100%',
-                                    overflow: 'auto',
 
-                                }}>
-                                <Grid style={{
-                                    display: 'flex',
-                                    flexDirection: 'row',
-                                    justifyContent: 'space-evenly',
-                                    flexWrap: 'wrap',
-                                    direction: 'rtl'
-                                }}>
 
-                                    {this.getQuestionsOrEmpty()}
-                                </Grid>
+                            <Grid.Row style={{height: '91.7%'}}>
+                                <Search
+                                            noResultsMessage ={'نتیجه‌ای یافت نشد.'}
+                                            style={{width: '100%', marginTop: '10px', marginBottom:'10px'}}
+                                            loading={this.state.isLoading}
+                                            onResultSelect={this.handleResultSelect}
+                                            onSearchChange={_.debounce(this.handleSearchChange, 500, {
+                                                leading: true,
+                                            })}
+                                            results={this.state.results}
+                                            value={this.state.value}
+                                            {...this.props}
+                                        />
+                                <Segment
+                                    style={{
+                                        border:'none',
+                                        // backgroundImage: 'url("https://visme.co/blog/wp-content/uploads/2017/07/50-Beautiful-and-Minimalist-Presentation-Backgrounds-037.jpg")',
+                                        margin: 'auto',
+                                        maxHeight: '100%',
+                                        overflow: 'auto',
+                                        width: '100%',
 
-                            </Segment>
+                                    }}>
+                                    <Grid style={{
+                                        display: 'flex',
+                                        flexDirection: 'row',
+                                        justifyContent: 'flex-start',
+                                        flexWrap: 'wrap',
+                                        direction: 'rtl'
+                                    }}>
+
+                                        {this.getQuestionsOrEmpty()}
+                                    </Grid>
+
+                                </Segment>
+                            </Grid.Row>
                         </Grid.Column>
-                        <Grid.Column width={3} style={{maxHeight: '100%',}}>
+                        <Grid.Column width={3} style={{maxHeight: '100%'}}>
                             {TagFilter()}
                         </Grid.Column>
                     </Grid.Row>

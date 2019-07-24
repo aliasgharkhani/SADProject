@@ -6,15 +6,13 @@ import BackgroundImageOnLoad from 'background-image-on-load';
 import Slider from "react-slick";
 
 
-
-
 class Main extends Component {
 
     handleItemClick = (e, {name, path}) => {
 
         console.log(path);
-
-        window.location.replace(path);
+        this.props.history.push('../' + path)
+        // window.location.replace(path);
     };
 
     state = {
@@ -29,15 +27,15 @@ class Main extends Component {
 
         var settings = {
             adaptiveHeight: true,
-            autoplay:true,
+            autoplay: true,
             infinite: true,
             speed: 2000,
             slidesToShow: 1,
             slidesToScroll: 1,
-            rtl:false,
-            accessibility:true,
-            arrows:true,
-            dots:true,
+            rtl: false,
+            accessibility: true,
+            arrows: true,
+            dots: true,
         };
         return (
             <Template>

@@ -16,12 +16,12 @@ class Question extends Component {
     state = {
         redirect: false,
         path: '',
-        asker:null,
-        description:null,
-        tags:[],
-        link:null,
-        title:null,
-        isProfile:null
+        asker: null,
+        description: null,
+        tags: [],
+        link: null,
+        title: null,
+        isProfile: null
     };
 
     static getDerivedStateFromProps(props, state) {
@@ -30,8 +30,8 @@ class Question extends Component {
             title: props.title,
             link: props.link,
             description: props.description,
-            tags:props.tags,
-            isProfile:props.isProfile
+            tags: props.tags,
+            isProfile: props.isProfile
         };
     }
 
@@ -52,6 +52,10 @@ class Question extends Component {
     }
 
     render() {
+        const divStyle = {
+            cursor: 'pointer',
+            margin: 'auto',
+        };
 
         const UserName_or_not = () => {
 
@@ -60,18 +64,18 @@ class Question extends Component {
                 return (
                     <div>
 
-                        نویسنده: &nbsp;&nbsp;
+                        نویسنده:
+                        <br/>
                         <a href={links}>{this.state.asker}</a>
 
                         <br/>
 
 
-                        </div>// path='/sport3/login'
+                    </div>// path='/sport3/login'
 
 
                 )
-            }
-            else {
+            } else {
                 return (
                     <div></div>
 
@@ -83,36 +87,65 @@ class Question extends Component {
         return (
 
 
-                <Grid style={{width: '48%', backgroundColor: 'white', margin: '10px 10px', height: '160px', display: 'flex', flexDirection: 'column'}}>
+            <Grid style={{
+                width: '100%',
+                backgroundColor: 'white',
+                margin: '3px 10px',
+                height: '190px',
+                border: '0.7px groove',
+                borderRadius: '10px'
+            }}>
+                <Grid.Column style={{
+                    padding: '20px 0px', display: 'flex',
+                    flexDirection: 'column',
+                    justifyContent: 'space-around'
+                }} width={1}>
+                    <Grid.Row style={{
+                        textAlign: 'center',
 
-                    <Grid.Row style={{  paddingBottom: '0'}} >
+                    }}>
+                        <Icon className={'pointer'} onClick={this.handleUpVotes} color={"grey"} size={"huge"}
+                              style={divStyle} name="caret up"/>
+                    </Grid.Row>
+                    <Grid.Row>
+                        <p style={{textAlign: 'center', fontSize: '2em'}}>0</p>
+                    </Grid.Row>
+                    <Grid.Row className={'pointer'} style={{textAlign: 'center'}}>
+                        <Icon onClick={this.handleDownVotes} color={"grey"} size={"huge"}
+                              style={divStyle} name="caret down"/>
+                    </Grid.Row>
+                </Grid.Column>
+                <Grid.Column style={{
+                    display: 'flex',
+                    flexDirection: 'column'
+                }} width={15}>
+                    <Grid.Row style={{paddingBottom: '5px'}}>
 
-                            <div style={{fontSize: '1.5em'}}><a href={this.state.link}> {this.state.title}</a></div>
-
+                        <div style={{fontSize: '1.5em'}}><a  href={this.state.link}> {this.state.title}</a></div>
 
 
                     </Grid.Row>
                     <Grid.Row style={{flexGrow: '1'}}>
                         <div>{this.state.description}</div>
                     </Grid.Row>
+                    <Grid columns={2}>
 
-                    <Grid.Row  columns={2} style={{
-                        overflow: 'hidden',
-                        padding: '0px',
-                        height: '5vh',
-                    }}>
-                        <Grid.Column style={{padding: '0px'}} width={12} >
-                         {this.state.tags.map(tag =>
+                        <Grid.Column width={13}>
+                            {this.state.tags.map(tag =>
 
-                            <Button primary disabled={true} style={{direction:'ltr'}} content={tag.name}/>
-                        )}
+                                <Button primary disabled={true}
+                                        style={{direction: 'ltr', color: '#283351', backgroundColor: '#d6e1e9'}}
+                                        content={tag.name}/>
+                            )}
 
-                        </Grid.Column >
-                        <Grid.Column style={{textAlign: 'left'}} width={4}>
+                        </Grid.Column>
+                        <Grid.Column width={3} style={{textAlign: 'left'}}>
+                            {/*    salam*/}
                             {UserName_or_not()}
                         </Grid.Column>
-                    </Grid.Row>
-                </Grid>
+                    </Grid>
+                </Grid.Column>
+            </Grid>
 
         )
     }

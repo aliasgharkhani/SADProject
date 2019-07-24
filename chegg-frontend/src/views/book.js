@@ -337,8 +337,8 @@ class Book extends Component {
         return (
             <Template>
 
-                <Grid style={{margin: 'auto', width: '70%', minHeight: '100%'}}>
-                    <Grid.Row columns={2} style={{padding: '0',height:'100%'}}>
+                <Grid style={{margin: 'auto', width: '70%', height:'82vh'}}>
+                    <Grid.Row columns={2} style={{height:'100%'}}>
 
                         <Grid.Column width={13} style={{height:'100%'}}>
 
@@ -411,7 +411,7 @@ class Book extends Component {
                                         </Grid.Column>
                                         <Grid.Column width={6}>
 
-                                            <img style={{width: '80%', height:'100%'}} className="ui small image"
+                                            <img style={{width: '80%', height:'35vh'}} className="ui small image"
                                                  src={this.state.cover}/><br/>
 
 

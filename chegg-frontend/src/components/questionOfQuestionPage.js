@@ -49,7 +49,7 @@ class QuestionOfQuestionPage extends Component {
 
                 {this.state.question.tags_with_names.map(tag =>
 
-                    <Button primary disabled={true} style={{direction: 'ltr'}} content={tag.name}/>
+                    <Button primary disabled={true} style={{direction: 'ltr', color: '#283351', backgroundColor: '#d6e1e9'}} content={tag.name}/>
                 )}
             </div>
         )

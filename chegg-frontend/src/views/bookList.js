@@ -125,7 +125,7 @@ class BookList extends Component {
 
 
                 <Grid style={{margin: 'auto', width: '70%', height: '100%'}}>
-                    <Grid.Row columns={2} style={{padding: '0', maxHeight: '100%',}}>
+                    <Grid.Row columns={2} style={{ maxHeight: '100%',}}>
 
                         <Grid.Column width={13} style={{maxHeight: '100%',}}>
                             <Segment

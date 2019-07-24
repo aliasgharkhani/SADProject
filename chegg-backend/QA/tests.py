@@ -25,7 +25,7 @@ class QATestCase(TestCase):
         token = self.obtain_token('garamaleki', '123456')
         data = {
             'title': 'a question',
-            'body': 'I do have a question.'
+            'description': 'I do have a question.'
         }
         response = self.client.post(reverse('qa:questions-list'), data=data,
                                     HTTP_AUTHORIZATION='TOKEN ' + token)
@@ -36,7 +36,7 @@ class QATestCase(TestCase):
     def test_add_question_unauthorized(self):
         data = {
             'title': 'a question',
-            'body': 'I do have a question.'
+            'description': 'I do have a question.'
         }
         response = self.client.post(reverse('qa:questions-list'), data=data)
         self.assertEqual(response.status_code, 401)
@@ -48,6 +48,6 @@ class QATestCase(TestCase):
         data = json.loads(response.content)
         exists = False
         for question in data:
-            if question.get('title') == 'a question' and question.get('body') == 'I do have a question.':
+            if question.get('title') == 'a question' and question.get('description') == 'I do have a question.':
                 exists = True
         self.assertTrue(exists)

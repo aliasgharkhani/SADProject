@@ -37,7 +37,7 @@ class QuestionSerializer(serializers.ModelSerializer):
                     "max_length": "تعداد کاراکترها بیش از حد مجاز است."
                 }
             },
-            "body": {
+            "description": {
                 "error_messages": {
                     "required": "این فیلد الزامی است.",
                     "max_length": "تعداد کاراکترها بیش از حد مجاز است."
@@ -60,7 +60,7 @@ class ReplySerializer(serializers.ModelSerializer):
         exclude = ()
 
     extra_kwargs = {
-        "body": {
+        "description": {
             "error_messages": {
                 "required": "این فیلد الزامی است.",
                 "max_length": "تعداد کاراکترها بیش از حد مجاز است."

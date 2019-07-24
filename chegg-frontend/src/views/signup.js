@@ -53,7 +53,8 @@ class SignupForm extends Component {
 
             console.log(response);
             if (response.status === 200) {
-                window.location.replace("http://localhost:3000/signin");
+                this.props.history.push('../signin');
+                // window.location.replace("http://localhost:3000/signin");
             }
             else if(response.status === 203) {
                 var error = ""

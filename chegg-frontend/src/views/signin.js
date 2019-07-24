@@ -40,7 +40,8 @@ class SignIn extends React.Component {
                     this.setState({
                         message: 'با موفقیت وارد شدید'
                     })
-                    window.location.replace('/')
+                    this.props.history.push('../')
+                    // window.location.replace('/')
 
                 } else {
                     this.setState({
