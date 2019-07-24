@@ -1,4 +1,4 @@
-from QA.models import Question, Tag, Reply
+from QA.models import Question, Tag, Reply, ReplyScore
 from rest_framework import serializers
 
 
@@ -54,6 +54,18 @@ class QuestionSerializer(serializers.ModelSerializer):
 
 class ReplySerializer(serializers.ModelSerializer):
     creator = serializers.HiddenField(default=serializers.CurrentUserDefault())
+    member_score = serializers.SerializerMethodField()
+
+    def get_member_score(self, obj):
+        requesting_member = self.context['request']
+        try:
+            reply_score = ReplyScore.objects.get(reply=obj, member=requesting_member)
+            if reply_score.type == 'up':
+                return 1
+            else:
+                return -1
+        except:
+            return 0
 
     class Meta:
         model = Reply

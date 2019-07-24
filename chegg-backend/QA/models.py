@@ -28,8 +28,8 @@ class Reply(models.Model):
 
 class ReplyScore(models.Model):
     SCORE_CHOICES = (
-        ('1', '1'),
-        ('-1', '-1'),
+        ('up', 'up'),
+        ('down', 'down'),
     )
     member = models.ForeignKey('authentication.Member', on_delete=models.CASCADE)
     reply = models.ForeignKey('QA.Reply', on_delete=models.CASCADE)
@@ -37,4 +37,3 @@ class ReplyScore(models.Model):
 
     class Meta:
         unique_together = ('member', 'reply')
-

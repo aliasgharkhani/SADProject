@@ -1,5 +1,6 @@
-from QA.models import Question, Tag, Reply
+from QA.models import Question, Tag, Reply, ReplyScore
 from QA.serializers import QuestionSerializer, TagSerializer, ReplySerializer
+from django.core.exceptions import ObjectDoesNotExist
 from rest_framework import viewsets
 from rest_framework.decorators import action
 from rest_framework.exceptions import ValidationError
@@ -17,7 +18,7 @@ class QuestionViewSet(viewsets.ModelViewSet):
     @action(detail=True, methods=['get'], permission_classes=[IsAuthenticatedOrReadOnly])
     def replies(self, request, pk):
         question = self.get_object()
-        return Response(ReplySerializer(question.replies.all(), many=True).data)
+        return Response(ReplySerializer(question.replies.all(), many=True, context={'request': self.request}).data)
 
 
 class TagListAPIView(ListAPIView):
@@ -62,3 +63,58 @@ class BestAnswerAPIView(APIView):
             reply.save()
         else:
             raise ValidationError('دستور نامعتبر است')
+
+
+class ReplyScoreAPIView(APIView):
+    permission_classes = [IsAuthenticated]
+
+    def post(self, request, *args, **kwargs):
+        reply_id = kwargs.get('reply_id')
+        member = self.request.user
+        command = self.request.data.get('command', None)
+        if not command:
+            raise ValidationError('نوع دستور را مشخص کنید.')
+        try:
+            reply = Reply.objects.get(id=reply_id)
+            if command == 'up':
+                try:
+                    reply_score = ReplyScore.objects.get(member=member, reply=reply)
+                    if reply_score.type == 'up':
+                        reply.score -= 1
+                        reply.save()
+                        reply_score.delete()
+                        return Response('انجام شد')
+                    else:
+                        reply_score.type = 'up'
+                        reply_score.save()
+                        reply.score += 2
+                        reply.save()
+                        return Response('انجام شد')
+                except ObjectDoesNotExist:
+                    ReplyScore.objects.create(member=member, reply=reply, type='up')
+                    reply.score += 1
+                    reply.save()
+                    return Response('انجام شد')
+            elif command == 'down':
+                try:
+                    reply_score = ReplyScore.objects.get(member=member, reply=reply)
+                    if reply_score.type == 'down':
+                        reply.score += 1
+                        reply.save()
+                        reply_score.delete()
+                        return Response('انجام شد')
+                    else:
+                        reply_score.type = 'down'
+                        reply_score.save()
+                        reply.score -= 2
+                        reply.save()
+                        return Response('انجام شد')
+                except ObjectDoesNotExist:
+                    ReplyScore.objects.create(member=member, reply=reply, type='down')
+                    reply.score -= 1
+                    reply.save()
+                    return Response('انجام شد')
+            else:
+                raise ValidationError('نوع دستور اشتباه است.')
+        except:
+            raise ValidationError('پاسخ وجود ندارد.')
