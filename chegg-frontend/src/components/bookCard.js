@@ -97,7 +97,7 @@ class BookCard extends Component {
 
                         <Grid.Row style={{padding: '0px', textAlign: 'center'}}>
                             <Grid.Column>
-                                 <Popup style={{fontFamily:'B Yekan'}} content={'تعداد فصل های خریداری شده:' + this.state.chaptersPurchased} trigger={<Icon name={'question circle'}/>} />
+                                 <Popup style={{fontFamily:'B Yekan'}} content={'تعداد فصل های خریداری شده:' + this.state.chaptersPurchased} trigger={<Icon name={'tasks'}/>} />
                             </Grid.Column>
                         </Grid.Row>
 
@@ -124,10 +124,10 @@ class BookCard extends Component {
         return (
 
 
-            <Grid style={{width: '20%', height: '34vh', margin: '1em 0', fontSize: '1.3em',}}>
+            <Grid style={{width: '20%', height: '34vh', margin: '1em 0', fontSize: '1.3em'}}>
 
                 <Grid.Row style={{padding:'0'}}>
-                    <img style={{width: "78%", height: "20vh", margin: 'auto'}}
+                    <img style={{width: "78%", height: "20vh", margin: 'auto', boxShadow: '0px 10px 10px grey'}}
                          src={this.state.bookCover}/>
                 </Grid.Row>
 

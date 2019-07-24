@@ -171,7 +171,7 @@ class PersonalInfo extends Component {
 
                     </Form.Group>
                     <Form.Group>
-                        <Form.Input  style={{fontFamily: 'B Yekan'}} label='نام'
+                        <Form.Input  style={{fontFamily: 'B Yekan', textAlign:'right'}} label='نام'
                                     defaultValue={this.state.first_name} width={8}/>
                         <Form.Input style={{fontFamily: 'B Yekan'}} label='نام خانوادگی'
                                     defaultValue={this.state.last_name} width={8}/>

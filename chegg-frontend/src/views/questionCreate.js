@@ -86,7 +86,8 @@ class QuestionCreate extends Component {
                         modalMessage: "سوال شما با موفقیت ایجاد شد"
                     })
                     setTimeout(() => {
-                        window.location.replace("http://localhost:3000/questions")
+                        this.props.history.push('../questions');
+                        // window.location.replace("http://localhost:3000/questions")
                     }, 2000)
                 }
             })
@@ -105,16 +106,16 @@ class QuestionCreate extends Component {
         const styleObj = {
             border: '2px solid gray',
             padding: '5px',
-            maxHeight:'200px',
-            overFlow:'auto'
+            maxHeight: '200px',
+            overFlow: 'auto'
         };
         let token = localStorage.getItem('chegg-token');
         if (this.state.allow && token !== null && token !== undefined) {
             return (
                 <Template {...this.props}>
 
-                    <Grid style={{margin: 'auto', width: '70%', height: '100%'}}>
-                        <Grid.Row columns={2} style={{padding: '0', maxHeight: '100%',}}>
+                    <Grid style={{margin: 'auto', width: '70%', height: '82vh'}}>
+                        <Grid.Row columns={2} style={{maxHeight: '100%',}}>
 
                             <Grid.Column width={13} style={{maxHeight: '100%',}}>
                                 <Modal size={"mini"} onRequestClose={this.onCloseModal.bind(this)}
@@ -157,9 +158,9 @@ class QuestionCreate extends Component {
 
                                         </Form.Group>
 
-                                        <div style={{marginBottom: '40px', direction:'ltr'}}
+                                        <div style={{marginBottom: '40px', direction: 'ltr'}}
                                         >
-                                            <div style={{direction:'rtl'}}>متن</div>
+                                            <div style={{direction: 'rtl'}}>متن</div>
 
                                             <Editor
                                                 editorState={editorState}
@@ -207,7 +208,8 @@ class QuestionCreate extends Component {
         } else {
             if (token === null || token === undefined) {
                 alert('برای پرسش سوال باید وارد سایت شوید');
-                window.location.replace('http://localhost:3000/signin');
+                this.props.history.push('../signin');
+                // window.location.replace('http://localhost:3000/signin');
             }
             return (<div/>)
         }

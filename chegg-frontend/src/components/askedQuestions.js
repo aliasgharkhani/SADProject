@@ -31,7 +31,7 @@ class AskedQuestions extends Component {
                 style={{
                     backgroundImage: 'url("https://visme.co/blog/wp-content/uploads/2017/07/50-Beautiful-and-Minimalist-Presentation-Backgrounds-037.jpg")',
                     margin: 'auto',
-                    maxHeight: '425px',
+                    maxHeight: '100%',
                     overflow: 'auto',
 
 

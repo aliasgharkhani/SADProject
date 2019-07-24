@@ -27,8 +27,7 @@ class UserProfile extends Component {
             )
         } else {
             return (
-<PublicProfile urlParameters={urlParameters}/>
-
+                <PublicProfile urlParameters={urlParameters}/>
 
 
             )

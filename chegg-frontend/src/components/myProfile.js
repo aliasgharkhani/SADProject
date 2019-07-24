@@ -242,8 +242,8 @@ class MyProfile extends Component {
 
                 <Template {...this.props}>
 
-                    <Grid style={{margin: 'auto', direction: 'rtl', width: '70%', height: '100%'}}>
-                        <Grid.Row columns={2} style={{padding: '0'}}>
+                    <Grid style={{margin: 'auto', direction: 'rtl', width: '70%', height: '82vh'}}>
+                        <Grid.Row columns={2} >
                             <Grid.Column width={3}>
                                 <SidebarMenu activeItem={this.state.activeItem}
                                              messagesLen={this.state.messages.filter((message) => !message.read).length}

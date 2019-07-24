@@ -14,6 +14,7 @@ import UserProfile from "./views/userProfile";
 import QuestionList from "./views/questionList";
 import QuestionCreate from "./views/questionCreate";
 import QuestionPage from "./views/questionPage";
+import SearchExampleStandard from "./views/test";
 
 
 
@@ -31,6 +32,7 @@ function App() {
                 <Route exact path='/questions' component={QuestionList}/>
                 <Route exact path='/questions/submit' component={QuestionCreate}/>
                  <Route exact path='/question/:id' component={QuestionPage}/>
+                 <Route exact path='/test' component={SearchExampleStandard}/>
             </Switch>
         </BrowserRouter>
     );
