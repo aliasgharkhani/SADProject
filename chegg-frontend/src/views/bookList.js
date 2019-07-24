@@ -125,19 +125,18 @@ class BookList extends Component {
 
 
                 <Grid style={{margin: 'auto', width: '70%', height: '100%'}}>
-                    <Grid.Row columns={2} style={{ maxHeight: '100%',}}>
+                    <Grid.Row columns={2} style={{maxHeight: '100%',}}>
 
                         <Grid.Column width={13} style={{maxHeight: '100%',}}>
                             <Segment
-                                color='grey'
                                 style={{
-                                    backgroundImage: 'url("https://visme.co/blog/wp-content/uploads/2017/07/50-Beautiful-and-Minimalist-Presentation-Backgrounds-037.jpg")',
-                                    // backgroundColor:'#1c1c1c',
+                                    backgroundImage: 'url("https://wallpaperplay.com/walls/full/d/0/d/70300.jpg")',
+                                    // backgroundColor:'#000000',
                                     margin: 'auto',
-
                                     maxHeight: '100%',
                                     overflow: 'auto',
-
+                                    border: '0.7px groove',
+                                    borderRadius: '10px'
 
                                 }}>
                                 <Grid style={{
@@ -164,7 +163,9 @@ class BookList extends Component {
                             </Segment>
                         </Grid.Column>
                         <Grid.Column width={3}>
-                           <Ad ad1={"https://cdn.zoomg.ir/2019/3/4db9f81a-8796-431d-9ef0-80fbc174257c.gif"} ad2={"https://cdn.zoomg.ir/2019/3/4db9f81a-8796-431d-9ef0-80fbc174257c.gif"} ad3={"https://cdn.zoomg.ir/2019/3/4db9f81a-8796-431d-9ef0-80fbc174257c.gif"}/>
+                            <Ad ad1={"https://cdn.zoomg.ir/2019/3/4db9f81a-8796-431d-9ef0-80fbc174257c.gif"}
+                                ad2={"https://cdn.zoomg.ir/2019/3/4db9f81a-8796-431d-9ef0-80fbc174257c.gif"}
+                                ad3={"https://cdn.zoomg.ir/2019/3/4db9f81a-8796-431d-9ef0-80fbc174257c.gif"}/>
                         </Grid.Column>
                     </Grid.Row>
                 </Grid>
