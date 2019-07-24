@@ -41,7 +41,7 @@ class MemberProfileSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Member
-        fields = ('user_info', 'bought_books', 'bought_chapters', 'asked_questions', 'replies', 'messages')
+        fields = ('user_info', 'bought_books', 'bought_chapters', 'asked_questions', 'replies', 'messages', 'is_active')
 
     def get_messages(self, obj):
         return MessageSerializer(obj.get_messages(), many=True).data
@@ -73,7 +73,7 @@ class MemberPageSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Member
-        fields = ('user_info', 'asked_questions', 'replies')
+        fields = ('user_info', 'asked_questions', 'replies', 'is_active')
 
     def get_user_info(self, obj):
         return MemberBaseInfoSerializer(obj).data

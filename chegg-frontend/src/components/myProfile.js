@@ -1,7 +1,7 @@
 import React, {Component} from "react";
 import axios from "axios";
 import Template from "../components/template";
-import {Button, Grid} from "semantic-ui-react";
+import {Button, Grid, Message} from "semantic-ui-react";
 import AskedQuestions from "../components/askedQuestions";
 import PurchasedBooks from "../components/purchasedBooks";
 import SidebarMenu from '../components/sidebarMenu'
@@ -61,7 +61,8 @@ class MyProfile extends Component {
         askedQuestions: [],
         answeredQuestions: [],
         level: false,
-        messages: []
+        messages: [],
+        banned: false
     };
 
     reloadWhenUpgraded = () => {
@@ -195,7 +196,9 @@ class MyProfile extends Component {
                         );
                         var that = this;
                     }).catch((error) => {
-                    console.log(error)
+                    this.setState({
+                        banned: true
+                    })
                 })
             });
 
@@ -203,6 +206,16 @@ class MyProfile extends Component {
 
 
     render() {
+        if (this.state.banned) {
+            return (
+                <Template {...this.props}>
+                    <Message negative style={{'direction': 'rtl', 'textAlign': 'center'}}>
+                        <Message.Header>حساب کاربری شما مسدود شده است.</Message.Header>
+                    </Message>
+                </Template>
+            )
+        }
+
         if (localStorage.getItem('chegg-username') === null) {
             return (
                 <div style={{textAlign: 'center', marginTop: '300px', fontFamily: 'B Yekan', fontSize: '2em'}}>
