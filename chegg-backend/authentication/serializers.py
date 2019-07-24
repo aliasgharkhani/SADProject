@@ -1,4 +1,4 @@
-from authentication.models import Member
+from authentication.models import Member, Message
 from rest_framework import serializers
 from rest_framework.validators import UniqueValidator
 
@@ -37,10 +37,14 @@ class MemberProfileSerializer(serializers.ModelSerializer):
     user_info = serializers.SerializerMethodField()
     asked_questions = serializers.SerializerMethodField()
     replies = serializers.SerializerMethodField()
+    messages = serializers.SerializerMethodField()
 
     class Meta:
         model = Member
-        fields = ('user_info', 'bought_books', 'bought_chapters', 'asked_questions', 'replies')
+        fields = ('user_info', 'bought_books', 'bought_chapters', 'asked_questions', 'replies', 'messages', 'is_active')
+
+    def get_messages(self, obj):
+        return MessageSerializer(obj.get_messages(), many=True).data
 
     def get_bought_books(self, obj):
         from store.serializers import BookSerializer
@@ -69,7 +73,7 @@ class MemberPageSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Member
-        fields = ('user_info', 'asked_questions', 'replies')
+        fields = ('user_info', 'asked_questions', 'replies', 'is_active')
 
     def get_user_info(self, obj):
         return MemberBaseInfoSerializer(obj).data
@@ -81,3 +85,14 @@ class MemberPageSerializer(serializers.ModelSerializer):
     def get_replies(self, obj):
         from QA.serializers import ReplySerializer
         return ReplySerializer(obj.get_replies(), many=True).data
+
+
+class MessageSerializer(serializers.ModelSerializer):
+    date = serializers.SerializerMethodField()
+
+    def get_date(self, obj):
+        return str(obj.date.date())
+
+    class Meta:
+        model = Message
+        fields = '__all__'

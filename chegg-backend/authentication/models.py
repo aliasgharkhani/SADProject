@@ -50,4 +50,13 @@ class Member(AbstractUser):
         from QA.models import Reply
         return Reply.objects.filter(creator=self)
 
+    def get_messages(self):
+        from authentication.models import Message
+        return Message.objects.filter(to=self)
 
+
+class Message(models.Model):
+    text = models.TextField()
+    to = models.ForeignKey(Member, on_delete=models.CASCADE)
+    date = models.DateTimeField(auto_now_add=True)
+    read = models.BooleanField(default=False)
