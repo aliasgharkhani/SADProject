@@ -22,7 +22,19 @@ class Reply(models.Model):
     creator = models.ForeignKey('authentication.Member', on_delete=models.CASCADE)
     date = models.DateTimeField(auto_now_add=True)
     score = models.IntegerField(default=0)
-    # score_members = models.ManyToManyField('auth.Member')
     body = models.CharField(max_length=1000)
     best = models.BooleanField(default=False)
+
+
+class ReplyScore(models.Model):
+    SCORE_CHOICES = (
+        ('1', '1'),
+        ('-1', '-1'),
+    )
+    member = models.ForeignKey('authentication.Member', on_delete=models.CASCADE)
+    reply = models.ForeignKey('QA.Reply', on_delete=models.CASCADE)
+    type = models.CharField(max_length=20, choices=SCORE_CHOICES)
+
+    class Meta:
+        unique_together = ('member', 'reply')
 
