@@ -25,20 +25,22 @@ class QuestionOfQuestionPage extends Component {
 
         if (this.props !== prevProps) {
             this.setState({
-                question: this.props.question
+                question: this.props.question,
+                date:this.props.question.date.substring(0, this.props.question.date.indexOf('T'))
             })
         }
     }
 
-    componentWillMount() {
-        console.log("component will mount", this.props)
-        this.setState({
-            question: this.props.question
-        })
-    }
+    // componentWillMount() {
+    //     console.log("component will mount", this.props)
+    //     this.setState({
+    //         question: this.props.question
+    //     })
+    // }
 
     showTags() {
-        console.log("component will mount", this.props)
+
+        console.log("component will mount", typeof(this.state.question.date))
         if (this.state.question.length === 0) {
             return (<div/>)
 
@@ -93,8 +95,8 @@ class QuestionOfQuestionPage extends Component {
                                         <div style={{textAlign: 'center', fontSize: '1.2em'}}> پرسیده شده در تاریخ
                                             <br/>
                                             <br/>
-                                            {/*{this.state.question.date}*/}
-                                            1397/2/3
+                                            {this.state.date}
+                                            {/*1397/2/3*/}
                                         </div>
                                     </Grid.Column>
 

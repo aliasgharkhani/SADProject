@@ -31,7 +31,11 @@ class Question extends Component {
             link: props.link,
             description: props.description,
             tags: props.tags,
-            isProfile: props.isProfile
+            isProfile: props.isProfile,
+            is_answered:props.is_answered,
+            num_of_replies:props.num_of_replies,
+            date:props.date,
+            score:props.score,
         };
     }
 
@@ -108,7 +112,7 @@ class Question extends Component {
                               style={divStyle} name="caret up"/>
                     </Grid.Row>
                     <Grid.Row>
-                        <p style={{textAlign: 'center', fontSize: '2em'}}>0</p>
+                        <p style={{textAlign: 'center', fontSize: '2em'}}>{this.state.score}</p>
                     </Grid.Row>
                     <Grid.Row className={'pointer'} style={{textAlign: 'center'}}>
                         <Icon onClick={this.handleDownVotes} color={"grey"} size={"huge"}

@@ -138,7 +138,8 @@ class QuestionList extends Component {
                 this.state.visible_questions.map(question =>
                     <Question isProfile={0} asker={question.asker} title={question.title}
                               description={question.description} tags={question.tags_with_names}
-                              link={'http://localhost:3000/question/' + question.id}
+                              link={'http://localhost:3000/question/' + question.id} is_answered={question.is_answered} num_of_replies={question.num_of_replies} date={question.date}
+                              score ={question.score}
                     />
                 )
             )

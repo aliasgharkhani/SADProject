@@ -195,7 +195,7 @@ class QuestionPage extends Component {
         return (
 
             <Template {...this.props}>
-                <Grid style={{margin: 'auto', width: '70%', height: '100%'}}>
+                <Grid style={{margin: 'auto', width: '70%', maxHeight: '100%', overflow:'auto'}}>
                     <Grid.Row columns={1} style={{height: '100%',}}>
 
                         <Grid.Column width={13} style={{height: '100%',}}>
@@ -204,7 +204,7 @@ class QuestionPage extends Component {
 
                             <div style={{fontWeight: 'bold', fontSize: '1.5em', direction: 'rtl'}}>
                                 <br/>
-                                پاسخ ها
+                                {this.state.question.num_of_replies}&nbsp;&nbsp; پاسخ
                             </div>
                             <Divider section/>
                             <Answer html={draftToHtml(convertToRaw(editorState.getCurrentContent()))}/>

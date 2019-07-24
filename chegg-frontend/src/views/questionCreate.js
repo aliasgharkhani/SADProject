@@ -22,11 +22,11 @@ class QuestionCreate extends Component {
             tags: null,
             selectedTags: [],
             editorState: EditorState.createEmpty(),
+            text: '',
         };
     }
 
     onContentStateChange: Function = (editorState) => {
-        console.log('content', editorState.blocks)
         this.setState({
             text: editorState
         })
@@ -42,13 +42,13 @@ class QuestionCreate extends Component {
 
     componentWillMount() {
         axios.get('http://localhost:8000/qa/tags/').then(res => {
-            console.log(res.data, "sfsdfqqqq")
+            // console.log(res.data, "sfsdfqqqq")
             this.setState({
                 tags: res.data,
                 allow: true,
             })
         });
-        console.log(this.state.tags, "sdfsdf")
+        // console.log(this.state.tags, "sdfsdf")
 
     }
 
@@ -62,13 +62,16 @@ class QuestionCreate extends Component {
 
     handleSubmit(e) {
         e.preventDefault();
+        console.log('baba    ', this.state.text);
         const formFields = e.target;
         const title = formFields[0].value;
-        const body = formFields[1].value;
+        var body = this.state.text;
+        body = JSON.stringify(body);
         const tags = this.state.selectedTags;
         const headers = {
             'Authorization': 'TOKEN ' + localStorage.getItem('chegg-token')
         };
+
         const data = {
             title: title,
             body: body,
@@ -104,10 +107,14 @@ class QuestionCreate extends Component {
     render() {
         const editorState = this.state.editorState;
         const styleObj = {
-            border: '2px solid gray',
-            padding: '5px',
+            border: '0.3px solid gray',
+            padding: '0 5px',
             maxHeight: '200px',
-            overFlow: 'auto'
+            margin: '0',
+            overFlow: 'auto',
+            display: 'flex',
+            flexDirection: 'column',
+            alignItems: 'stretch'
         };
         let token = localStorage.getItem('chegg-token');
         if (this.state.allow && token !== null && token !== undefined) {

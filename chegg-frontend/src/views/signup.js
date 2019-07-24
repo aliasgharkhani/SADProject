@@ -51,10 +51,11 @@ class SignupForm extends Component {
             config: {headers: {'Content-Type': 'multipart/form-data'}}
         }).then(function (response) {
 
-            console.log(response);
+            console.log('maman   ', response);
             if (response.status === 200) {
-                this.props.history.push('../signin');
-                // window.location.replace("http://localhost:3000/signin");
+                console.log('ghghfhgfjhgfjhgf')
+                // this.props.history.push('../signin');
+                window.location.replace("http://localhost:3000/signin");
             }
             else if(response.status === 203) {
                 var error = ""
