@@ -1,77 +1,50 @@
-import React, {Component} from "react";
-import {Button, Card, Dropdown, Icon, Image, Menu, Modal, Segment} from 'semantic-ui-react'
+import React, {Component} from 'react';
+import {EditorState, convertToRaw, ContentState} from 'draft-js';
+import {Editor} from 'react-draft-wysiwyg';
+import draftToHtml from 'draftjs-to-html';
+import htmlToDraft from 'html-to-draftjs';
+import {Divider, Icon, Segment} from "semantic-ui-react";
 import Grid from "semantic-ui-react/dist/commonjs/collections/Grid";
-import {Redirect} from "react-router-dom";
 
-
-class QuestionOfQuestionPage extends Component {
-
-
+class Answer extends Component {
     constructor(props) {
-
         super(props);
-
-        this.showTags = this.showTags.bind(this);
-        this.handleUpVotes = this.handleUpVotes.bind(this);
+        // const contentBlock = htmlToDraft(html);
+        // if (contentBlock) {
+        //     const contentState = ContentState.createFromBlockArray(contentBlock.contentBlocks);
+        //     const editorState = EditorState.createWithContent(contentState);
         this.state = {
-            question: [],
-            votes: 0,
-
-        }
+            editorState: null,
+        };
+        // }
     }
 
 
     componentDidUpdate(prevProps, prevState) {
-
         if (this.props !== prevProps) {
-            this.setState({
-                question: this.props.question
-            })
+            var contentBlock = htmlToDraft(this.props.html)
+            if (contentBlock) {
+                const contentState = ContentState.createFromBlockArray(contentBlock.contentBlocks);
+                const editorState = EditorState.createWithContent(contentState);
+                this.setState({
+                    editorState: editorState,
+                });
+            }
         }
     }
 
-    componentWillMount() {
-        console.log("component will mount", this.props)
+    onEditorStateChange = (editorState) => {
         this.setState({
-            question: this.props.question
-        })
-    }
-
-    showTags() {
-        console.log("component will mount", this.props)
-        if (this.state.question.length === 0) {
-            return (<div/>)
-
-        }
-        return (
-            <div>
-
-
-                {this.state.question.tags_with_names.map(tag =>
-
-                    <Button primary disabled={true} style={{direction: 'ltr'}} content={tag.name}/>
-                )}
-            </div>
-        )
-    }
-
-    handleUpVotes() {
-        alert("here")
-
-    }
-
-    handleDownVotes() {
-        alert("there")
-    }
-
+            editorState,
+        });
+    };
 
     render() {
-        const divStyle = {
+          const divStyle = {
             cursor: 'pointer',
             margin: 'auto',
         };
-
-
+        const editorState = this.state.editorState;
         return (
 
                 <Grid style={{margin: 'auto'}}>
@@ -81,12 +54,20 @@ class QuestionOfQuestionPage extends Component {
 
                         <Grid.Column width={14}>
                             <Grid style={{direction: 'rtl'}}>
-                                <Grid.Row columns={2} style={{marginTop: '20px' ,paddingBottom: '0', direction: 'rtl', minHeight: '4vh'}}>
+                                <Grid.Row columns={2} style={{
+                                    marginTop: '20px',
+                                    paddingBottom: '0',
+                                    direction: 'rtl',
+                                    minHeight: '4vh'
+                                }}>
                                     <Grid.Column style={{paddingRight: '0px'}} width={12}>
-                                        <div style={{
-                                            fontSize: '1.9em',
-                                            paddingRight: '0px'
-                                        }}>{this.state.question.title} </div>
+                                        <Editor
+                                            toolbarHidden
+                                            editorState={editorState}
+                                            wrapperClassName="demo-wrapper"
+                                            editorClassName="demo-editor"
+                                            onEditorStateChange={this.onEditorStateChange}
+                                        />
                                     </Grid.Column>
 
                                     <Grid.Column width={4}>
@@ -99,29 +80,21 @@ class QuestionOfQuestionPage extends Component {
                                     </Grid.Column>
 
                                 </Grid.Row>
-                                <Grid.Row style={{minHeight: '10vh'}}>
-                                    <div> {this.state.question.body}</div>
-                                </Grid.Row>
 
-                                <Grid.Row columns={2} style={{
+
+                                <Grid.Row columns={1} style={{
                                     overflow: 'hidden',
                                     padding: '0px',
                                     height: '5vh',
                                 }}>
-                                    <Grid.Column style={{padding: '0px'}} width={12}>
-                                        {this.showTags()}
 
-
-                                    </Grid.Column>
                                     <Grid.Column style={{textAlign: 'right'}} width={4}>
                                         <div style={{textAlign: 'center'}}>
 
                                             نویسنده: &nbsp;&nbsp;
-                                            <a href={'http://localhost:3000/profile/' + this.state.question.asker}>{this.state.question.asker}</a>
+                                            <a href={'http://localhost:3000/profile/' + 'ali'}>ali</a>
 
                                             <br/>
-
-
                                         </div>
 
                                     </Grid.Column>
@@ -132,27 +105,27 @@ class QuestionOfQuestionPage extends Component {
                         <Grid.Column width={2}>
 
                             <Grid.Row style={{textAlign: 'center'}}>
-                                <Icon className={'pointer'} onClick={this.handleUpVotes} color={"grey"} size={"huge"}
+                                <Icon className={'pointer'}  color={"grey"} size={"huge"}
                                       style={divStyle} name="caret up"/>
                             </Grid.Row>
                             <Grid.Row>
-                                <p style={{textAlign: 'center', fontSize: '2em'}}>{this.state.question.score}</p>
+                                <p style={{textAlign: 'center', fontSize: '2em'}}>10</p>
                             </Grid.Row>
                             <Grid.Row className={'pointer'} style={{textAlign: 'center'}}>
-                                <Icon onClick={this.handleDownVotes} color={"grey"} size={"huge"}
+                                <Icon  color={"grey"} size={"huge"}
                                       style={divStyle} name="caret down"/>
                             </Grid.Row>
                         </Grid.Column>
 
                     </Grid.Row>
-
+                    <Divider section/>
                 </Grid>
 
 
-        )
+
+        );
     }
-
-
 }
 
-export default QuestionOfQuestionPage;
+
+export default Answer

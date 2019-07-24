@@ -31,7 +31,7 @@ constructor(props){
                     </Grid.Column>
                 </Grid.Row>
 
-                <Grid.Row style={{height:'82%'}} >
+                <Grid.Row style={{minHeight:'82%'}} >
                     <Grid.Column style={{padding:'0', display: 'flex', flexDirection: 'column', justifyContent: 'center',height:'100%'}}>
                         {this.props.children}
                     </Grid.Column>
