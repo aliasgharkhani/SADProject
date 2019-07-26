@@ -1,7 +1,7 @@
 import React, {Component} from "react";
 import axios from "axios";
 import {Button, Container, Form, Grid, Icon, Modal, Segment} from "semantic-ui-react";
-import Template from "../components/template";
+import Template from "../components/template/template";
 import MultiSelect from "@khanacademy/react-multi-select";
 import Ad from "../components/ad";
 
@@ -65,8 +65,9 @@ class QuestionCreate extends Component {
         console.log('baba    ', this.state.text);
         const formFields = e.target;
         const title = formFields[0].value;
-        var body = this.state.text;
-        body = JSON.stringify(body);
+        // var body = this.state.text;
+        // body = JSON.stringify(body);
+        var body = draftToHtml(convertToRaw(this.state.editorState.getCurrentContent()));
         const tags = this.state.selectedTags;
         const headers = {
             'Authorization': 'TOKEN ' + localStorage.getItem('chegg-token')

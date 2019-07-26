@@ -1,6 +1,5 @@
 import React, {Component} from 'react'
 import {Form, Image, Divider, Segment, Button, Icon, Modal} from 'semantic-ui-react'
-import axios, {put} from "axios";
 
 class PublicInfo extends Component {
     constructor(props) {

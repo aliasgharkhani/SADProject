@@ -1,5 +1,5 @@
 import React, {Component} from "react";
-import Template from '../components/template';
+import Template from '../components/template/template';
 import {
     Button,
     Container,

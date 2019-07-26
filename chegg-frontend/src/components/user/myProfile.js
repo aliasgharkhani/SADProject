@@ -1,14 +1,14 @@
 import React, {Component} from "react";
 import axios from "axios";
-import Template from "../components/template";
+import Template from "../template/template";
 import {Button, Grid, Message} from "semantic-ui-react";
-import AskedQuestions from "../components/askedQuestions";
-import PurchasedBooks from "../components/purchasedBooks";
-import SidebarMenu from '../components/sidebarMenu'
-import PersonalInfo from '../components/personalInfo'
-import ChangePassword from '../components/changePassword'
-import UpgradeUserLevel from '../components/upgradeUserLevel';
-import Messages from '../components/messages';
+import AskedQuestions from "./askedQuestions";
+import PurchasedBooks from "../book/purchasedBooks";
+import SidebarMenu from './sidebarMenu'
+import PersonalInfo from './personalInfo'
+import ChangePassword from './changePassword'
+import UpgradeUserLevel from './upgradeUserLevel';
+import Messages from '../messages';
 
 
 let menuItems = [

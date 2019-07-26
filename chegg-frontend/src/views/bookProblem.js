@@ -1,8 +1,8 @@
 import React, {Component} from 'react'
 import {Grid, Image, Segment} from "semantic-ui-react";
-import Template from '../components/template'
+import Template from '../components/template/template'
 import axios from "axios";
-import BreadCrump from '../components/BreadCrump'
+import BreadCrump from '../components/book/BreadCrump'
 
 class bookProblem extends Component {
     state = {

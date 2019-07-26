@@ -1,6 +1,6 @@
 import React, {Component} from "react";
-import MyProfile from '../components/myProfile'
-import PublicProfile from '../components/publicProfile'
+import MyProfile from '../components/user/myProfile'
+import PublicProfile from '../components/user/publicProfile'
 
 class UserProfile extends Component {
 

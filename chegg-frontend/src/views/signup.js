@@ -1,6 +1,6 @@
 import React, {Component} from 'react'
 import {Button, Form, Grid, Segment} from 'semantic-ui-react'
-import Template from '../components/template'
+import Template from '../components/template/template'
 import {findDOMNode} from 'react-dom';
 import axios from "axios";
 

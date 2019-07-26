@@ -1,5 +1,5 @@
 import React, {Component} from "react";
-import Template from '../components/template';
+import Template from '../components/template/template';
 import {Grid} from "semantic-ui-react";
 import './hoverRight.css';
 import BackgroundImageOnLoad from 'background-image-on-load';

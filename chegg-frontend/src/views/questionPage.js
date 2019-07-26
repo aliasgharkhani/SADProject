@@ -1,16 +1,15 @@
 import React, {Component} from "react";
 import {Divider, Grid, Menu, Segment} from 'semantic-ui-react'
-import BookCard from '../components/bookCard'
-import Template from '../components/template';
+import BookCard from '../components/book/bookCard'
+import Template from '../components/template/template';
 import axios from "axios";
-import Question from "../components/question";
 import Ad from '../components/ad'
 import {Editor} from 'react-draft-wysiwyg';
 import 'react-draft-wysiwyg/dist/react-draft-wysiwyg.css';
 import {EditorState, convertToRaw, ContentState, convertFromRaw, convertFromHTML} from 'draft-js';
-import QuestionPart from '../components/questionOfQuestionPage'
+import QuestionPart from '../components/question/questionOfQuestionPage'
 import htmlToDraft from 'html-to-draftjs';
-import Answer from '../components/answer'
+import AnswerOfQuestionPage from '../components/question/answerOfQuestionPage'
 
 
 import draftToHtml from 'draftjs-to-html'
@@ -207,7 +206,7 @@ class QuestionPage extends Component {
                                 {this.state.question.num_of_replies}&nbsp;&nbsp; پاسخ
                             </div>
                             <Divider section/>
-                            <Answer html={draftToHtml(convertToRaw(editorState.getCurrentContent()))}/>
+                            <AnswerOfQuestionPage html={draftToHtml(convertToRaw(editorState.getCurrentContent()))}/>
 
                             <div style={{fontWeight: 'bold', fontSize: '1.5em', direction: 'rtl', marginBottom: '25px'}}>
                                 <br/>

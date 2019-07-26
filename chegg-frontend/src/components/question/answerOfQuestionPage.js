@@ -6,7 +6,7 @@ import htmlToDraft from 'html-to-draftjs';
 import {Divider, Icon, Segment} from "semantic-ui-react";
 import Grid from "semantic-ui-react/dist/commonjs/collections/Grid";
 
-class Answer extends Component {
+class AnswerOfQuestionPage extends Component {
     constructor(props) {
         super(props);
         // const contentBlock = htmlToDraft(html);
@@ -128,4 +128,4 @@ class Answer extends Component {
 }
 
 
-export default Answer
+export default AnswerOfQuestionPage

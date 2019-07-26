@@ -2,29 +2,43 @@ import React, {Component} from "react";
 import {Button, Card, Dropdown, Icon, Image, Menu, Segment} from 'semantic-ui-react'
 import Grid from "semantic-ui-react/dist/commonjs/collections/Grid";
 import {Redirect} from "react-router-dom";
+import {ContentState, EditorState} from "draft-js";
+import {Editor} from "react-draft-wysiwyg";
+import htmlToDraft from 'html-to-draftjs';
 
 
-class Question extends Component {
+class QuestionOfQuestionList extends Component {
 
 
     constructor(props) {
 
         super(props);
         this.routeChange = this.routeChange.bind(this);
+        this.state = {
+            redirect: false,
+            path: '',
+            asker: null,
+            description: null,
+            tags: [],
+            link: null,
+            title: null,
+            isProfile: null,
+            editorState: null
+        }
     }
 
-    state = {
-        redirect: false,
-        path: '',
-        asker: null,
-        description: null,
-        tags: [],
-        link: null,
-        title: null,
-        isProfile: null
-    };
+
+
+
 
     static getDerivedStateFromProps(props, state) {
+        var editorState = null;
+        var contentBlock = htmlToDraft(props.description);
+            if (contentBlock) {
+                const contentState = ContentState.createFromBlockArray(contentBlock.contentBlocks);
+                editorState = EditorState.createWithContent(contentState);
+                console.log('aaaaah  ', editorState);
+            }
         return {
             asker: props.asker,
             title: props.title,
@@ -32,10 +46,11 @@ class Question extends Component {
             description: props.description,
             tags: props.tags,
             isProfile: props.isProfile,
-            is_answered:props.is_answered,
-            num_of_replies:props.num_of_replies,
-            date:props.date,
-            score:props.score,
+            is_answered: props.is_answered,
+            num_of_replies: props.num_of_replies,
+            date: props.date,
+            score: props.score,
+            editorState: editorState,
         };
     }
 
@@ -53,7 +68,7 @@ class Question extends Component {
 
             return <Redirect to={this.state.path}/>
         }
-    }
+    };
 
     render() {
         const divStyle = {
@@ -81,7 +96,7 @@ class Question extends Component {
                 )
             } else {
                 return (
-                    <div></div>
+                    <div/>
 
 
                 )
@@ -125,12 +140,19 @@ class Question extends Component {
                 }} width={15}>
                     <Grid.Row style={{paddingBottom: '5px'}}>
 
-                        <div style={{fontSize: '1.5em'}}><a  href={this.state.link}> {this.state.title}</a></div>
+                        <div style={{fontSize: '1.5em'}}><a href={this.state.link}> {this.state.title}</a></div>
 
 
                     </Grid.Row>
                     <Grid.Row style={{flexGrow: '1'}}>
-                        <div>{this.state.description}</div>
+                        {/*<div>{this.state.description}</div>*/}
+                        <Editor
+                            readOnly
+                            toolbarHidden
+                            editorState={this.state.editorState}
+                            wrapperClassName="demo-wrapper"
+                            editorClassName="demo-editor"
+                        />
                     </Grid.Row>
                     <Grid columns={2}>
 
@@ -157,4 +179,4 @@ class Question extends Component {
 
 }
 
-export default Question;
+export default QuestionOfQuestionList;

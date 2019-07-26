@@ -1,9 +1,8 @@
 import React, {Component} from "react";
 import {Grid, Menu, Segment} from 'semantic-ui-react'
-import BookCard from '../components/bookCard'
-import Template from '../components/template';
+import BookCard from '../components/book/bookCard'
+import Template from '../components/template/template';
 import axios from "axios";
-import Question from "../components/question";
 import Ad from '../components/ad'
 
 const books1 = [{

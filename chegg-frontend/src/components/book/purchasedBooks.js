@@ -1,6 +1,6 @@
 import React, {Component} from "react";
 import {Grid, Menu, Segment} from 'semantic-ui-react'
-import BookCard from '../components/bookCard'
+import BookCard from './bookCard'
 
 
 class PurchasedBooks extends Component {

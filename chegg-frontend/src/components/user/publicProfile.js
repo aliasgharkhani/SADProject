@@ -1,13 +1,13 @@
 import React, {Component} from "react";
 import axios from "axios";
-import Template from "../components/template";
+import Template from "../template/template";
 import {Grid, Loader, Dimmer, Segment, Button} from "semantic-ui-react";
-import BookCard from "../components/bookCard";
-import AskedQuestions from "../components/askedQuestions";
-import PurchasedBooks from "../components/purchasedBooks";
-import SidebarMenu from '../components/sidebarMenu'
+import BookCard from "../book/bookCard";
+import AskedQuestions from "./askedQuestions";
+import PurchasedBooks from "../book/purchasedBooks";
+import SidebarMenu from './sidebarMenu'
 
-import PublicInfo from '../components/publicInfo'
+import PublicInfo from './publicInfo'
 
 
 const menuItems = [

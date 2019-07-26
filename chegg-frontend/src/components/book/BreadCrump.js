@@ -1,6 +1,6 @@
 import React, {Component} from 'react'
 import {Menu, Icon, Button, Breadcrumb} from 'semantic-ui-react'
-import Grid from "semantic-ui-react/dist/commonjs/collections/Grid";
+
 
 
 export default class BreadCrump extends Component {

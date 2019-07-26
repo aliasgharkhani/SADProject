@@ -1,6 +1,6 @@
 import React from 'react'
 import {Button, Form, Grid, Header, Message, Segment} from 'semantic-ui-react';
-import Template from '../components/template';
+import Template from '../components/template/template';
 import axios from 'axios';
 
 class SignIn extends React.Component {

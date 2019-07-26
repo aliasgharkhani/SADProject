@@ -1,11 +1,10 @@
 import React, {Component} from "react";
 import {Grid, Menu, Segment, Button, Checkbox, Form, Icon} from 'semantic-ui-react'
-import Question from '../components/question'
+import QuestionOfQuestionList from '../components/question/questionOfQuestionList'
 import axios from "axios";
-import Template from '../components/template';
+import Template from '../components/template/template';
 import _ from 'lodash'
 import {Search, Header} from 'semantic-ui-react'
-
 
 
 const initialState = {isLoading: false, results: [], value: ''}
@@ -44,7 +43,7 @@ const source = [
 ]
 
 
-class QuestionList extends Component {
+class QuestionsList extends Component {
 
     constructor(props) {
         super(props);
@@ -136,10 +135,12 @@ class QuestionList extends Component {
         } else {
             return (
                 this.state.visible_questions.map(question =>
-                    <Question isProfile={0} asker={question.asker} title={question.title}
-                              description={question.description} tags={question.tags_with_names}
-                              link={'http://localhost:3000/question/' + question.id} is_answered={question.is_answered} num_of_replies={question.num_of_replies} date={question.date}
-                              score ={question.score}
+                    <QuestionOfQuestionList isProfile={0} asker={question.asker} title={question.title}
+                                            description={question.description} tags={question.tags_with_names}
+                                            link={'http://localhost:3000/question/' + question.id}
+                                            is_answered={question.is_answered} num_of_replies={question.num_of_replies}
+                                            date={question.date}
+                                            score={question.score}
                     />
                 )
             )
@@ -150,15 +151,18 @@ class QuestionList extends Component {
 
         const TagFilter = () => (
             <Form onSubmit={this.handleChange} style={{height: '100%', overflow: 'auto'}}>
-                <Segment style={{maxHeight: '92.6%', overflow: 'auto', border: '0.7px groove',
-                borderRadius: '10px'}}>
+                <Segment style={{
+                    maxHeight: '92.6%', overflow: 'auto', border: '0.7px groove',
+                    borderRadius: '10px'
+                }}>
                     {this.state.tags.map(tag =>
                         <Form.Field>
-                            <Checkbox style={{color:'black'}} id={tag.id} label={tag.name}/>
+                            <Checkbox style={{color: 'black'}} id={tag.id} label={tag.name}/>
                         </Form.Field>
                     )}
                 </Segment>
-                <Button style={{fontFamily: 'B Yekan', backgroundColor:'black', color:'white'}} fluid={true} floated={'left'} type='submit'>فیلتر</Button>
+                <Button style={{fontFamily: 'B Yekan', backgroundColor: 'black', color: 'white'}} fluid={true}
+                        floated={'left'} type='submit'>فیلتر</Button>
             </Form>
 
         );
@@ -173,20 +177,22 @@ class QuestionList extends Component {
 
                             <Grid.Row style={{height: '91.7%'}}>
                                 <Search
-                                            noResultsMessage ={'نتیجه‌ای یافت نشد.'}
-                                            style={{width: '100%', marginTop: '10px', marginBottom:'10px'}}
-                                            loading={this.state.isLoading}
-                                            onResultSelect={this.handleResultSelect}
-                                            onSearchChange={_.debounce(this.handleSearchChange, 500, {
-                                                leading: true,
-                                            })}
-                                            results={this.state.results}
-                                            value={this.state.value}
-                                            {...this.props}
-                                        />
+                                    fluid={true}
+                                    input={{fluid: true}}
+                                    noResultsMessage={'نتیجه‌ای یافت نشد.'}
+                                    style={{margin:'10px auto', width:'80%'}}
+                                    loading={this.state.isLoading}
+                                    onResultSelect={this.handleResultSelect}
+                                    onSearchChange={_.debounce(this.handleSearchChange, 500, {
+                                        leading: true,
+                                    })}
+                                    results={this.state.results}
+                                    value={this.state.value}
+                                    {...this.props}
+                                />
                                 <Segment
                                     style={{
-                                        border:'none',
+                                        border: 'none',
                                         // backgroundImage: 'url("https://visme.co/blog/wp-content/uploads/2017/07/50-Beautiful-and-Minimalist-Presentation-Backgrounds-037.jpg")',
                                         margin: 'auto',
                                         maxHeight: '100%',
@@ -223,4 +229,4 @@ class QuestionList extends Component {
 
 }
 
-export default QuestionList;
+export default QuestionsList;

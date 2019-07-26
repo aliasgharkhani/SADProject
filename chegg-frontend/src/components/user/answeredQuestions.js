@@ -1,7 +1,6 @@
 import React, {Component} from "react";
-import {Grid, Menu, Segment} from 'semantic-ui-react'
-import Question from '../components/question'
-import BookCard from "./bookCard";
+import {Grid, Segment} from 'semantic-ui-react'
+import QuestionOfQuestionList from '../question/questionOfQuestionList'
 
 
 class AskedQuestions extends Component {
@@ -44,9 +43,9 @@ class AskedQuestions extends Component {
                 }}>
                     {this.state.question.map(question =>
 
-                        <Question isProfile={this.props.isProfile} asker={question.asker} title={question.title}
-                                  description={question.body} tags={question.tags_with_names}
-                                  link={'http://localhost:3000/question/' +  question.id}
+                        <QuestionOfQuestionList isProfile={this.props.isProfile} asker={question.asker} title={question.title}
+                                                description={question.body} tags={question.tags_with_names}
+                                                link={'http://localhost:3000/question/' +  question.id}
                         />
                     )}
 

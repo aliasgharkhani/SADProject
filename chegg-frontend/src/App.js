@@ -11,7 +11,7 @@ import {BrowserRouter} from "react-router-dom";
 import './App.css';
 import BookProblem from "./views/bookProblem";
 import UserProfile from "./views/userProfile";
-import QuestionList from "./views/questionList";
+import QuestionsList from "./views/questionsList";
 import QuestionCreate from "./views/questionCreate";
 import QuestionPage from "./views/questionPage";
 import SearchExampleStandard from "./views/test";
@@ -29,7 +29,7 @@ function App() {
                 <Route exact path='/books' component={BookList}/>
                 <Route exact path='/books/:bookId/chapters/:chapterId/problems/:problemId' component={BookProblem}/>
                 <Route exact path='/profile/:username' component={UserProfile}/>
-                <Route exact path='/questions' component={QuestionList}/>
+                <Route exact path='/questions' component={QuestionsList}/>
                 <Route exact path='/questions/submit' component={QuestionCreate}/>
                  <Route exact path='/question/:id' component={QuestionPage}/>
                  <Route exact path='/test' component={SearchExampleStandard}/>
