@@ -66,6 +66,11 @@ class QuestionOfQuestionPage extends Component {
         alert("there")
     }
 
+    vote(command) {
+
+
+    }
+
 
     render() {
         const divStyle = {
@@ -95,7 +100,7 @@ class QuestionOfQuestionPage extends Component {
                                         <div style={{textAlign: 'center', fontSize: '1.2em'}}> پرسیده شده در تاریخ
                                             <br/>
                                             <br/>
-                                            {this.state.date}
+                                            {this.state.question.date}
                                             {/*1397/2/3*/}
                                         </div>
                                     </Grid.Column>

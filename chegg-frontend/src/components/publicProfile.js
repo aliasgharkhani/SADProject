@@ -96,7 +96,7 @@ class PublicProfile extends Component {
                         askedQuestions: res.data.asked_questions,
                         username: this.props.urlParameters.username,
 
-                        answeredQuestions: res.data.user_info.answered_questions,
+                        answeredQuestions: res.data.replies,
                     }
                 );
 

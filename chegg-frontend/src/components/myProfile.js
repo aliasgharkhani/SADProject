@@ -109,6 +109,7 @@ class MyProfile extends Component {
             )
         }
         else if (this.state.activeItem === 'سوالات جواب داده') {
+            console.log(this.state.answeredQuestions)
             if (this.state.answeredQuestions.length === 0) {
                 return (
                     <p style={{fontSize: '2em'}}> هنوز به سوالی جواب نداده اید.</p>
@@ -146,7 +147,7 @@ class MyProfile extends Component {
     };
 
     readMessages = () => {
-        console.log("her232323eeeeeeeeeeee", this.state.messages)
+
         var headers = {
 
             'Authorization': 'TOKEN ' + localStorage.getItem('chegg-token')
@@ -162,7 +163,7 @@ class MyProfile extends Component {
             }).catch((error) => {
             console.log(error)
         })
-        console.log("hereeeeeeeeeeee", this.state.messages)
+
     }
 
     componentDidMount() {
@@ -190,7 +191,7 @@ class MyProfile extends Component {
                                 books: res.data,
                                 username: localStorage.getItem('chegg-username'),
                                 level: res.data.premium,
-                                answeredQuestions: res.data.user_info.answered_questions,
+                                answeredQuestions: res.data.replies,
                                 messages: res.data.messages
                             }
                         );
