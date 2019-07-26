@@ -60,3 +60,6 @@ class Message(models.Model):
     to = models.ForeignKey(Member, on_delete=models.CASCADE)
     date = models.DateTimeField(auto_now_add=True)
     read = models.BooleanField(default=False)
+
+    def __str__(self):
+        return "{} - {}".format(self.text, self.to)

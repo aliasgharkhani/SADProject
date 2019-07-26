@@ -33,6 +33,9 @@ class Problem(models.Model):
     answer_blurred = models.ImageField()
     chapter = models.ForeignKey('store.Chapter', related_name='problems', on_delete=models.CASCADE)
 
+    def __str__(self):
+        return self.body
+
 
 class PurchaseHistory(models.Model):
     member = models.ForeignKey('authentication.Member', related_name='purchased_chapters',

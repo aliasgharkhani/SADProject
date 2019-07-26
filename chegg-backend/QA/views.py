@@ -83,18 +83,18 @@ class ReplyScoreAPIView(APIView):
                         reply.score -= 1
                         reply.save()
                         reply_score.delete()
-                        return Response('انجام شد')
+                        return Response({'score': reply.score, 'dir': 'neutral'})
                     else:
                         reply_score.type = 'up'
                         reply_score.save()
                         reply.score += 2
                         reply.save()
-                        return Response('انجام شد')
+                        return Response({'score': reply.score, 'dir': 'up'})
                 except ObjectDoesNotExist:
                     ReplyScore.objects.create(member=member, reply=reply, type='up')
                     reply.score += 1
                     reply.save()
-                    return Response('انجام شد')
+                    return Response({'score': reply.score, 'dir': 'up'})
             elif command == 'down':
                 try:
                     reply_score = ReplyScore.objects.get(member=member, reply=reply)
@@ -102,18 +102,18 @@ class ReplyScoreAPIView(APIView):
                         reply.score += 1
                         reply.save()
                         reply_score.delete()
-                        return Response('انجام شد')
+                        return Response({'score': reply.score, 'dir': 'neutral'})
                     else:
                         reply_score.type = 'down'
                         reply_score.save()
                         reply.score -= 2
                         reply.save()
-                        return Response('انجام شد')
+                        return Response({'score': reply.score, 'dir': 'down'})
                 except ObjectDoesNotExist:
                     ReplyScore.objects.create(member=member, reply=reply, type='down')
                     reply.score -= 1
                     reply.save()
-                    return Response('انجام شد')
+                    return Response({'score': reply.score, 'dir': 'down'})
             else:
                 raise ValidationError('نوع دستور اشتباه است.')
         except:
