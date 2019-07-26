@@ -135,8 +135,8 @@ class QuestionPage extends Component {
         this.state = {
             editorState: EditorState.createEmpty(),
             text: '',
-            question: [],
-
+            question: {},
+            replies: []
         };
 
     }
@@ -165,13 +165,22 @@ class QuestionPage extends Component {
         var that = this;
 
         axios.get('http://localhost:8000/qa/questions/' + urlParameters.id + '/')
-            .then(res => {
+            .then(res1 => {
 
-                this.setState({
-                        question: res.data
+                axios.get('http://localhost:8000/qa/questions/' + urlParameters.id + '/replies/')
+                    .then(res2 => {
 
-                    }
-                )
+                        this.setState({
+                                question: res1.data,
+                                replies: res2.data,
+                            }
+                        )
+
+                    })
+                    .catch(
+
+                    )
+
 
             })
             .catch(
@@ -194,36 +203,43 @@ class QuestionPage extends Component {
         return (
 
             <Template {...this.props}>
-                <Grid style={{margin: 'auto', width: '70%', maxHeight: '100%', overflow:'auto'}}>
+                <Grid style={{margin: 'auto', width: '70%', maxHeight: '100%', overflow: 'auto'}}>
                     <Grid.Row columns={1} style={{height: '100%',}}>
 
                         <Grid.Column width={13} style={{height: '100%',}}>
                             <Segment>
-                            <QuestionPart question={this.state.question}/>
+                                <QuestionPart question={this.state.question}/>
 
-                            <div style={{fontWeight: 'bold', fontSize: '1.5em', direction: 'rtl'}}>
-                                <br/>
-                                {this.state.question.num_of_replies}&nbsp;&nbsp; پاسخ
-                            </div>
-                            <Divider section/>
-                            <AnswerOfQuestionPage html={draftToHtml(convertToRaw(editorState.getCurrentContent()))}/>
-
-                            <div style={{fontWeight: 'bold', fontSize: '1.5em', direction: 'rtl', marginBottom: '25px'}}>
-                                <br/>
-                                پاسخ شما
-                            </div>
+                                <div style={{fontWeight: 'bold', fontSize: '1.5em', direction: 'rtl'}}>
+                                    <br/>
+                                    {this.state.question.num_of_replies}&nbsp;&nbsp; پاسخ
+                                </div>
+                                <Divider section/>
+                                {this.state.replies.map(reply => {
+                                    <AnswerOfQuestionPage reply={reply}/>
+                                })}
 
 
-                            <Editor
-                                toolbar={toolbarEditor}
-                                editorState={editorState}
-                                wrapperClassName="demo-wrapper"
-                                editorClassName="demo-editor"
-                                editorStyle={styleObj}
-                                onEditorStateChange={this.onEditorStateChange}
-                                onContentStateChange={this.onContentStateChange}
-                            />
+                                <div style={{
+                                    fontWeight: 'bold',
+                                    fontSize: '1.5em',
+                                    direction: 'rtl',
+                                    marginBottom: '25px'
+                                }}>
+                                    <br/>
+                                    پاسخ شما
+                                </div>
 
+
+                                <Editor
+                                    toolbar={toolbarEditor}
+                                    editorState={editorState}
+                                    wrapperClassName="demo-wrapper"
+                                    editorClassName="demo-editor"
+                                    editorStyle={styleObj}
+                                    onEditorStateChange={this.onEditorStateChange}
+                                    onContentStateChange={this.onContentStateChange}
+                                />
 
 
                             </Segment>

@@ -34,13 +34,13 @@ class QuestionOfQuestionPage extends Component {
                 this.setState({
                     editorState: editorState,
                     question: this.props.question,
-                    date: this.props.question.date.substring(0, this.props.question.date.indexOf('T'))
+                    date: this.props.question.date
                 });
                 return
             }
             this.setState({
                 question: this.props.question,
-                date: this.props.question.date.substring(0, this.props.question.date.indexOf('T'))
+                date: this.props.question.date
             })
         }
     }
@@ -53,8 +53,6 @@ class QuestionOfQuestionPage extends Component {
     // }
 
     showTags() {
-
-        console.log("component will mount", typeof (this.state.question.date))
         if (this.state.question.length === 0) {
             return (<div/>)
 

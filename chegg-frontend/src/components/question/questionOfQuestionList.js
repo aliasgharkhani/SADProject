@@ -161,7 +161,7 @@ class QuestionOfQuestionList extends Component {
 
                                 <Button primary disabled={true}
                                         style={{direction: 'ltr', color: '#283351', backgroundColor: '#d6e1e9'}}
-                                        content={tag.name}/>
+                                        content={tag.name} id={'id'+tag.id}/>
                             )}
 
                         </Grid.Column>
