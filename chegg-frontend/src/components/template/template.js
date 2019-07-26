@@ -15,28 +15,32 @@ const templateStyle = {
 };
 
 
-
 class Template extends Component {
-constructor(props){
+    constructor(props) {
         super(props);
     }
+
     render() {
-   var a =  document.getElementsByTagName('a');
-   console.log(a);
         return (
-            <Grid  style={templateStyle }>
-                <Grid.Row style={{height : '8%', paddingBottom:'0px', direction:'rtl'}}>
+            <Grid style={templateStyle}>
+                <Grid.Row style={{height: '8%', paddingBottom: '0px', direction: 'rtl'}}>
                     <Grid.Column>
                         <Navbar{...this.props}/>
                     </Grid.Column>
                 </Grid.Row>
 
-                <Grid.Row style={{minHeight:'82%', padding:'0'}} >
-                    <Grid.Column style={{padding:'0', display: 'flex', flexDirection: 'column', justifyContent: 'center',height:'100%'}}>
+                <Grid.Row style={{minHeight: '82%', padding: '0'}}>
+                    <Grid.Column style={{
+                        padding: '0',
+                        display: 'flex',
+                        flexDirection: 'column',
+                        justifyContent: 'center',
+                        height: '100%'
+                    }}>
                         {this.props.children}
                     </Grid.Column>
                 </Grid.Row>
-                <Grid.Row style={{height : '10%', padding:'0px',justifySelf:'flex-end'}}>
+                <Grid.Row style={{height: '10%', padding: '0px', justifySelf: 'flex-end'}}>
                     <Grid.Column>
                         <Footer/>
                     </Grid.Column>

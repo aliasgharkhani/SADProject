@@ -41,3 +41,7 @@ a{
   text-align: left;
   font-family: "B Yekan";
 }
+
+.prompt {
+  background-color: oldlace !important;
+}

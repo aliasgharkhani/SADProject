@@ -108,6 +108,7 @@ class QuestionCreate extends Component {
     render() {
         const editorState = this.state.editorState;
         const styleObj = {
+            minHeight:'100px',
             border: '0.3px solid gray',
             padding: '0 5px',
             maxHeight: '200px',
@@ -148,58 +149,65 @@ class QuestionCreate extends Component {
                                     </Modal.Content>
                                     <Modal.Actions>
                                         <Button style={{fontFamily: "B Yekan"}} emphasis="positive"
-                                                color='green'
+                                                color='white'
                                                 onClick={this.onCloseModal.bind(this)}>بستن</Button>
                                     </Modal.Actions>
                                 </Modal>
                                 <Container style={{height: '100%'}}>
-                                    <Form onSubmit={this.handleSubmit} style={{'direction': 'rtl'}}>
-                                        <Form.Group>
-                                            <Form.TextArea width={16} required
-                                                           style={{
-                                                               resize: 'none',
-                                                               height: '37.6px',
-                                                               overflow: 'hidden',
-                                                               fontFamily: 'B Yekan'
-                                                           }}
-                                                           label='عنوان'/>
+                                    <Segment>
+                                        <Form onSubmit={this.handleSubmit} style={{'direction': 'rtl'}}>
+                                            <Form.Group>
+                                                <Form.TextArea width={16} required
+                                                               style={{
+                                                                   resize: 'none',
+                                                                   height: '37.6px',
+                                                                   overflow: 'hidden',
+                                                                   fontFamily: 'B Yekan'
+                                                               }}
+                                                               label='عنوان'/>
 
-                                        </Form.Group>
+                                            </Form.Group>
 
-                                        <div style={{marginBottom: '40px', direction: 'ltr'}}
-                                        >
-                                            <div style={{direction: 'rtl'}}>متن</div>
+                                            <div style={{marginBottom: '40px', direction: 'ltr'}}
+                                            >
+                                                <div style={{direction: 'rtl'}}>متن</div>
 
-                                            <Editor
-                                                editorState={editorState}
-                                                wrapperClassName="demo-wrapper"
-                                                editorClassName="demo-editor"
-                                                editorStyle={styleObj}
-                                                onEditorStateChange={this.onEditorStateChange}
-                                                onContentStateChange={this.onContentStateChange}
+                                                <Editor
+                                                    editorState={editorState}
+                                                    wrapperClassName="demo-wrapper"
+                                                    editorClassName="demo-editor"
+                                                    editorStyle={styleObj}
+                                                    onEditorStateChange={this.onEditorStateChange}
+                                                    onContentStateChange={this.onContentStateChange}
+                                                />
+
+                                            </div>
+                                            برچسب ها
+                                            <MultiSelect overrideStrings={{
+                                                selectSomeItems: "انتخاب کنید",
+                                                allItemsAreSelected: "همه انتخاب شدند",
+                                                selectAll: "انتخاب همه",
+                                                search: "جستوجو",
+                                            }}
+                                                         options={this.state.tags.map(tag => {
+                                                             return {
+                                                                 label: tag.name,
+                                                                 value: tag.id
+                                                             }
+                                                         })}
+                                                         selected={this.state.selectedTags}
+                                                         onSelectedChanged={selectedTags => this.setState({selectedTags})}
                                             />
-
-                                        </div>
-                                        برچسب ها
-                                        <MultiSelect overrideStrings={{
-                                            selectSomeItems: "انتخاب کنید",
-                                            allItemsAreSelected: "همه انتخاب شدند",
-                                            selectAll: "انتخاب همه",
-                                            search: "جستوجو",
-                                        }}
-                                                     options={this.state.tags.map(tag => {
-                                                         return {
-                                                             label: tag.name,
-                                                             value: tag.id
-                                                         }
-                                                     })}
-                                                     selected={this.state.selectedTags}
-                                                     onSelectedChanged={selectedTags => this.setState({selectedTags})}
-                                        />
-                                        <br/>
-                                        <Button type='submit' style={{'fontFamily': 'B Yekan'}}>ایجاد</Button>
-                                    </Form>
-
+                                            <br/>
+                                            <Button type='submit'
+                                                    style={{
+                                                        fontFamily: 'B Yekan',
+                                                        color: '#ffffff',
+                                                        backgroundColor: 'cornflowerblue',
+                                                        padding: '12px 60px'
+                                                    }}>ایجاد</Button>
+                                        </Form>
+                                    </Segment>
                                 </Container>
                             </Grid.Column>
                             <Grid.Column width={3}>

@@ -1,6 +1,5 @@
 import React, {Component} from "react";
 import {Divider, Grid, Menu, Segment} from 'semantic-ui-react'
-import BookCard from '../components/book/bookCard'
 import Template from '../components/template/template';
 import axios from "axios";
 import Ad from '../components/ad'
@@ -8,11 +7,9 @@ import {Editor} from 'react-draft-wysiwyg';
 import 'react-draft-wysiwyg/dist/react-draft-wysiwyg.css';
 import {EditorState, convertToRaw, ContentState, convertFromRaw, convertFromHTML} from 'draft-js';
 import QuestionPart from '../components/question/questionOfQuestionPage'
-import htmlToDraft from 'html-to-draftjs';
 import AnswerOfQuestionPage from '../components/question/answerOfQuestionPage'
 
 
-import draftToHtml from 'draftjs-to-html'
 
 
 const toolbarEditor = {
@@ -169,7 +166,6 @@ class QuestionPage extends Component {
 
                 axios.get('http://localhost:8000/qa/questions/' + urlParameters.id + '/replies/')
                     .then(res2 => {
-
                         this.setState({
                                 question: res1.data,
                                 replies: res2.data,
@@ -215,10 +211,9 @@ class QuestionPage extends Component {
                                     {this.state.question.num_of_replies}&nbsp;&nbsp; پاسخ
                                 </div>
                                 <Divider section/>
-                                {this.state.replies.map(reply => {
+                                {this.state.replies.map(reply =>
                                     <AnswerOfQuestionPage reply={reply}/>
-                                })}
-
+                                )}
 
                                 <div style={{
                                     fontWeight: 'bold',

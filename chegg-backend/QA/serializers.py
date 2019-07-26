@@ -14,14 +14,14 @@ class QuestionSerializer(serializers.ModelSerializer):
     is_answered = serializers.SerializerMethodField()
     num_of_replies = serializers.SerializerMethodField()
     asker = serializers.SerializerMethodField()
-    description = serializers.SerializerMethodField()
+    # description = serializers.SerializerMethodField()
     date = serializers.SerializerMethodField()
 
     def get_date(self, obj):
         return obj.date.date()
 
-    def get_description(self, obj):
-        return obj.body
+    # def get_description(self, obj):
+    #     return obj.body
 
     def get_is_answered(self, obj):
         return obj.replies.filter(best=True).exists()
@@ -64,6 +64,10 @@ class ReplySerializer(serializers.ModelSerializer):
     creator = serializers.HiddenField(default=serializers.CurrentUserDefault())
     member_score = serializers.SerializerMethodField()
     date = serializers.SerializerMethodField()
+    asker = serializers.SerializerMethodField()
+
+    def get_asker(self, obj):
+        return str(obj.creator)
 
     def get_date(self, obj):
         return obj.date.date()

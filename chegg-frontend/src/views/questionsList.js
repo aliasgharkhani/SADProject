@@ -5,6 +5,7 @@ import axios from "axios";
 import Template from '../components/template/template';
 import _ from 'lodash'
 import {Search, Header} from 'semantic-ui-react'
+import Divider from "semantic-ui-react/dist/commonjs/elements/Divider";
 
 
 const initialState = {isLoading: false, results: [], value: ''}
@@ -61,7 +62,6 @@ class QuestionsList extends Component {
 
     handleResultSelect = (e, {result}) => {
         this.props.history.push('question/' + result.id);
-        console.log('salam bacheha', result)
     };
 
     handleSearchChange = (e, {value}) => {
@@ -134,14 +134,19 @@ class QuestionsList extends Component {
             )
         } else {
             return (
-                this.state.visible_questions.map(question =>
-                    <QuestionOfQuestionList isProfile={0} asker={question.asker} title={question.title}
-                                            description={question.description} tags={question.tags_with_names}
-                                            link={'http://localhost:3000/question/' + question.id}
-                                            is_answered={question.is_answered} num_of_replies={question.num_of_replies}
-                                            date={question.date}
-                                            score={question.score}
-                    />
+                this.state.visible_questions.map(question => {
+                        return (
+                            <QuestionOfQuestionList isProfile={0} asker={question.asker} title={question.title}
+                                                    description={question.body} tags={question.tags_with_names}
+                                                    link={'http://localhost:3000/question/' + question.id}
+                                                    is_answered={question.is_answered}
+                                                    num_of_replies={question.num_of_replies}
+                                                    date={question.date}
+                                                    score={question.score}
+                                                    style={{'border': '5px'}}
+                            />
+                        )
+                    }
                 )
             )
         }
@@ -180,7 +185,7 @@ class QuestionsList extends Component {
                                     fluid={true}
                                     input={{fluid: true}}
                                     noResultsMessage={'نتیجه‌ای یافت نشد.'}
-                                    style={{margin:'10px auto', width:'80%'}}
+                                    style={{margin: '10px auto', width: '80%'}}
                                     loading={this.state.isLoading}
                                     onResultSelect={this.handleResultSelect}
                                     onSearchChange={_.debounce(this.handleSearchChange, 500, {

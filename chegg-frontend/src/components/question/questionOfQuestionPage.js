@@ -18,7 +18,7 @@ class QuestionOfQuestionPage extends Component {
         this.state = {
             question: [],
             votes: 0,
-            editorState:null,
+            editorState: null,
 
         }
     }
@@ -63,8 +63,14 @@ class QuestionOfQuestionPage extends Component {
 
                 {this.state.question.tags_with_names.map(tag =>
 
-                    <Button primary disabled={true}
-                            style={{direction: 'ltr', color: '#283351', backgroundColor: '#d6e1e9'}}
+                    <Button primary
+                            style={{
+                                direction: 'ltr',
+                                color: '#ffffff',
+                                backgroundColor: '#761d69',
+                                margin: '1px',
+                                cursor: 'auto'
+                            }}
                             content={tag.name}/>
                 )}
             </div>
@@ -125,16 +131,15 @@ class QuestionOfQuestionPage extends Component {
                                 </Grid.Column>
 
                             </Grid.Row>
-                            <Grid.Row style={{ width:'100%'}}>
+                            <Grid.Row style={{width: '100%'}}>
                                 <Grid.Column>
-                                <Editor
-
-                                    readOnly
-                                    toolbarHidden
-                                    editorState={this.state.editorState}
-                                    wrapperClassName="demo-wrapper"
-                                    editorClassName="demo-editor"
-                                />
+                                    <Editor
+                                        readOnly
+                                        toolbarHidden
+                                        editorState={this.state.editorState}
+                                        wrapperClassName="demo-wrapper"
+                                        editorClassName="demo-editor"
+                                    />
                                 </Grid.Column>
                                 {/*<div> {this.state.question.body}</div>*/}
                             </Grid.Row>
@@ -142,7 +147,6 @@ class QuestionOfQuestionPage extends Component {
                             <Grid.Row columns={2} style={{
                                 overflow: 'hidden',
                                 padding: '0px',
-                                height: '5vh',
                             }}>
                                 <Grid.Column style={{padding: '0px'}} width={12}>
                                     {this.showTags()}

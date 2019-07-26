@@ -37,7 +37,6 @@ class QuestionOfQuestionList extends Component {
             if (contentBlock) {
                 const contentState = ContentState.createFromBlockArray(contentBlock.contentBlocks);
                 editorState = EditorState.createWithContent(contentState);
-                console.log('aaaaah  ', editorState);
             }
         return {
             asker: props.asker,
@@ -110,12 +109,13 @@ class QuestionOfQuestionList extends Component {
                 width: '100%',
                 backgroundColor: 'white',
                 margin: '3px 10px',
-                height: '190px',
-                border: '0.7px groove',
-                borderRadius: '10px'
+                maxHeight: '25%',
+                minHeight: '25%',
+                border: '4px solid transparent',
+                borderBottom: '4px solid #eeeeee',
             }}>
                 <Grid.Column style={{
-                    padding: '20px 0px', display: 'flex',
+                    padding: '20px 10px', display: 'flex',
                     flexDirection: 'column',
                     justifyContent: 'space-around'
                 }} width={1}>
@@ -144,7 +144,7 @@ class QuestionOfQuestionList extends Component {
 
 
                     </Grid.Row>
-                    <Grid.Row style={{flexGrow: '1'}}>
+                    <Grid.Row style={{height:'11vh', overflow:'hidden'}}>
                         {/*<div>{this.state.description}</div>*/}
                         <Editor
                             readOnly
@@ -159,8 +159,8 @@ class QuestionOfQuestionList extends Component {
                         <Grid.Column width={13}>
                             {this.state.tags.map(tag =>
 
-                                <Button primary disabled={true}
-                                        style={{direction: 'ltr', color: '#283351', backgroundColor: '#d6e1e9'}}
+                                <Button primary
+                                        style={{direction: 'ltr', color: '#ffffff', backgroundColor: '#761d69', margin:'1px'}}
                                         content={tag.name} id={'id'+tag.id}/>
                             )}
 

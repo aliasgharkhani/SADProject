@@ -35,12 +35,12 @@ class PersonalInfo extends Component {
             'Authorization': 'TOKEN ' + localStorage.getItem('chegg-token')
         };
 
-        axios.post('http://127.0.0.1:8000/auth/self/edit/',
-            {headers: headers})
+        axios.post('http://127.0.0.1:8000/auth/self/upgrade/',
+            {},{headers: headers})
             .then(response => {
 
                 if (response.status === 200) {
-                    console.log(response.data)
+                    console.log(response.data);
 
                     this.setState({
                         modalMessage: "حساب کاربری شما ارتقا یافت.",
