@@ -1,5 +1,5 @@
 import React, {Component} from "react";
-import {Divider, Grid, Menu, Segment} from 'semantic-ui-react'
+import {Button, Divider, Grid, Menu, Segment} from 'semantic-ui-react'
 import Template from '../components/template/template';
 import axios from "axios";
 import Ad from '../components/ad'
@@ -191,8 +191,16 @@ class QuestionPage extends Component {
 
         const {editorState} = this.state;
         const styleObj = {
-            border: '2px solid gray',
-            padding: '5px'
+            minHeight:'100px',
+            border: '0.3px solid gray',
+            padding: '0 5px',
+            maxHeight: '200px',
+            margin: '0',
+            overFlow: 'auto',
+            display: 'flex',
+            flexDirection: 'column',
+            alignItems: 'stretch'
+
         };
 
 
@@ -206,7 +214,7 @@ class QuestionPage extends Component {
                             <Segment>
                                 <QuestionPart question={this.state.question}/>
 
-                                <div style={{fontWeight: 'bold', fontSize: '1.5em', direction: 'rtl'}}>
+                                <div style={{fontWeight: 'bold', fontSize: '1.5em', direction: 'rtl', marginTop:'20px'}}>
                                     <br/>
                                     {this.state.question.num_of_replies}&nbsp;&nbsp; پاسخ
                                 </div>
@@ -219,7 +227,7 @@ class QuestionPage extends Component {
                                     fontWeight: 'bold',
                                     fontSize: '1.5em',
                                     direction: 'rtl',
-                                    marginBottom: '25px'
+                                    marginBottom: '25px',
                                 }}>
                                     <br/>
                                     پاسخ شما
@@ -227,7 +235,6 @@ class QuestionPage extends Component {
 
 
                                 <Editor
-                                    toolbar={toolbarEditor}
                                     editorState={editorState}
                                     wrapperClassName="demo-wrapper"
                                     editorClassName="demo-editor"
@@ -235,8 +242,17 @@ class QuestionPage extends Component {
                                     onEditorStateChange={this.onEditorStateChange}
                                     onContentStateChange={this.onContentStateChange}
                                 />
-
-
+                                <div style={{width:'100%', textAlign:'right'}}>
+                                <Button type='submit'
+                                                    style={{
+                                                        fontFamily: 'B Yekan',
+                                                        color: '#ffffff',
+                                                        backgroundColor: 'cornflowerblue',
+                                                        padding: '12px 60px',
+                                                        marginTop:'15px',
+                                                        marginLeft:'auto',
+                                                    }}>ارسال پاسخ</Button>
+                                </div>
                             </Segment>
 
 

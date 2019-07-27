@@ -65,7 +65,7 @@ class AnswerOfQuestionPage extends Component {
                 <Grid.Row columns={2}>
 
 
-                    <Grid.Column width={14}>
+                    <Grid.Column width={15}>
                         <Grid style={{direction: 'rtl'}}>
                             <Grid.Row columns={2} style={{
                                 marginTop: '20px',
@@ -73,7 +73,7 @@ class AnswerOfQuestionPage extends Component {
                                 direction: 'rtl',
                                 minHeight: '4vh'
                             }}>
-                                <Grid.Column style={{paddingRight: '0px'}} width={12}>
+                                <Grid.Column style={{paddingRight: '0px'}} width={13}>
                                     <Editor
                                         readOnly
                                         toolbarHidden
@@ -83,7 +83,7 @@ class AnswerOfQuestionPage extends Component {
                                     />
                                 </Grid.Column>
 
-                                <Grid.Column width={4}>
+                                <Grid.Column width={3}>
                                     <div style={{textAlign: 'center', fontSize: '1.2em'}}> پرسیده شده در تاریخ
                                         <br/>
                                         <br/>
@@ -94,12 +94,16 @@ class AnswerOfQuestionPage extends Component {
                             </Grid.Row>
 
 
-                            <Grid.Row columns={1} style={{
+                            <Grid.Row columns={2} style={{
                                 overflow: 'hidden',
                                 padding: '0px',
                             }}>
+                                <Grid.Column style={{padding: '0px'}} width={13}>
+                                    <div/>
 
-                                <Grid.Column style={{textAlign: 'right'}} width={4}>
+
+                                </Grid.Column>
+                                <Grid.Column style={{textAlign: 'right'}} width={3}>
                                     <div style={{textAlign: 'center'}}>
 
                                         نویسنده: &nbsp;&nbsp;
@@ -113,7 +117,7 @@ class AnswerOfQuestionPage extends Component {
                         </Grid>
 
                     </Grid.Column>
-                    <Grid.Column width={2}>
+                    <Grid.Column style={{padding:'0'}} width={1}>
 
                         <Grid.Row style={{textAlign: 'center'}}>
                             <Icon className={'pointer'} color={"grey"} size={"huge"}

@@ -106,7 +106,7 @@ class QuestionOfQuestionPage extends Component {
                 <Grid.Row columns={2}>
 
 
-                    <Grid.Column width={14}>
+                    <Grid.Column width={15}>
                         <Grid style={{direction: 'rtl'}}>
                             <Grid.Row columns={2} style={{
                                 marginTop: '20px',
@@ -114,14 +114,14 @@ class QuestionOfQuestionPage extends Component {
                                 direction: 'rtl',
                                 minHeight: '4vh'
                             }}>
-                                <Grid.Column style={{paddingRight: '0px'}} width={12}>
+                                <Grid.Column style={{paddingRight: '0px'}} width={13}>
                                     <div style={{
                                         fontSize: '1.9em',
                                         paddingRight: '0px'
                                     }}>{this.state.question.title} </div>
                                 </Grid.Column>
 
-                                <Grid.Column width={4}>
+                                <Grid.Column width={3}>
                                     <div style={{textAlign: 'center', fontSize: '1.2em'}}> پرسیده شده در تاریخ
                                         <br/>
                                         <br/>
@@ -148,12 +148,12 @@ class QuestionOfQuestionPage extends Component {
                                 overflow: 'hidden',
                                 padding: '0px',
                             }}>
-                                <Grid.Column style={{padding: '0px'}} width={12}>
+                                <Grid.Column style={{padding: '0px'}} width={13}>
                                     {this.showTags()}
 
 
                                 </Grid.Column>
-                                <Grid.Column style={{textAlign: 'right'}} width={4}>
+                                <Grid.Column style={{textAlign: 'right'}} width={3}>
                                     <div style={{textAlign: 'center'}}>
 
                                         نویسنده: &nbsp;&nbsp;
@@ -169,7 +169,7 @@ class QuestionOfQuestionPage extends Component {
                         </Grid>
 
                     </Grid.Column>
-                    <Grid.Column width={2}>
+                    <Grid.Column width={1} style={{padding: '0'}}>
 
                         <Grid.Row style={{textAlign: 'center'}}>
                             <Icon className={'pointer'} onClick={this.handleUpVotes} color={"grey"} size={"huge"}

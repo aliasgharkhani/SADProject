@@ -28,16 +28,13 @@ class QuestionOfQuestionList extends Component {
     }
 
 
-
-
-
     static getDerivedStateFromProps(props, state) {
         var editorState = null;
         var contentBlock = htmlToDraft(props.description);
-            if (contentBlock) {
-                const contentState = ContentState.createFromBlockArray(contentBlock.contentBlocks);
-                editorState = EditorState.createWithContent(contentState);
-            }
+        if (contentBlock) {
+            const contentState = ContentState.createFromBlockArray(contentBlock.contentBlocks);
+            editorState = EditorState.createWithContent(contentState);
+        }
         return {
             asker: props.asker,
             title: props.title,
@@ -71,8 +68,8 @@ class QuestionOfQuestionList extends Component {
 
     render() {
         const divStyle = {
-            cursor: 'pointer',
             margin: 'auto',
+            textAlign: 'center',
         };
 
         const UserName_or_not = () => {
@@ -82,8 +79,7 @@ class QuestionOfQuestionList extends Component {
                 return (
                     <div>
 
-                        نویسنده:
-                        <br/>
+                        نویسنده: &nbsp;&nbsp;
                         <a href={links}>{this.state.asker}</a>
 
                         <br/>
@@ -108,31 +104,28 @@ class QuestionOfQuestionList extends Component {
             <Grid style={{
                 width: '100%',
                 backgroundColor: 'white',
-                margin: '3px 10px',
-                maxHeight: '25%',
-                minHeight: '25%',
+                margin: '3px 0px',
                 border: '4px solid transparent',
                 borderBottom: '4px solid #eeeeee',
+
             }}>
                 <Grid.Column style={{
-                    padding: '20px 10px', display: 'flex',
+                    padding: '20px 0px', display: 'flex',
                     flexDirection: 'column',
                     justifyContent: 'space-around'
                 }} width={1}>
-                    <Grid.Row style={{
-                        textAlign: 'center',
-
-                    }}>
-                        <Icon className={'pointer'} onClick={this.handleUpVotes} color={"grey"} size={"huge"}
-                              style={divStyle} name="caret up"/>
+                    <Grid.Row style={{}}>
+                        <div style={divStyle}>
+                            <div style={{fontSize:'2em'}}>{this.state.num_of_replies}</div>
+                            پاسخ‌
+                        </div>
                     </Grid.Row>
                     <Grid.Row>
-                        <p style={{textAlign: 'center', fontSize: '2em'}}>{this.state.score}</p>
+                        <div style={divStyle}>
+                            {this.state.is_answered ? <Icon size={"huge"} name={"check circle outline"} color={"green"}/>:<div/>}
+                        </div>
                     </Grid.Row>
-                    <Grid.Row className={'pointer'} style={{textAlign: 'center'}}>
-                        <Icon onClick={this.handleDownVotes} color={"grey"} size={"huge"}
-                              style={divStyle} name="caret down"/>
-                    </Grid.Row>
+
                 </Grid.Column>
                 <Grid.Column style={{
                     display: 'flex',
@@ -144,7 +137,7 @@ class QuestionOfQuestionList extends Component {
 
 
                     </Grid.Row>
-                    <Grid.Row style={{height:'11vh', overflow:'hidden'}}>
+                    <Grid.Row style={{height: '11.5vh', overflow: 'hidden'}}>
                         {/*<div>{this.state.description}</div>*/}
                         <Editor
                             readOnly
@@ -160,8 +153,13 @@ class QuestionOfQuestionList extends Component {
                             {this.state.tags.map(tag =>
 
                                 <Button primary
-                                        style={{direction: 'ltr', color: '#ffffff', backgroundColor: '#761d69', margin:'1px'}}
-                                        content={tag.name} id={'id'+tag.id}/>
+                                        style={{
+                                            direction: 'ltr',
+                                            color: '#ffffff',
+                                            backgroundColor: '#761d69',
+                                            margin: '1px'
+                                        }}
+                                        content={tag.name} id={'id' + tag.id}/>
                             )}
 
                         </Grid.Column>

@@ -73,7 +73,10 @@ class ReplySerializer(serializers.ModelSerializer):
         return obj.date.date()
 
     def get_member_score(self, obj):
-        requesting_member = self.context['request']
+        try:
+            requesting_member = self.context['request']
+        except:
+            return 0
         try:
             reply_score = ReplyScore.objects.get(reply=obj, member=requesting_member)
             if reply_score.type == 'up':

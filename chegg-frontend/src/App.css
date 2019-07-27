@@ -43,5 +43,8 @@ a{
 }
 
 .prompt {
-  background-color: oldlace !important;
+  background-color: #eaedf4 !important;
+}
+.public-DraftEditor-content{
+  min-height: 100px !important;
 }
