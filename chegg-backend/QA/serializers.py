@@ -74,7 +74,7 @@ class ReplySerializer(serializers.ModelSerializer):
 
     def get_member_score(self, obj):
         try:
-            requesting_member = self.context['request']
+            requesting_member = self.context['request'].user
         except:
             return 0
         try:
@@ -83,6 +83,7 @@ class ReplySerializer(serializers.ModelSerializer):
                 return 1
             else:
                 return -1
+
         except:
             return 0
 

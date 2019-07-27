@@ -4,35 +4,109 @@ import {Editor} from 'react-draft-wysiwyg';
 import htmlToDraft from 'html-to-draftjs';
 import {Divider, Icon, Segment} from "semantic-ui-react";
 import Grid from "semantic-ui-react/dist/commonjs/collections/Grid";
+import axios from 'axios'
 
 class AnswerOfQuestionPage extends Component {
     constructor(props) {
         super(props);
+        this.handleVote = this.handleVote.bind(this);
         // const contentBlock = htmlToDraft(html);
         // if (contentBlock) {
         //     const contentState = ContentState.createFromBlockArray(contentBlock.contentBlocks);
         //     const editorState = EditorState.createWithContent(contentState);
-        console.log('salma lsalasdfm')
+        console.log('salma lsalasdfm');
         this.state = {
             editorState: null,
-            reply: []
+            reply: [],
+            score: 0,
         };
         // }
     }
 
+    handleVote(e) {
+        var token = localStorage.getItem('chegg-token')
+        e.preventDefault()
 
-    static getDerivedStateFromProps(props, state) {
+        if (token === null || token === undefined) {
+            alert('برای رای دادن باید وارد سایت شوید');
+
+            return
+            //this.props.history.push('../signin');
+            // window.location.replace('http://localhost:3000/signin');
+        }
+
+        var headers = {
+
+            'Authorization': 'TOKEN ' + token
+        };
+
+        var command = 'up';
+        if (e.target.className[e.target.className.length - 1] === 'n') {
+            command = 'down'
+        }
+
+        axios.post('http://127.0.0.1:8000/qa/reply/' + this.state.reply.id + '/score/', {
+
+            command: command
+        }, {headers: headers})
+            .then(response => {
+
+                if (response.status === 200) {
+
+                    this.setState({
+                        score: response.data.score
+                    })
+
+
+                }
+
+
+            })
+            .catch((error) => {
+                let errors = "";
+                for (let i = 0; i < error.response.data.length; i++) {
+                    errors += error.response.data[i] + "\n";
+                }
+
+            })
+
+    }
+
+
+    componentDidUpdate(prevProps, prevState) {
+
+        if (this.props !== prevProps) {
+            var editorState = null;
+            var contentBlock = htmlToDraft(this.props.reply.body);
+            if (contentBlock) {
+                const contentState = ContentState.createFromBlockArray(contentBlock.contentBlocks);
+                editorState = EditorState.createWithContent(contentState);
+            }
+            this.setState({
+                editorState: editorState,
+                reply: this.props.reply,
+                score: this.props.reply.score,
+            })
+        }
+    }
+
+    componentWillMount() {
         var editorState = null;
-        var contentBlock = htmlToDraft(props.reply.body);
+        var contentBlock = htmlToDraft(this.props.reply.body);
         if (contentBlock) {
             const contentState = ContentState.createFromBlockArray(contentBlock.contentBlocks);
             editorState = EditorState.createWithContent(contentState);
         }
-        return {
+        this.setState({
             editorState: editorState,
-            reply: props.reply,
-        };
+            reply: this.props.reply,
+            score: this.props.reply.score,
+        })
     }
+
+    // static getDerivedStateFromProps(props, state) {
+    //
+    // }
 
 
     onEditorStateChange = (editorState) => {
@@ -117,17 +191,17 @@ class AnswerOfQuestionPage extends Component {
                         </Grid>
 
                     </Grid.Column>
-                    <Grid.Column style={{padding:'0'}} width={1}>
+                    <Grid.Column style={{padding: '0'}} width={1}>
 
                         <Grid.Row style={{textAlign: 'center'}}>
-                            <Icon className={'pointer'} color={"grey"} size={"huge"}
+                            <Icon onClick={this.handleVote} className={'up'} color={this.state.reply.member_score === 1 ? "green":"grey"} size={"huge"}
                                   style={divStyle} name="caret up"/>
                         </Grid.Row>
                         <Grid.Row>
-                            <p style={{textAlign: 'center', fontSize: '2em'}}>{this.state.reply.score}</p>
+                            <p style={{textAlign: 'center', fontSize: '2em'}}>{this.state.score}</p>
                         </Grid.Row>
                         <Grid.Row className={'pointer'} style={{textAlign: 'center'}}>
-                            <Icon color={"grey"} size={"huge"}
+                            <Icon onClick={this.handleVote} className={'down'} color={this.state.reply.member_score === -1 ? "red":"grey"} size={"huge"}
                                   style={divStyle} name="caret down"/>
                         </Grid.Row>
                     </Grid.Column>
