@@ -63,6 +63,7 @@ class BestAnswerAPIView(APIView):
             reply.save()
         else:
             raise ValidationError('دستور نامعتبر است')
+        return Response('done')
 
 
 class ReplyScoreAPIView(APIView):
