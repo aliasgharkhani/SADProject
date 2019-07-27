@@ -10,6 +10,7 @@ class AnswerOfQuestionPage extends Component {
     constructor(props) {
         super(props);
         this.handleVote = this.handleVote.bind(this);
+        this.handleCheckIconClick = this.handleCheckIconClick.bind(this);
         // const contentBlock = htmlToDraft(html);
         // if (contentBlock) {
         //     const contentState = ContentState.createFromBlockArray(contentBlock.contentBlocks);
@@ -19,6 +20,8 @@ class AnswerOfQuestionPage extends Component {
             editorState: null,
             reply: [],
             score: 0,
+            own: false,
+            best: false,
         };
         // }
     }
@@ -86,6 +89,8 @@ class AnswerOfQuestionPage extends Component {
                 editorState: editorState,
                 reply: this.props.reply,
                 score: this.props.reply.score,
+                own: this.props.own,
+                best: this.props.reply.best,
             })
         }
     }
@@ -101,7 +106,45 @@ class AnswerOfQuestionPage extends Component {
             editorState: editorState,
             reply: this.props.reply,
             score: this.props.reply.score,
+            own: this.props.own,
+            best: this.props.reply.best,
         })
+    }
+
+    handleCheckIconClick(e) {
+        e.preventDefault();
+        var token = localStorage.getItem('chegg-token');
+        var id = this.state.reply.id;
+        var headers = {
+
+            'Authorization': 'TOKEN ' + token
+        };
+        var command = this.state.best ? 'unmark':'mark';
+        axios.post('http://127.0.0.1:8000/qa/reply/best/', {
+            command:command,
+            id: id
+        }, {headers: headers})
+            .then(response => {
+
+                if (response.status === 200) {
+
+
+                    this.setState({
+                        best: !this.state.best
+                    })
+
+                }
+
+
+            })
+            .catch((error) => {
+                let errors = "";
+                for (let i = 0; i < error.response.data.length; i++) {
+                    errors += error.response.data[i] + "\n";
+                }
+
+            })
+
     }
 
     // static getDerivedStateFromProps(props, state) {
@@ -194,15 +237,22 @@ class AnswerOfQuestionPage extends Component {
                     <Grid.Column style={{padding: '0'}} width={1}>
 
                         <Grid.Row style={{textAlign: 'center'}}>
-                            <Icon onClick={this.handleVote} className={'up'} color={this.state.reply.member_score === 1 ? "green":"grey"} size={"huge"}
+                            <Icon onClick={this.handleVote} className={'up'}
+                                  color={this.state.reply.member_score === 1 ? "green" : "grey"} size={"huge"}
                                   style={divStyle} name="caret up"/>
                         </Grid.Row>
                         <Grid.Row>
                             <p style={{textAlign: 'center', fontSize: '2em'}}>{this.state.score}</p>
                         </Grid.Row>
                         <Grid.Row className={'pointer'} style={{textAlign: 'center'}}>
-                            <Icon onClick={this.handleVote} className={'down'} color={this.state.reply.member_score === -1 ? "red":"grey"} size={"huge"}
+                            <Icon onClick={this.handleVote} className={'down'}
+                                  color={this.state.reply.member_score === -1 ? "red" : "grey"} size={"huge"}
                                   style={divStyle} name="caret down"/>
+                        </Grid.Row>
+                        <Grid.Row>
+                            {this.state.own ?
+                                <Icon style={divStyle} onClick={this.handleCheckIconClick} size={"huge"} name={"check circle outline"}
+                                      color={this.state.best ? "green" : "grey"}/> : <div/>}
                         </Grid.Row>
                     </Grid.Column>
 

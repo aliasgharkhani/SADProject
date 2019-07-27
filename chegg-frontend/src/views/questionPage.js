@@ -10,8 +10,6 @@ import QuestionPart from '../components/question/questionOfQuestionPage'
 import AnswerOfQuestionPage from '../components/question/answerOfQuestionPage'
 
 
-
-
 const toolbarEditor = {
     options: ['inline', 'blockType', 'fontFamily', 'list', 'textAlign', 'colorPicker', 'link', 'embedded', 'image', 'remove', 'history'],
 
@@ -133,7 +131,8 @@ class QuestionPage extends Component {
             editorState: EditorState.createEmpty(),
             text: '',
             question: {},
-            replies: []
+            replies: [],
+            own: false,
         };
 
     }
@@ -169,6 +168,7 @@ class QuestionPage extends Component {
                         this.setState({
                                 question: res1.data,
                                 replies: res2.data,
+                                own: res1.data.asker === localStorage.getItem('chegg-username')
                             }
                         )
 
@@ -191,7 +191,7 @@ class QuestionPage extends Component {
 
         const {editorState} = this.state;
         const styleObj = {
-            minHeight:'100px',
+            minHeight: '100px',
             border: '0.3px solid gray',
             padding: '0 5px',
             maxHeight: '200px',
@@ -214,13 +214,18 @@ class QuestionPage extends Component {
                             <Segment>
                                 <QuestionPart question={this.state.question}/>
 
-                                <div style={{fontWeight: 'bold', fontSize: '1.5em', direction: 'rtl', marginTop:'20px'}}>
+                                <div style={{
+                                    fontWeight: 'bold',
+                                    fontSize: '1.5em',
+                                    direction: 'rtl',
+                                    marginTop: '20px'
+                                }}>
                                     <br/>
                                     {this.state.question.num_of_replies}&nbsp;&nbsp; پاسخ
                                 </div>
                                 <Divider section/>
                                 {this.state.replies.map(reply =>
-                                    <AnswerOfQuestionPage reply={reply}/>
+                                    <AnswerOfQuestionPage own={this.state.own} reply={reply}/>
                                 )}
 
                                 <div style={{
@@ -242,23 +247,23 @@ class QuestionPage extends Component {
                                     onEditorStateChange={this.onEditorStateChange}
                                     onContentStateChange={this.onContentStateChange}
                                 />
-                                <div style={{width:'100%', textAlign:'right'}}>
-                                <Button type='submit'
-                                                    style={{
-                                                        fontFamily: 'B Yekan',
-                                                        color: '#ffffff',
-                                                        backgroundColor: 'cornflowerblue',
-                                                        padding: '12px 60px',
-                                                        marginTop:'15px',
-                                                        marginLeft:'auto',
-                                                    }}>ارسال پاسخ</Button>
+                                <div style={{width: '100%', textAlign: 'right'}}>
+                                    <Button type='submit'
+                                            style={{
+                                                fontFamily: 'B Yekan',
+                                                color: '#ffffff',
+                                                backgroundColor: 'cornflowerblue',
+                                                padding: '12px 60px',
+                                                marginTop: '15px',
+                                                marginLeft: 'auto',
+                                            }}>ارسال پاسخ</Button>
                                 </div>
                             </Segment>
 
 
                         </Grid.Column>
 
-                        <Grid.Column width={3}>
+                        <Grid.Column style={{height: '80vh'}} width={3}>
                             <Ad ad1={"https://cdn.zoomg.ir/2019/3/4db9f81a-8796-431d-9ef0-80fbc174257c.gif"}
                                 ad2={"https://cdn.zoomg.ir/2019/3/4db9f81a-8796-431d-9ef0-80fbc174257c.gif"}
                                 ad3={"https://cdn.zoomg.ir/2019/3/4db9f81a-8796-431d-9ef0-80fbc174257c.gif"}/>
