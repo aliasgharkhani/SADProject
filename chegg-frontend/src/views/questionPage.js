@@ -1,5 +1,5 @@
 import React, {Component} from "react";
-import {Button, Divider, Grid, Menu, Segment} from 'semantic-ui-react'
+import {Button, Divider, Grid, Icon, Menu, Modal, Segment} from 'semantic-ui-react'
 import Template from '../components/template/template';
 import axios from "axios";
 import Ad from '../components/ad'
@@ -8,6 +8,9 @@ import 'react-draft-wysiwyg/dist/react-draft-wysiwyg.css';
 import {EditorState, convertToRaw, ContentState, convertFromRaw, convertFromHTML} from 'draft-js';
 import QuestionPart from '../components/question/questionOfQuestionPage'
 import AnswerOfQuestionPage from '../components/question/answerOfQuestionPage'
+
+
+import draftToHtml from "draftjs-to-html";
 
 
 const toolbarEditor = {
@@ -126,13 +129,16 @@ class QuestionPage extends Component {
 
     constructor(props) {
         super(props);
-
+        this.handleAnswerSubmit = this.handleAnswerSubmit.bind(this)
         this.state = {
             editorState: EditorState.createEmpty(),
             text: '',
             question: {},
-            replies: [],
             own: false,
+            replies: [],
+            modalActive: false,
+            memberInfo: null,
+            modalMessage: "",
         };
 
     }
@@ -159,11 +165,14 @@ class QuestionPage extends Component {
         document.title = "صفحه ی سوال";
         var urlParameters = this.props.match.params;
         var that = this;
+        var headers = {
 
-        axios.get('http://localhost:8000/qa/questions/' + urlParameters.id + '/')
+            'Authorization': 'TOKEN ' + localStorage.getItem('chegg-token')
+        };
+        axios.get('http://localhost:8000/qa/questions/' + urlParameters.id + '/',)
             .then(res1 => {
 
-                axios.get('http://localhost:8000/qa/questions/' + urlParameters.id + '/replies/')
+                axios.get('http://localhost:8000/qa/questions/' + urlParameters.id + '/replies/', {headers: headers})
                     .then(res2 => {
                         this.setState({
                                 question: res1.data,
@@ -186,12 +195,62 @@ class QuestionPage extends Component {
 
     }
 
+    onCloseModal() {
+        this.setState({
+            modalActive: false,
+            memberInfo: null,
+            modalMessage: "",
+        });
+          window.location.reload()
+    }
+
+    handleAnswerSubmit(e) {
+
+        var body = draftToHtml(convertToRaw(this.state.editorState.getCurrentContent()));
+        var data = {'question': this.state.question.id, 'body': body};
+
+
+
+         var headers = {
+
+            'Authorization': 'TOKEN ' + localStorage.getItem('chegg-token')
+        };
+         console.log(' ', this.state.question)
+        console.log(" headers", headers)
+        axios.post('http://127.0.0.1:8000/qa/reply/', data, {headers: headers})
+            .then(response => {
+                if (response.status === 200) {
+                    console.log(response.data)
+                    this.setState({
+                       modalMessage: "جواب شما با موفقیت ثبت شد"
+                    })
+
+                } else {
+                    this.setState({
+                        modalMessage: "جواب شما با موفقیت ثبت شد"
+                    })
+                    setTimeout(() => {
+                       // this.props.history.push('../questions');
+
+                        // window.location.replace("http://localhost:3000/questions")
+                    }, 2000)
+                }
+            })
+            .catch((error) => {
+                console.log("error", error)
+                this.setState({
+                    modalMessage: "خطا در ثبت جواب. دوباره تلاش کنید."
+                })
+            });
+        this.setState({modalActive: true})
+    }
+
 
     render() {
 
         const {editorState} = this.state;
         const styleObj = {
-            minHeight: '100px',
+            minHeight:'100px',
             border: '0.3px solid gray',
             padding: '0 5px',
             maxHeight: '200px',
@@ -207,6 +266,27 @@ class QuestionPage extends Component {
         return (
 
             <Template {...this.props}>
+                <Modal size={"mini"} onRequestClose={this.onCloseModal.bind(this)} open={this.state.modalActive}>
+                    <Icon name="close" onClick={this.onCloseModal.bind(this)}/>
+
+                    <Modal.Content image>
+
+                        <Modal.Description
+                            style={{'flexGrow': '1', 'direction': 'rtl', 'textAlign': 'right'}}>
+
+                            <p style={{fontFamily: "B Yekan"}}>
+                                {this.state.modalMessage}
+                            </p>
+
+                        </Modal.Description>
+                    </Modal.Content>
+                    <Modal.Actions>
+                        <Button style={{fontFamily: "B Yekan"}} emphasis="positive"
+                                color='green'
+                                onClick={this.onCloseModal.bind(this)}>بستن</Button>
+                    </Modal.Actions>
+                </Modal>
+
                 <Grid style={{margin: 'auto', width: '70%', maxHeight: '100%', overflow: 'auto'}}>
                     <Grid.Row columns={1} style={{height: '100%',}}>
 
@@ -248,7 +328,7 @@ class QuestionPage extends Component {
                                     onContentStateChange={this.onContentStateChange}
                                 />
                                 <div style={{width: '100%', textAlign: 'right'}}>
-                                    <Button type='submit'
+                                    <Button onClick={this.handleAnswerSubmit} type='submit'
                                             style={{
                                                 fontFamily: 'B Yekan',
                                                 color: '#ffffff',
