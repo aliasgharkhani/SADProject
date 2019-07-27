@@ -59,7 +59,7 @@ class AnswerOfQuestionPage extends Component {
                     this.setState({
                         score: response.data.score
                     })
-
+                window.location.reload();
 
                 }
 
@@ -252,7 +252,8 @@ class AnswerOfQuestionPage extends Component {
                         <Grid.Row>
                             {this.state.own ?
                                 <Icon style={divStyle} onClick={this.handleCheckIconClick} size={"huge"} name={"check circle outline"}
-                                      color={this.state.best ? "green" : "grey"}/> : <div/>}
+                                      color={this.state.best ? "green" : "grey"}/> : this.state.best ? <Icon  size={"huge"} name={"check circle outline"}
+                                      color={"green"}/>:<div/>}
                         </Grid.Row>
                     </Grid.Column>
 
