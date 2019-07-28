@@ -1,11 +1,10 @@
 import React, {Component} from "react";
-import {Grid, Menu, Segment, Button, Checkbox, Form, Icon} from 'semantic-ui-react'
+import {Grid, Segment, Button, Checkbox, Form} from 'semantic-ui-react'
 import QuestionOfQuestionList from '../components/question/questionOfQuestionList'
 import axios from "axios";
 import Template from '../components/template/template';
 import _ from 'lodash'
-import {Search, Header} from 'semantic-ui-react'
-import Divider from "semantic-ui-react/dist/commonjs/elements/Divider";
+import {Search} from 'semantic-ui-react'
 
 
 const initialState = {isLoading: false, results: [], value: ''}

@@ -215,12 +215,11 @@ class QuestionPage extends Component {
 
             'Authorization': 'TOKEN ' + localStorage.getItem('chegg-token')
         };
-         console.log(' ', this.state.question)
-        console.log(" headers", headers)
+
         axios.post('http://127.0.0.1:8000/qa/reply/', data, {headers: headers})
             .then(response => {
                 if (response.status === 200) {
-                    console.log(response.data)
+
                     this.setState({
                        modalMessage: "جواب شما با موفقیت ثبت شد"
                     })

@@ -1,5 +1,5 @@
 import React, {Component} from 'react'
-import {Form, Image, Divider, Segment, Button, Icon, Modal} from 'semantic-ui-react'
+import {Form,  Divider, Segment} from 'semantic-ui-react'
 
 class PublicInfo extends Component {
     constructor(props) {
@@ -39,7 +39,7 @@ class PublicInfo extends Component {
     }
 
     render() {
-        console.log("public info", this.state)
+
         var bioLabel = 'دباره ی ' + this.state.username
         return (
             <div>

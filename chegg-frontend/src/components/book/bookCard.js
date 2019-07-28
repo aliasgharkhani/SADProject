@@ -1,5 +1,5 @@
 import React, {Component} from "react";
-import {Button, Card, Icon, Image, Popup} from 'semantic-ui-react'
+import {Icon, Popup} from 'semantic-ui-react'
 import Grid from "semantic-ui-react/dist/commonjs/collections/Grid";
 import {Redirect} from "react-router-dom";
 
@@ -26,7 +26,6 @@ class BookCard extends Component {
     };
 
     static getDerivedStateFromProps(props, state) {
-        console.log('mehdi   ', props);
         return {
             purchased: props.purchased,
             title: props.title,
@@ -46,7 +45,6 @@ class BookCard extends Component {
         })
     };
     onhover = (e) => {
-        console.log('salam')
     }
     renderRedirect = () => {
 

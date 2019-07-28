@@ -106,14 +106,13 @@ class MyProfile extends Component {
                 <ChangePassword/>
             )
         } else if (this.state.activeItem === 'سوالات جواب داده') {
-            console.log(this.state.answeredQuestions, ' answered questions myProfile')
             if (this.state.answeredQuestions.length === 0) {
                 return (
                     <p style={{fontSize: '2em'}}> هنوز به سوالی جواب نداده اید.</p>
                 )
             } else {
                 return (
-                    <AskedQuestions isProfile={0} asker={this.state.username} question={this.state.answeredQuestions}/>
+                    <AskedQuestions isProfile={1} asker={this.state.username} question={this.state.answeredQuestions}/>
                 )
             }
         } else if (this.state.activeItem === 'ارتقای سطح کاربری') {
@@ -163,7 +162,6 @@ class MyProfile extends Component {
 
     componentDidMount() {
         document.title = "پروفایل";
-        console.log(localStorage.getItem('chegg-token'));
         axios.get(`http://localhost:8000/store/books`)
             .then(res => {
                 var numOfChapters = new Array(res.data.length).fill(0);
@@ -182,7 +180,6 @@ class MyProfile extends Component {
                         for (var i = 0; i < res.data.replies.length; i++) {
                             if (!questionIds.includes(res.data.replies[i].qestion)) {
                                 questionIds.push(res.data.replies[i].qestion)
-                                console.log(res.data.replies[i].qestion, ' foring replies')
                                 axios.get('http://localhost:8000/qa/questions/' + res.data.replies[i].question + '/',)
                                     .then(res2 => {
 

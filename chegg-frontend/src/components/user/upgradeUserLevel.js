@@ -1,6 +1,6 @@
 import React, {Component} from 'react'
-import {Form, Image, Divider, Segment, Button, Icon, Modal} from 'semantic-ui-react'
-import axios, {put} from "axios";
+import { Button, Icon, Modal} from 'semantic-ui-react'
+import axios  from "axios";
 
 class PersonalInfo extends Component {
     constructor(props) {
@@ -40,7 +40,7 @@ class PersonalInfo extends Component {
             .then(response => {
 
                 if (response.status === 200) {
-                    console.log(response.data);
+
 
                     this.setState({
                         modalMessage: "حساب کاربری شما ارتقا یافت.",

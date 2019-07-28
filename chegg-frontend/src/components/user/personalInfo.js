@@ -60,12 +60,11 @@ class PersonalInfo extends Component {
             .then(response => {
 
                 if (response.status === 200) {
-                    console.log(response.data)
+
                     var info = this.state.user
                     info.bio = bio
                     info.first_name = firstName
                       info.last_name = lastName
-                    console.log(info.first_name, "info . first name")
                     this.props.handler(info)
 
                     this.setState({
@@ -91,7 +90,7 @@ class PersonalInfo extends Component {
     }
     //
     componentDidUpdate(prevProps, prevState) {
-        console.log('ali bia ali bia');
+
         if (this.props !== prevProps) {
             this.setState({
                 bio: this.props.info.bio,
@@ -129,7 +128,7 @@ class PersonalInfo extends Component {
     // // }
 
     render() {
-        console.log('ataata  ', this.props);
+
         return (
             <div>
                 <Modal size={"mini"} onRequestClose={this.onCloseModal.bind(this)} open={this.state.modalActive}>

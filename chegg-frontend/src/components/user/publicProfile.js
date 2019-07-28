@@ -1,10 +1,8 @@
 import React, {Component} from "react";
 import axios from "axios";
 import Template from "../template/template";
-import {Grid, Loader, Dimmer, Segment, Button} from "semantic-ui-react";
-import BookCard from "../book/bookCard";
+import {Grid} from "semantic-ui-react";
 import AskedQuestions from "./askedQuestions";
-import PurchasedBooks from "../book/purchasedBooks";
 import SidebarMenu from './sidebarMenu'
 
 import PublicInfo from './publicInfo'
@@ -97,7 +95,7 @@ class PublicProfile extends Component {
                 for (var i = 0; i < res.data.replies.length; i++) {
                     if (!questionIds.includes(res.data.replies[i].qestion)) {
                         questionIds.push(res.data.replies[i].qestion)
-                        console.log(res.data.replies[i].qestion, ' foring replies')
+
                         axios.get('http://localhost:8000/qa/questions/' + res.data.replies[i].question + '/',)
                             .then(res2 => {
 

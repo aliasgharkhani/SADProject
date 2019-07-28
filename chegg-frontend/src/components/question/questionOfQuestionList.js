@@ -1,5 +1,5 @@
 import React, {Component} from "react";
-import {Button, Card, Dropdown, Icon, Image, Menu, Segment} from 'semantic-ui-react'
+import {Button,  Icon} from 'semantic-ui-react'
 import Grid from "semantic-ui-react/dist/commonjs/collections/Grid";
 import {Redirect} from "react-router-dom";
 import {ContentState, EditorState} from "draft-js";

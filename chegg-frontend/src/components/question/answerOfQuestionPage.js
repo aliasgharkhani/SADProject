@@ -1,8 +1,8 @@
 import React, {Component} from 'react';
-import {EditorState, convertToRaw, ContentState} from 'draft-js';
+import {EditorState, ContentState} from 'draft-js';
 import {Editor} from 'react-draft-wysiwyg';
 import htmlToDraft from 'html-to-draftjs';
-import {Divider, Icon, Segment} from "semantic-ui-react";
+import {Divider, Icon} from "semantic-ui-react";
 import Grid from "semantic-ui-react/dist/commonjs/collections/Grid";
 import axios from 'axios'
 

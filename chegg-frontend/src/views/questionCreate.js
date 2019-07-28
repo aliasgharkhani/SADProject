@@ -6,7 +6,7 @@ import MultiSelect from "@khanacademy/react-multi-select";
 import Ad from "../components/ad";
 
 import 'react-draft-wysiwyg/dist/react-draft-wysiwyg.css';
-import {EditorState, convertToRaw, ContentState} from 'draft-js';
+import {EditorState, convertToRaw} from 'draft-js';
 import {Editor} from 'react-draft-wysiwyg';
 import draftToHtml from 'draftjs-to-html';
 
@@ -32,7 +32,7 @@ class QuestionCreate extends Component {
         })
     };
     onEditorStateChange: Function = (editorState) => {
-        // console.log('editor', editorState)
+
 
         this.setState({
             editorState,
@@ -42,13 +42,12 @@ class QuestionCreate extends Component {
 
     componentWillMount() {
         axios.get('http://localhost:8000/qa/tags/').then(res => {
-            // console.log(res.data, "sfsdfqqqq")
+
             this.setState({
                 tags: res.data,
                 allow: true,
             })
         });
-        // console.log(this.state.tags, "sdfsdf")
 
     }
 
@@ -65,8 +64,6 @@ class QuestionCreate extends Component {
         console.log('baba    ', this.state.text);
         const formFields = e.target;
         const title = formFields[0].value;
-        // var body = this.state.text;
-        // body = JSON.stringify(body);
         var body = draftToHtml(convertToRaw(this.state.editorState.getCurrentContent()));
         const tags = this.state.selectedTags;
         const headers = {
