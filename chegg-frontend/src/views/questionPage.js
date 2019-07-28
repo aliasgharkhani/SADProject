@@ -8,6 +8,8 @@ import 'react-draft-wysiwyg/dist/react-draft-wysiwyg.css';
 import {EditorState, convertToRaw, ContentState, convertFromRaw, convertFromHTML} from 'draft-js';
 import QuestionPart from '../components/question/questionOfQuestionPage'
 import AnswerOfQuestionPage from '../components/question/answerOfQuestionPage'
+
+
 import draftToHtml from "draftjs-to-html";
 
 
@@ -132,6 +134,7 @@ class QuestionPage extends Component {
             editorState: EditorState.createEmpty(),
             text: '',
             question: {},
+            own: false,
             replies: [],
             modalActive: false,
             memberInfo: null,
@@ -174,6 +177,7 @@ class QuestionPage extends Component {
                         this.setState({
                                 question: res1.data,
                                 replies: res2.data,
+                                own: res1.data.asker === localStorage.getItem('chegg-username')
                             }
                         )
 
@@ -246,7 +250,7 @@ class QuestionPage extends Component {
 
         const {editorState} = this.state;
         const styleObj = {
-            minHeight: '100px',
+            minHeight:'100px',
             border: '0.3px solid gray',
             padding: '0 5px',
             maxHeight: '200px',
@@ -301,7 +305,7 @@ class QuestionPage extends Component {
                                 </div>
                                 <Divider section/>
                                 {this.state.replies.map(reply =>
-                                    <AnswerOfQuestionPage reply={reply}/>
+                                    <AnswerOfQuestionPage own={this.state.own} reply={reply}/>
                                 )}
 
                                 <div style={{
@@ -339,7 +343,7 @@ class QuestionPage extends Component {
 
                         </Grid.Column>
 
-                        <Grid.Column width={3}>
+                        <Grid.Column style={{height: '80vh'}} width={3}>
                             <Ad ad1={"https://cdn.zoomg.ir/2019/3/4db9f81a-8796-431d-9ef0-80fbc174257c.gif"}
                                 ad2={"https://cdn.zoomg.ir/2019/3/4db9f81a-8796-431d-9ef0-80fbc174257c.gif"}
                                 ad3={"https://cdn.zoomg.ir/2019/3/4db9f81a-8796-431d-9ef0-80fbc174257c.gif"}/>
