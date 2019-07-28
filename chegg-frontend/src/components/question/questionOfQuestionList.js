@@ -13,7 +13,7 @@ class QuestionOfQuestionList extends Component {
     constructor(props) {
 
         super(props);
-        this.routeChange = this.routeChange.bind(this);
+
         this.state = {
             redirect: false,
             path: '',
@@ -50,13 +50,6 @@ class QuestionOfQuestionList extends Component {
         };
     }
 
-    routeChange = (e) => {
-        this.setState({
-            redirect: true,
-            path: e,
-
-        })
-    };
 
     renderRedirect = () => {
 

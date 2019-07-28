@@ -45,8 +45,6 @@ let menuItems = [
 
 
 ];
-
-
 class MyProfile extends Component {
 
 
@@ -107,20 +105,18 @@ class MyProfile extends Component {
             return (
                 <ChangePassword/>
             )
-        }
-        else if (this.state.activeItem === 'سوالات جواب داده') {
-            console.log(this.state.answeredQuestions)
+        } else if (this.state.activeItem === 'سوالات جواب داده') {
+            console.log(this.state.answeredQuestions, ' answered questions myProfile')
             if (this.state.answeredQuestions.length === 0) {
                 return (
                     <p style={{fontSize: '2em'}}> هنوز به سوالی جواب نداده اید.</p>
                 )
             } else {
                 return (
-                    <AskedQuestions isProfile={0} question={this.state.answeredQuestions}/>
+                    <AskedQuestions isProfile={0} asker={this.state.username} question={this.state.answeredQuestions}/>
                 )
             }
-        }
-        else if (this.state.activeItem === 'ارتقای سطح کاربری') {
+        } else if (this.state.activeItem === 'ارتقای سطح کاربری') {
             if (this.state.level) {
                 return (
                     <p style={{fontSize: '2em'}}> حساب کاربری شما ارتقا یافته است.</p>
@@ -131,8 +127,7 @@ class MyProfile extends Component {
 
                 )
             }
-        }
-        else if (this.state.activeItem === 'پیام ها') {
+        } else if (this.state.activeItem === 'پیام ها') {
             if (this.state.messages.length === 0) {
                 return (
                     <p style={{fontSize: '2em'}}>پیامی برای مشاهده وجود ندارد</p>
@@ -181,7 +176,26 @@ class MyProfile extends Component {
                         for (var i = 0; i < res.data.bought_chapters.length; i++) {
                             numOfChapters[res.data.bought_chapters[i].book - 1] += 1;
                         }
-                        console.log('data', res.data);
+                        var questions = []
+                        var questionIds = []
+
+                        for (var i = 0; i < res.data.replies.length; i++) {
+                            if (!questionIds.includes(res.data.replies[i].qestion)) {
+                                questionIds.push(res.data.replies[i].qestion)
+                                console.log(res.data.replies[i].qestion, ' foring replies')
+                                axios.get('http://localhost:8000/qa/questions/' + res.data.replies[i].question + '/',)
+                                    .then(res2 => {
+
+                                        questions.push(res2.data)
+
+
+                                    }).catch((error) => {
+
+                                })
+                            }
+
+                        }
+
                         this.setState(
                             {
                                 numOfChapters: numOfChapters,
@@ -191,10 +205,14 @@ class MyProfile extends Component {
                                 books: res.data,
                                 username: localStorage.getItem('chegg-username'),
                                 level: res.data.premium,
-                                answeredQuestions: res.data.replies,
-                                messages: res.data.messages
+                                answeredQuestions: questions,
+                                messages: res.data.messages,
+                                questions: questions,
+
                             }
                         );
+
+
                         var that = this;
                     }).catch((error) => {
                     this.setState({
@@ -244,7 +262,7 @@ class MyProfile extends Component {
                 <Template {...this.props}>
 
                     <Grid style={{margin: 'auto', direction: 'rtl', width: '70%', height: '82vh'}}>
-                        <Grid.Row columns={2} >
+                        <Grid.Row columns={2}>
                             <Grid.Column width={3}>
                                 <SidebarMenu activeItem={this.state.activeItem}
                                              messagesLen={this.state.messages.filter((message) => !message.read).length}

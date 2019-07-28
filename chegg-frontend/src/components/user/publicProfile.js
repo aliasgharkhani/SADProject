@@ -72,8 +72,9 @@ class PublicProfile extends Component {
                     <p style={{fontSize: '2em'}}> این کاربر جوابی نداده است.</p>
                 )
             } else {
+                console.log(this.state.answeredQuestions)
                 return (
-                    <AskedQuestions isProfile={0} question={this.state.answeredQuestions}/>
+                    <AskedQuestions isProfile={1} asker={this.state.username} question={this.state.answeredQuestions}/>
                 )
             }
         }
@@ -85,10 +86,31 @@ class PublicProfile extends Component {
         document.title = "پروفایل";
 
 
-        axios.get('http://localhost:8000/auth/profile/' + this.props.urlParameters.username, )
+        axios.get('http://localhost:8000/auth/profile/' + this.props.urlParameters.username,)
 
 
             .then(res => {
+
+                var questions = []
+                var questionIds = []
+
+                for (var i = 0; i < res.data.replies.length; i++) {
+                    if (!questionIds.includes(res.data.replies[i].qestion)) {
+                        questionIds.push(res.data.replies[i].qestion)
+                        console.log(res.data.replies[i].qestion, ' foring replies')
+                        axios.get('http://localhost:8000/qa/questions/' + res.data.replies[i].question + '/',)
+                            .then(res2 => {
+
+                                questions.push(res2.data)
+
+
+                            }).catch((error) => {
+
+                        })
+                    }
+
+                }
+
 
                 this.setState(
                     {
@@ -96,7 +118,7 @@ class PublicProfile extends Component {
                         askedQuestions: res.data.asked_questions,
                         username: this.props.urlParameters.username,
 
-                        answeredQuestions: res.data.replies,
+                        answeredQuestions: questions,
                     }
                 );
 
@@ -116,7 +138,7 @@ class PublicProfile extends Component {
             <Template {...this.props}>
 
                 <Grid style={{margin: 'auto', direction: 'rtl', width: '70%', height: '82vh'}}>
-                    <Grid.Row columns={2} >
+                    <Grid.Row columns={2}>
                         <Grid.Column width={3}>
                             <SidebarMenu activeItem={this.state.activeItem} menuItems={menuItems}
                                          handleItemClick={this.handleItemClick}/>
@@ -133,4 +155,5 @@ class PublicProfile extends Component {
         )
     }
 }
+
 export default PublicProfile;

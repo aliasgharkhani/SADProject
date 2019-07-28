@@ -14,7 +14,6 @@ class AnswerOfQuestionPage extends Component {
         // if (contentBlock) {
         //     const contentState = ContentState.createFromBlockArray(contentBlock.contentBlocks);
         //     const editorState = EditorState.createWithContent(contentState);
-        console.log('salma lsalasdfm');
         this.state = {
             editorState: null,
             reply: [],
@@ -181,7 +180,7 @@ class AnswerOfQuestionPage extends Component {
                                     <div style={{textAlign: 'center'}}>
 
                                         نویسنده: &nbsp;&nbsp;
-                                        <a href={'http://localhost:3000/profile/' + 'ali'}>{this.state.reply.asker}</a>
+                                        <a href={'http://localhost:3000/profile/' + this.state.reply.asker}>{this.state.reply.asker}</a>
 
                                         <br/>
                                     </div>

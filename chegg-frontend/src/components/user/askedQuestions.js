@@ -25,6 +25,7 @@ class AskedQuestions extends Component {
 
     render() {
 
+
         return (
             <Segment
                 style={{
@@ -44,12 +45,16 @@ class AskedQuestions extends Component {
                 }}>
                     {this.state.question.map(question =>
 
-                        <QuestionOfQuestionList isProfile={this.props.isProfile} asker={this.state.asker} title={question.title}
-                                                description={question.body} tags={question.tags_with_names}
-                                                link={'http://localhost:3000/question/' +  question.id}
+                        <QuestionOfQuestionList isProfile={0} asker={question.asker} title={question.title}
+                                                    description={question.body} tags={question.tags_with_names}
+                                                    link={'http://localhost:3000/question/' + question.id}
+                                                    is_answered={question.is_answered}
+                                                    num_of_replies={question.num_of_replies}
+                                                    date={question.date}
+                                                    score={question.score}
+                                                    style={{'border': '5px'}}
                         />
                     )}
-
                     {/*<Segment color={'teal'}><a href={question.link}> {question.title}</a></Segment>*/}
                 </Grid>
 
