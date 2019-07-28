@@ -21,6 +21,7 @@ class AnswerOfQuestionPage extends Component {
             score: 0,
             own: false,
             best: false,
+            memberScore: 0,
         };
         // }
     }
@@ -47,6 +48,9 @@ class AnswerOfQuestionPage extends Component {
             command = 'down'
         }
 
+        var color = 0
+
+
         axios.post('http://127.0.0.1:8000/qa/reply/' + this.state.reply.id + '/score/', {
 
             command: command
@@ -54,11 +58,19 @@ class AnswerOfQuestionPage extends Component {
             .then(response => {
 
                 if (response.status === 200) {
+                    if (response.data.dir === 'up'){
+                        color = 1
+                    }
+                    else if(response.data.dir === 'down'){
+                        color = -1
+                    }
 
                     this.setState({
-                        score: response.data.score
+                        score: response.data.score,
+                        memberScore: color
+
                     })
-                window.location.reload();
+                /*window.location.reload();*/
 
                 }
 
@@ -90,6 +102,7 @@ class AnswerOfQuestionPage extends Component {
                 score: this.props.reply.score,
                 own: this.props.own,
                 best: this.props.reply.best,
+                memberScore: this.props.reply.member_score
             })
         }
     }
@@ -107,6 +120,7 @@ class AnswerOfQuestionPage extends Component {
             score: this.props.reply.score,
             own: this.props.own,
             best: this.props.reply.best,
+            memberScore: this.props.reply.member_score
         })
     }
 
@@ -237,7 +251,7 @@ class AnswerOfQuestionPage extends Component {
 
                         <Grid.Row style={{textAlign: 'center'}}>
                             <Icon onClick={this.handleVote} className={'up'}
-                                  color={this.state.reply.member_score === 1 ? "green" : "grey"} size={"huge"}
+                                  color={this.state.memberScore === 1 ? "green" : "grey"} size={"huge"}
                                   style={divStyle} name="caret up"/>
                         </Grid.Row>
                         <Grid.Row>
@@ -245,7 +259,7 @@ class AnswerOfQuestionPage extends Component {
                         </Grid.Row>
                         <Grid.Row className={'pointer'} style={{textAlign: 'center'}}>
                             <Icon onClick={this.handleVote} className={'down'}
-                                  color={this.state.reply.member_score === -1 ? "red" : "grey"} size={"huge"}
+                                  color={this.state.memberScore === -1 ? "red" : "grey"} size={"huge"}
                                   style={divStyle} name="caret down"/>
                         </Grid.Row>
                         <Grid.Row>
