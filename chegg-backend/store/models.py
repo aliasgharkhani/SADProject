@@ -49,3 +49,10 @@ class PurchaseHistory(models.Model):
 
     def __str__(self):
         return "{}-> {}".format(str(self.member), str(self.chapter))
+
+
+class Advertisement(models.Model):
+    link = models.CharField(max_length=300)
+
+    def __str__(self):
+        return self.link
