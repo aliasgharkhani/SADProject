@@ -1,5 +1,5 @@
 import React, {Component} from 'react'
-import {Form,  Divider, Segment} from 'semantic-ui-react'
+import {Form, Divider, Segment, Grid} from 'semantic-ui-react'
 
 class PublicInfo extends Component {
     constructor(props) {
@@ -40,7 +40,7 @@ class PublicInfo extends Component {
 
     render() {
 
-        var bioLabel = 'دباره ی ' + this.state.username
+        // var bioLabel = ;
         return (
             <div>
 
@@ -53,7 +53,7 @@ class PublicInfo extends Component {
                 <Form>
                    <Form.Group>
                         <Form.Field width={16}>
-                            <label>{bioLabel} </label>
+                            <label>دباره ی&nbsp;&nbsp;<strong style={{fontSize:'1.5em'}}>{this.state.username}</strong> </label>
                             <Segment style={{
                                 fontFamily: 'Arial',
                                 minHeight: '80px',
@@ -91,6 +91,7 @@ class PublicInfo extends Component {
                             <label>نام کاربری</label>
                             <Segment style={{
                                 fontFamily: 'Arial',
+                                textAlign: 'left',
                                 height: '37.6px',
                                 'display': 'flex',
                                 'justifyContent': 'center',

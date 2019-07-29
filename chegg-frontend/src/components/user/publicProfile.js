@@ -136,12 +136,12 @@ class PublicProfile extends Component {
             <Template {...this.props}>
 
                 <Grid style={{margin: 'auto', direction: 'rtl', width: '70%', height: '82vh'}}>
-                    <Grid.Row columns={2}>
+                    <Grid.Row columns={2} style={{height: '100%'}}>
                         <Grid.Column width={3}>
                             <SidebarMenu activeItem={this.state.activeItem} menuItems={menuItems}
                                          handleItemClick={this.handleItemClick}/>
                         </Grid.Column>
-                        <Grid.Column width={13}>
+                        <Grid.Column width={13} style={{height: '100%', direction:'rtl'}}>
                             {this.getPageContent()}
                         </Grid.Column>
                     </Grid.Row>
