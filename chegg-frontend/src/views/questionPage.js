@@ -171,8 +171,8 @@ class QuestionPage extends Component {
         };
         axios.get('http://localhost:8000/qa/questions/' + urlParameters.id + '/',)
             .then(res1 => {
-
-                axios.get('http://localhost:8000/qa/questions/' + urlParameters.id + '/replies/', {headers: headers})
+                if(localStorage.getItem('chegg-token') === undefined || localStorage.getItem('chegg-token') === null){
+                axios.get('http://localhost:8000/qa/questions/' + urlParameters.id + '/replies/')
                     .then(res2 => {
                         this.setState({
                                 question: res1.data,
@@ -186,6 +186,22 @@ class QuestionPage extends Component {
 
                     )
 
+                }
+                else {
+                    axios.get('http://localhost:8000/qa/questions/' + urlParameters.id + '/replies/', {headers: headers})
+                        .then(res2 => {
+                            this.setState({
+                                    question: res1.data,
+                                    replies: res2.data,
+                                    own: res1.data.asker === localStorage.getItem('chegg-username')
+                                }
+                            )
+
+                        })
+                        .catch(
+
+                        )
+                }
 
             })
             .catch(

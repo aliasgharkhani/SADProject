@@ -14,7 +14,6 @@ class QuestionOfQuestionPage extends Component {
         super(props);
 
         this.showTags = this.showTags.bind(this);
-        this.handleUpVotes = this.handleUpVotes.bind(this);
         this.state = {
             question: [],
             votes: 0,
@@ -79,14 +78,6 @@ class QuestionOfQuestionPage extends Component {
         )
     }
 
-    handleUpVotes() {
-        alert("here")
-
-    }
-
-    handleDownVotes() {
-        alert("there")
-    }
 
     vote(command) {
 

@@ -104,14 +104,45 @@ class Main extends Component {
                                 fontSize: "2em",
                                 lineHeight: '1.3em'
                             }}>
-                                دیگر نگران تمرین های سختتان نباشید!! راه حل سوالات و پاسخ نامه ی کتاب
-                                ها در در چگ پیدا کنید.
+                                آیا سوالی دارید که جوابش را نمیدانید؟
                                 <br/>
                                 <br/>
 
-                                <a href={'books'} className='myHover'
-                                   style={{fontSize: '1.5em',}}> پاسخ نامه ی کتاب
-                                    ها</a>
+                                <a href={'questions'} className='myHover'
+                                   style={{fontSize: '1.5em',}}>لیست سوالات
+                                </a>
+                            </Grid.Column>
+
+                        </Grid.Row>
+
+
+                    </Grid>
+                    <Grid style={{width: ' 70%', margin: 'auto', display: this.state.loaded}}>
+
+
+                        <Grid.Row style={{
+                            // minHeight: ' 50vh',
+                            // margin: 'auto',
+                            height: '86.3vh',
+                            direction: 'rtl',
+                            backgroundImage: "url('https://d2ijzc5gfl7fbn.cloudfront.net/cache/94/b1/94b1e52655d8c80f803799c7fa974405.jpg')",
+                            backgroundSize: "cover"
+                        }}>
+
+                            <Grid.Column width={10}>
+                                <div/>
+                            </Grid.Column>
+                            <Grid.Column width={6} style={{
+                                margin: 'auto 0',
+                                padding: 20,
+                                color: '#e2ccba',
+                                fontSize: "2em",
+                                lineHeight: '1.3em'
+                            }}>
+
+                                <a href={'questions/submit'} className='myHover'
+                                   style={{fontSize: '1.5em',}}>پرسیدن سوال در سایت
+                                </a>
                             </Grid.Column>
 
                         </Grid.Row>

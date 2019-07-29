@@ -74,7 +74,7 @@ class QuestionOfQuestionList extends Component {
         const UserName_or_not = () => {
 
             if (this.state.isProfile === 0) {
-                var links = 'profile/' + this.state.asker;
+                var links = 'http://localhost:3000/profile/' + this.state.asker;
                 return (
                     <div>
 

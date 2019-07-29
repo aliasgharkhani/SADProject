@@ -98,7 +98,8 @@ class QuestionsList extends Component {
     componentDidMount() {
         axios.get('http://localhost:8000/qa/questions/').then(res1 => {
                 axios.get('http://localhost:8000/qa/tags/').then(res2 => {
-                        this.setState({
+                    console.log('sadfasdf asdfasdf asdf', res1.data);
+                    this.setState({
                             questions: res1.data,
                             tags: res2.data,
                             visible_questions: res1.data
@@ -118,7 +119,7 @@ class QuestionsList extends Component {
         let visible_questions = [];
         for (let i = 0; i < formFields.length - 1; i++) {
             if (formFields[i].checked === true) {
-                checked_tags.push(parseInt(formFields[i].id), 10);
+                checked_tags.push(formFields[i].name);
             }
         }
         if (checked_tags.length === 0) {
@@ -127,17 +128,18 @@ class QuestionsList extends Component {
             });
             return;
         }
-        for (let i = 0; i < this.state.questions.length; i++) {
-            for (let j = 0; j < this.state.questions[i].tags_with_names.length; j++) {
-                if (checked_tags.includes(this.state.questions[i].tags_with_names[j].id)) {
-                    visible_questions.push(this.state.questions[i]);
-                    break;
-                }
-            }
-        }
-        this.setState({
-            visible_questions: visible_questions,
-        })
+        window.location.replace('http://localhost:3000/questions/tagged/' + checked_tags.join(' '))
+        // for (let i = 0; i < this.state.questions.length; i++) {
+        //     for (let j = 0; j < this.state.questions[i].tags_with_names.length; j++) {
+        //         if (checked_tags.includes(this.state.questions[i].tags_with_names[j].id)) {
+        //             visible_questions.push(this.state.questions[i]);
+        //             break;
+        //         }
+        //     }
+        // }
+        // this.setState({
+        //     visible_questions: visible_questions,
+        // })
 
     }
 
@@ -176,7 +178,7 @@ class QuestionsList extends Component {
                 }}>
                     {this.state.tags.map(tag =>
                         <Form.Field>
-                            <Checkbox  style={{color: 'black'}} id={tag.id} label={tag.name}/>
+                            <Checkbox name={tag.name} style={{color: 'black'}} id={tag.id} label={tag.name}/>
                         </Form.Field>
                     )}
                 </Segment>
@@ -199,7 +201,7 @@ class QuestionsList extends Component {
                                     resultRenderer={this.searchResultRenderer}
                                     fluid={true}
                                     input={{fluid: true}}
-                                    noResultsMessage={'نتیجه‌ای یافت نشد.'}
+                                    noResultsMessage={'.نتیجه‌ای یافت نشد'}
                                     style={{margin: '10px auto', width: '80%'}}
                                     loading={this.state.isLoading}
                                     onResultSelect={this.handleResultSelect}

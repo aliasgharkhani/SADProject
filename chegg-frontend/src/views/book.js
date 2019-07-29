@@ -77,7 +77,7 @@ class MenuExampleInvertedSegment extends Component {
         const token = localStorage.getItem('chegg-token');
         if (token === undefined || token === null) {
             alert('برای خرید باید وارد سایت شوید.')
-            return
+            this.props.history.push('../../signin');
         }
 
 
@@ -236,7 +236,7 @@ class Book extends Component {
         const token = localStorage.getItem('chegg-token');
         if (token === undefined || token === null) {
             alert('برای خرید باید وارد سایت شوید.')
-            return
+            this.props.history.push('../../signin');
         }
 
 
