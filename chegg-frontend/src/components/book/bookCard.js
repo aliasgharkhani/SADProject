@@ -123,7 +123,7 @@ class BookCard extends Component {
                                      className="ui animated fade button" tabIndex="0">
                                     <div className="visible content" style={{padding: '0px'}}>مشاهده و خرید کتاب</div>
                                     <div className="hidden content">
-                                        {this.state.price} هزار تومان
+                                        {this.state.price} تومان
                                     </div>
                                 </div>
                             </a>

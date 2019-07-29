@@ -3,7 +3,7 @@ import axios from "axios";
 import Template from "../template/template";
 import {Button, Grid, Message} from "semantic-ui-react";
 import AskedQuestions from "./askedQuestions";
-import PurchasedBooks from "../book/purchasedBooks";
+import PurchasedBooks from "./purchasedBooks";
 import SidebarMenu from './sidebarMenu'
 import PersonalInfo from './personalInfo'
 import ChangePassword from './changePassword'
@@ -45,6 +45,7 @@ let menuItems = [
 
 
 ];
+
 class MyProfile extends Component {
 
 
@@ -83,7 +84,14 @@ class MyProfile extends Component {
         } else if (this.state.activeItem === 'کتاب‌های خریداری شده') {
             if (this.state.bought_books.length === 0) {
                 return (
-                    <a href={'/books'}><Button style={{fontFamily: 'B Yekan'}}>مشاهد‌ه‌ی لیست کتاب ها</Button></a>
+                    <div>
+                        <strong>
+                            شما هنوز کتابی نخریده‌اید.
+                        </strong>
+                        <br/>
+                        <br/>
+                        <a href={'/books'}><Button style={{fontFamily: 'B Yekan'}}>مشاهد‌ه‌ی و خرید کتاب</Button></a>
+                    </div>
                 )
             } else {
                 return (
@@ -94,7 +102,15 @@ class MyProfile extends Component {
         } else if (this.state.activeItem === 'سوالات پرسیده شده') {
             if (this.state.askedQuestions.length === 0) {
                 return (
-                    <a href={'/questions/submit'}><Button style={{fontFamily: 'B Yekan'}}>ایجاد سوال</Button></a>
+                    <div>
+                        <strong>
+                            شما هنوز سوالی نپرسیده‌اید.
+                        </strong>
+                        <br/>
+                        <br/>
+                        <a href={'/questions/submit'}><Button style={{fontFamily: 'B Yekan'}}>ایجاد سوال</Button></a>
+                    </div>
+
                 )
             } else {
                 return (
@@ -108,7 +124,14 @@ class MyProfile extends Component {
         } else if (this.state.activeItem === 'سوالات جواب داده') {
             if (this.state.answeredQuestions.length === 0) {
                 return (
-                    <p style={{fontSize: '2em'}}> هنوز به سوالی جواب نداده اید.</p>
+                    <div>
+                        <strong>
+                             هنوز به سوالی جواب نداده اید.
+                        </strong>
+                        <br/>
+                        <br/>
+                        <a href={'/questions'}><Button style={{fontFamily: 'B Yekan'}}>مشاهده‌ی سوالات</Button></a>
+                    </div>
                 )
             } else {
                 return (
@@ -259,14 +282,14 @@ class MyProfile extends Component {
                 <Template {...this.props}>
 
                     <Grid style={{margin: 'auto', direction: 'rtl', width: '70%', height: '82vh'}}>
-                        <Grid.Row columns={2}>
+                        <Grid.Row columns={2} style={{height: '100%'}}>
                             <Grid.Column width={3}>
                                 <SidebarMenu activeItem={this.state.activeItem}
                                              messagesLen={this.state.messages.filter((message) => !message.read).length}
                                              menuItems={menuItems}
                                              handleItemClick={this.handleItemClick}/>
                             </Grid.Column>
-                            <Grid.Column width={13}>
+                            <Grid.Column width={13} style={{height: '100%'}}>
                                 {this.getPageContent()}
                             </Grid.Column>
                         </Grid.Row>

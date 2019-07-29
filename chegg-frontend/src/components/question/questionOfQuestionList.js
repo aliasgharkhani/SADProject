@@ -115,7 +115,7 @@ class QuestionOfQuestionList extends Component {
                     </Grid.Row>
                     <Grid.Row>
                         <div style={divStyle}>
-                            {this.state.is_answered ? <Icon size={"huge"} name={"check circle outline"} color={"green"}/>:<div/>}
+                            {this.state.is_answered ? <Icon style={{width:'100%', margin:'auto'}} size={"huge"} name={"check circle outline"} color={"green"}/>:<div/>}
                         </div>
                     </Grid.Row>
 

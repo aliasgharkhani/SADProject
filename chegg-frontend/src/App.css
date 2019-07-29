@@ -44,7 +44,26 @@ a{
 
 .prompt {
   background-color: #eaedf4 !important;
+  font-family: 'B Yekan' !important;
 }
 .public-DraftEditor-content{
   min-height: 100px !important;
+}
+.ui.input>input{
+  text-align: right;
+    font-family: 'B Yekan' !important;
+}
+.ui.segment{
+    font-family: 'B Yekan' !important;
+}
+.description{
+  font-family: 'B Yekan' !important;
+}
+.header{
+    font-family: 'B Yekan' !important;
+
+}
+.button{
+    font-family: 'B Yekan' !important;
+
 }

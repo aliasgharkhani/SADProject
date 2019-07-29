@@ -146,7 +146,7 @@ class QuestionCreate extends Component {
                                     </Modal.Content>
                                     <Modal.Actions>
                                         <Button style={{fontFamily: "B Yekan"}} emphasis="positive"
-                                                color='white'
+                                                color='green'
                                                 onClick={this.onCloseModal.bind(this)}>بستن</Button>
                                     </Modal.Actions>
                                 </Modal>

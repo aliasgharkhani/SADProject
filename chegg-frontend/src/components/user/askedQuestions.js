@@ -29,7 +29,7 @@ class AskedQuestions extends Component {
         return (
             <Segment
                 style={{
-                    backgroundImage: 'url("https://visme.co/blog/wp-content/uploads/2017/07/50-Beautiful-and-Minimalist-Presentation-Backgrounds-037.jpg")',
+                    // backgroundImage: 'url("https://visme.co/blog/wp-content/uploads/2017/07/50-Beautiful-and-Minimalist-Presentation-Backgrounds-037.jpg")',
                     margin: 'auto',
                     maxHeight: '100%',
                     overflow: 'auto',

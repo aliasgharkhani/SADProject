@@ -1,6 +1,6 @@
 import React, {Component} from "react";
 import {Grid, Segment} from 'semantic-ui-react'
-import BookCard from './bookCard'
+import BookCard from '../book/bookCard'
 
 
 class PurchasedBooks extends Component {
@@ -28,7 +28,7 @@ class PurchasedBooks extends Component {
                 <Segment
                     color='red'
                     style={{
-                        backgroundImage: 'url("https://visme.co/blog/wp-content/uploads/2017/07/50-Beautiful-and-Minimalist-Presentation-Backgrounds-037.jpg")',
+                        backgroundImage: 'url("https://freefrontend.com/assets/img/css-background-patterns/simple-pattern-with-css3.png")',
                         margin: 'auto',
                         maxHeight: '48vh',
                         overflow: 'auto',
@@ -37,7 +37,6 @@ class PurchasedBooks extends Component {
 
                         display: 'flex',
                         flexDirection: 'row',
-                        justifyContent: 'space-evenly',
                         flexWrap: 'wrap',
                         margin: 'auto',
 

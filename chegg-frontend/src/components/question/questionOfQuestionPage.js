@@ -103,11 +103,11 @@ class QuestionOfQuestionPage extends Component {
 
             <Grid style={{margin: 'auto'}}>
 
-                <Grid.Row columns={2}>
+                <Grid.Row>
 
 
-                    <Grid.Column width={15}>
-                        <Grid style={{direction: 'rtl'}}>
+                    <Grid.Column>
+                        <Grid style={{direction: 'rtl', marginRight:'10px'}}>
                             <Grid.Row columns={2} style={{
                                 marginTop: '20px',
                                 paddingBottom: '0',
@@ -117,7 +117,6 @@ class QuestionOfQuestionPage extends Component {
                                 <Grid.Column style={{paddingRight: '0px'}} width={13}>
                                     <div style={{
                                         fontSize: '1.9em',
-                                        paddingRight: '0px'
                                     }}>{this.state.question.title} </div>
                                 </Grid.Column>
 
@@ -168,20 +167,6 @@ class QuestionOfQuestionPage extends Component {
                             </Grid.Row>
                         </Grid>
 
-                    </Grid.Column>
-                    <Grid.Column width={1} style={{padding: '0'}}>
-
-                        <Grid.Row style={{textAlign: 'center'}}>
-                            <Icon className={'pointer'} onClick={this.handleUpVotes} color={"grey"} size={"huge"}
-                                  style={divStyle} name="caret up"/>
-                        </Grid.Row>
-                        <Grid.Row>
-                            <p style={{textAlign: 'center', fontSize: '2em'}}>{this.state.question.score}</p>
-                        </Grid.Row>
-                        <Grid.Row className={'pointer'} style={{textAlign: 'center'}}>
-                            <Icon onClick={this.handleDownVotes} color={"grey"} size={"huge"}
-                                  style={divStyle} name="caret down"/>
-                        </Grid.Row>
                     </Grid.Column>
 
                 </Grid.Row>

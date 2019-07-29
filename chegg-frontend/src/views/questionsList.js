@@ -1,5 +1,5 @@
 import React, {Component} from "react";
-import {Grid, Segment, Button, Checkbox, Form} from 'semantic-ui-react'
+import {Grid, Segment, Button, Checkbox, Form, Icon} from 'semantic-ui-react'
 import QuestionOfQuestionList from '../components/question/questionOfQuestionList'
 import axios from "axios";
 import Template from '../components/template/template';
@@ -44,6 +44,21 @@ const source = [
 
 
 class QuestionsList extends Component {
+    searchResultRenderer = ({asker, title, is_answered}) => [
+        <Grid key='content' className='content'>
+            <Grid.Row columns={2}>
+                <Grid.Column width={4} style={{textAlign:'left'}}>
+                    {asker}:نویسنده
+                    &nbsp;&nbsp;
+                    {is_answered ? <Icon style={{width:'100%', margin:'auto', display:'inline'}} size={"large"} name={"check circle outline"} color={"green"}/>:<div/>}
+                </Grid.Column>
+                <Grid.Column style={{fontFamily: 'B Yekan', color:'#4183c4', textAlign:'right'}} width={12}>
+                    {title}
+                </Grid.Column>
+
+            </Grid.Row>
+        </Grid>,
+    ];
 
     constructor(props) {
         super(props);
@@ -181,6 +196,7 @@ class QuestionsList extends Component {
 
                             <Grid.Row style={{height: '91.7%'}}>
                                 <Search
+                                    resultRenderer={this.searchResultRenderer}
                                     fluid={true}
                                     input={{fluid: true}}
                                     noResultsMessage={'نتیجه‌ای یافت نشد.'}
