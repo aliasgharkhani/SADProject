@@ -16,9 +16,10 @@ class QuestionViewSet(viewsets.ModelViewSet):
     queryset = Question.objects.all()
 
     def get_queryset(self):
-        if self.request.GET.get('tag', None):
-            tag_name = self.request.GET['tag']
-            return Question.objects.filter(tags__name=tag_name).distinct().order_by('-id')
+        if self.request.GET.get('tags', None):
+            tags = self.request.GET['tags']
+            tags_name = tags.split(" ")
+            return Question.objects.filter(tags__name__in=tags_name).distinct().order_by('-id')
         return Question.objects.all().order_by('-id')
 
     def get_serializer_context(self):

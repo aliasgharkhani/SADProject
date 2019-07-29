@@ -1,5 +1,5 @@
 import React, {Component} from "react";
-import {Grid, Segment, Button, Checkbox, Form, Icon} from 'semantic-ui-react'
+import {Grid, Segment, Button, Checkbox, Form} from 'semantic-ui-react'
 import QuestionOfQuestionList from '../components/question/questionOfQuestionList'
 import axios from "axios";
 import Template from '../components/template/template';
@@ -43,34 +43,23 @@ const source = [
 ]
 
 
-class QuestionsList extends Component {
-    searchResultRenderer = ({asker, title, is_answered}) => [
-        <Grid key='content' className='content'>
-            <Grid.Row columns={2}>
-                <Grid.Column width={4} style={{textAlign:'left'}}>
-                    {asker}:نویسنده
-                    &nbsp;&nbsp;
-                    {is_answered ? <Icon style={{width:'100%', margin:'auto', display:'inline'}} size={"large"} name={"check circle outline"} color={"green"}/>:<div/>}
-                </Grid.Column>
-                <Grid.Column style={{fontFamily: 'B Yekan', color:'#4183c4', textAlign:'right'}} width={12}>
-                    {title}
-                </Grid.Column>
-
-            </Grid.Row>
-        </Grid>,
-    ];
+class TaggedQuestions extends Component {
 
     constructor(props) {
         super(props);
         this.handleChange = this.handleChange.bind(this);
         this.getQuestionsOrEmpty = this.getQuestionsOrEmpty.bind(this);
+        this.checkedOrNot = this.checkedOrNot.bind(this);
+        this.arrayRemove = this.arrayRemove.bind(this);
+        this.checkBoxClick = this.checkBoxClick.bind(this);
         this.state = {
             questions: [],
             tags: [],
             visible_questions: [],
             isLoading: false,
             value: '',
-            results: []
+            results: [],
+            checkedTags: []
         };
     }
 
@@ -96,12 +85,24 @@ class QuestionsList extends Component {
 
 
     componentDidMount() {
-        axios.get('http://localhost:8000/qa/questions/').then(res1 => {
+        var taggs = this.props.match.params.tags.split(' ').join(' ')
+        console.log(taggs, ' tags from up')
+        var initailTags = this.props.match.params.tags.split(' ')
+        console.log(' inital tags', initailTags)
+        taggs = '?tags=' + taggs;
+        console.log(taggs, 'tags');
+
+
+        axios.get('http://localhost:8000/qa/questions/'+ taggs).then(res1 => {
+            console.log(res1.data , ' question')
                 axios.get('http://localhost:8000/qa/tags/').then(res2 => {
+
+
                         this.setState({
                             questions: res1.data,
                             tags: res2.data,
-                            visible_questions: res1.data
+                            visible_questions: res1.data,
+                            checkedTags: initailTags
                         })
                     }
                 )
@@ -118,26 +119,26 @@ class QuestionsList extends Component {
         let visible_questions = [];
         for (let i = 0; i < formFields.length - 1; i++) {
             if (formFields[i].checked === true) {
-                checked_tags.push(parseInt(formFields[i].id), 10);
+                checked_tags.push(formFields[i].name);
             }
         }
-        if (checked_tags.length === 0) {
-            this.setState({
-                visible_questions: this.state.questions
-            });
-            return;
+
+
+        if (checked_tags.length === 0){
+            console.log(checked_tags.length, checked_tags)
+            window.location.replace('http://localhost:3000/questions')
+            return
         }
-        for (let i = 0; i < this.state.questions.length; i++) {
-            for (let j = 0; j < this.state.questions[i].tags_with_names.length; j++) {
-                if (checked_tags.includes(this.state.questions[i].tags_with_names[j].id)) {
-                    visible_questions.push(this.state.questions[i]);
-                    break;
-                }
-            }
+        window.location.replace('http://localhost:3000/questions/tagged/' + checked_tags.join(' '))
+    }
+
+    checkedOrNot(name) {
+
+        if (this.state.checkedTags.includes(name)) {
+            return true
         }
-        this.setState({
-            visible_questions: visible_questions,
-        })
+        return false
+
 
     }
 
@@ -166,6 +167,41 @@ class QuestionsList extends Component {
         }
     }
 
+    checkBoxClick(e) {
+        console.log(e.target);
+        name = e.target.name;
+        console.log(name);
+        console.log(this.state.checkedTags)
+        var checkedTags = this.state.checkedTags;
+        if (!this.state.checkedTags.includes(name)) {
+
+            checkedTags.push(name);
+            this.setState({
+                checkedTags: checkedTags
+            });
+
+
+        } else {
+            for (var i = 0; i < checkedTags.length; i++) {
+                if (checkedTags[i] === name) {
+                    checkedTags.splice(i, 1);
+                }
+            }
+            console.log('checked', checkedTags)
+            this.setState({
+                checkedTags: checkedTags
+            })
+        }
+    }
+
+    arrayRemove(arr, value) {
+
+        return arr.filter(function (ele) {
+            return ele != value;
+        });
+
+    }
+
     render() {
 
         const TagFilter = () => (
@@ -176,7 +212,8 @@ class QuestionsList extends Component {
                 }}>
                     {this.state.tags.map(tag =>
                         <Form.Field>
-                            <Checkbox  style={{color: 'black'}} id={tag.id} label={tag.name}/>
+                            <Checkbox name={tag.name} onClick={this.checkBoxClick} checked={this.checkedOrNot(tag.name)}
+                                      style={{color: 'black'}} id={tag.id} label={tag.name}/>
                         </Form.Field>
                     )}
                 </Segment>
@@ -196,7 +233,6 @@ class QuestionsList extends Component {
 
                             <Grid.Row style={{height: '91.7%'}}>
                                 <Search
-                                    resultRenderer={this.searchResultRenderer}
                                     fluid={true}
                                     input={{fluid: true}}
                                     noResultsMessage={'نتیجه‌ای یافت نشد.'}
@@ -249,4 +285,4 @@ class QuestionsList extends Component {
 
 }
 
-export default QuestionsList;
+export default TaggedQuestions;
