@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from store.models import Book, Problem, Chapter
+from store.models import Book, Problem, Chapter, Advertisement
 
 
 class BookSerializer(serializers.ModelSerializer):
@@ -25,7 +25,6 @@ class ChapterSerializer(serializers.ModelSerializer):
 
 
 class ProblemSerializer(serializers.ModelSerializer):
-
     class Meta:
         model = Problem
         exclude = ()
@@ -48,3 +47,9 @@ class ProblemWithoutAnswerSerializer(serializers.ModelSerializer):
         domain_name = "http://127.0.0.1:8000"
         representation['answer'] = domain_name + instance.answer_blurred.url
         return representation
+
+
+class AdvertisementSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Advertisement
+        exclude = ()

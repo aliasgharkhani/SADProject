@@ -1,12 +1,12 @@
 from django.shortcuts import get_object_or_404
-from django.urls import reverse
 from rest_framework.decorators import action
 from rest_framework.permissions import IsAuthenticatedOrReadOnly, IsAuthenticated
 from rest_framework.response import Response
 from rest_framework.views import APIView
 from rest_framework.viewsets import ModelViewSet
-from store.models import Book, PurchaseHistory, Chapter, Problem
-from store.serializers import BookSerializer, ChapterSerializer, ProblemSerializer, ProblemWithoutAnswerSerializer
+from store.models import Book, PurchaseHistory, Chapter, Problem, Advertisement
+from store.serializers import BookSerializer, ChapterSerializer, ProblemSerializer, ProblemWithoutAnswerSerializer, \
+    AdvertisementSerializer
 
 
 class BookViewSet(ModelViewSet):
@@ -63,3 +63,7 @@ class ProblemAPIView(APIView):
             return Response(ProblemWithoutAnswerSerializer(problem).data)
         return Response(ProblemSerializer(problem).data)
 
+
+class AdvertisementAPIView(APIView):
+    def get(self, request, *args, **kwargs):
+        return Response(AdvertisementSerializer(Advertisement.objects.all(), many=True).data)
