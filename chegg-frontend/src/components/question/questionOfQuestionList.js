@@ -25,6 +25,7 @@ class QuestionOfQuestionList extends Component {
             isProfile: null,
             editorState: null
         }
+        this.tagOnclick = this.tagOnclick.bind(this)
     }
 
 
@@ -58,6 +59,11 @@ class QuestionOfQuestionList extends Component {
             return <Redirect to={this.state.path}/>
         }
     };
+
+    tagOnclick(e){
+        console.log(e.target)
+        /*window.location.replace(e.target.link)*/
+    }
 
     render() {
         const divStyle = {
@@ -144,8 +150,10 @@ class QuestionOfQuestionList extends Component {
 
                         <Grid.Column width={13}>
                             {this.state.tags.map(tag =>
-
+                                <a href={'http://localhost:3000/questions/tagged/' + tag.name}>
                                 <Button primary
+
+
                                         style={{
                                             direction: 'ltr',
                                             color: '#ffffff',
@@ -153,6 +161,7 @@ class QuestionOfQuestionList extends Component {
                                             margin: '1px'
                                         }}
                                         content={tag.name} id={'id' + tag.id}/>
+                                </a>
                             )}
 
                         </Grid.Column>

@@ -62,16 +62,18 @@ class QuestionOfQuestionPage extends Component {
 
 
                 {this.state.question.tags_with_names.map(tag =>
-
+                    <a href={'http://localhost:3000/questions/tagged/' + tag.name}>
                     <Button primary
                             style={{
+
                                 direction: 'ltr',
                                 color: '#ffffff',
                                 backgroundColor: '#761d69',
                                 margin: '1px',
-                                cursor: 'auto'
+                                
                             }}
                             content={tag.name}/>
+                    </a>
                 )}
             </div>
         )

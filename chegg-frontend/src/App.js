@@ -15,6 +15,7 @@ import QuestionsList from "./views/questionsList";
 import QuestionCreate from "./views/questionCreate";
 import QuestionPage from "./views/questionPage";
 import SearchExampleStandard from "./views/test";
+import TaggedQuestions from './views/taggedQuestions'
 
 
 
@@ -33,6 +34,7 @@ function App() {
                 <Route exact path='/questions/submit' component={QuestionCreate}/>
                  <Route exact path='/question/:id' component={QuestionPage}/>
                  <Route exact path='/test' component={SearchExampleStandard}/>
+                 <Route exact path='/questions/tagged/:tags' component={TaggedQuestions}/>
             </Switch>
         </BrowserRouter>
     );
