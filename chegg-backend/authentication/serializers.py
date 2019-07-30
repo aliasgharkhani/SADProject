@@ -38,10 +38,12 @@ class MemberProfileSerializer(serializers.ModelSerializer):
     asked_questions = serializers.SerializerMethodField()
     replies = serializers.SerializerMethodField()
     messages = serializers.SerializerMethodField()
+    replied_questions = serializers.SerializerMethodField()
 
     class Meta:
         model = Member
-        fields = ('user_info', 'bought_books', 'bought_chapters', 'asked_questions', 'replies', 'messages', 'is_active')
+        fields = ('user_info', 'bought_books', 'bought_chapters', 'asked_questions', 'replies', 'messages', 'is_active',
+                  'replied_questions')
 
     def get_messages(self, obj):
         return MessageSerializer(obj.get_messages(), many=True).data
@@ -57,6 +59,10 @@ class MemberProfileSerializer(serializers.ModelSerializer):
     def get_user_info(self, obj):
         return MemberBaseInfoSerializer(obj).data
 
+    def get_replied_questions(self, obj):
+        from QA.serializers import QuestionSerializer
+        return QuestionSerializer(obj.get_replied_questions(), many=True).data
+
     def get_asked_questions(self, obj):
         from QA.serializers import QuestionSerializer
         return QuestionSerializer(obj.get_asked_questions(), many=True).data
@@ -70,13 +76,18 @@ class MemberPageSerializer(serializers.ModelSerializer):
     user_info = serializers.SerializerMethodField()
     asked_questions = serializers.SerializerMethodField()
     replies = serializers.SerializerMethodField()
+    replied_questions = serializers.SerializerMethodField()
 
     class Meta:
         model = Member
-        fields = ('user_info', 'asked_questions', 'replies', 'is_active')
+        fields = ('user_info', 'asked_questions', 'replies', 'is_active', 'replied_questions')
 
     def get_user_info(self, obj):
         return MemberBaseInfoSerializer(obj).data
+
+    def get_replied_questions(self, obj):
+        from QA.serializers import QuestionSerializer
+        return QuestionSerializer(obj.get_replied_questions(), many=True).data
 
     def get_asked_questions(self, obj):
         from QA.serializers import QuestionSerializer
