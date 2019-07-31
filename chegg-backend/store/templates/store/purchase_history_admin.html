@@ -1,0 +1,35 @@
+{% extends 'admin/change_list.html' %}
+
+{% block object-tools %}
+<div>
+    <style>
+        .c__ {
+            text-align: center;
+        }
+    </style>
+    <table style="width: 100%">
+        <thead style="text-align: center;">
+        <tr>
+            <th class="column-__str__ c__">
+                عنوان
+            </th>
+            <th class="column-__str__ c__">
+                مقدار
+            </th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr class="row1">
+            <th class="field-__str__ c__">مجموع خرید ها</th>
+            <th class="field-__str__ c__">{{ total_price }}</th>
+        </tr>
+        <tr class="row1">
+            <th class="field-__str__ c__">تعداد خریدها</th>
+            <th class="field-__str__ c__">{{ total_purchases }}</th>
+        </tr>
+        </tbody>
+    </table>
+</div>
+<br/>
+{{ block.super }}
+{% endblock %}
