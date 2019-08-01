@@ -40,13 +40,14 @@ class bookProblem extends Component {
                     })
                 });
         }
-        var bookURL = 'http://localhost:8000/store/books/' + urlParameters.bookId;
-        axios.get(bookURL)
+        var bookURLbackend = 'http://localhost:8000/store/books/' + urlParameters.bookId;
+        var bookURLfrontend = 'http://localhost:3000/books/' + urlParameters.bookId;
+        axios.get(bookURLbackend)
             .then(res => {
                 this.setState({
                     book: {
                         name: res.data.title,
-                        url: bookURL
+                        url: bookURLfrontend
                     },
                     chapterId: urlParameters.chapterId,
                     problemId: urlParameters.problemId

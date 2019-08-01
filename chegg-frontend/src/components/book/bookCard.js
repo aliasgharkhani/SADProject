@@ -26,6 +26,7 @@ class BookCard extends Component {
     };
 
     static getDerivedStateFromProps(props, state) {
+        console.log('here  ', props.chaptersPurchased);
         return {
             purchased: props.purchased,
             title: props.title,
