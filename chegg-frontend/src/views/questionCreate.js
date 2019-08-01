@@ -24,6 +24,8 @@ class QuestionCreate extends Component {
             editorState: EditorState.createEmpty(),
             text: '',
             ads: [{'id': 0, 'link': ''}, {'id': 1, 'link': ''}, {'id': 2, 'link': ''},],
+            isActive: true,
+            isAbleToAsk: true,
         };
     }
 
@@ -35,6 +37,19 @@ class QuestionCreate extends Component {
     onEditorStateChange: Function = (editorState) => {
 
 
+        if (!this.state.isActive){
+
+            alert('حساب کاربری شما مسدود شده و نمی توانید سوالی بپرسید.')
+
+            window.location.replace('http://localhost:3000/')
+        }
+        console.log(this.state.isAbleToAsk)
+        if (!this.state.isAbleToAsk){
+             alert('تعداد سوالاتی که می توانستید بپرسید به بیشینه مقدار خود رسیده است. برای پرسیدن سوال, حساب خود را ارتقا دهید.')
+
+            window.location.replace('http://localhost:3000/profile/' + localStorage.getItem('chegg-username'))
+        }
+
         this.setState({
             editorState,
         });
@@ -42,6 +57,24 @@ class QuestionCreate extends Component {
 
 
     componentDidMount() {
+
+        var username = localStorage.getItem('chegg-username');
+        /*const headers = {
+            'Authorization': 'TOKEN ' + localStorage.getItem('chegg-username')
+        };*/
+        var isActive = true;
+        var isAbleToAsk = true;
+
+        if (username !== null || username !== undefined){
+
+            axios.get('http://localhost:8000/auth/profile/' + username).then( res =>{
+
+                    isActive = res.data.is_active;
+                    isAbleToAsk = res.data.is_able_to_ask;
+            })
+        }
+
+
         axios.get('http://localhost:8000/qa/tags/').then(res => {
             axios.get('http://localhost:8000/store/ads/')
                 .then(res3 => {
@@ -49,6 +82,8 @@ class QuestionCreate extends Component {
                         tags: res.data,
                         allow: true,
                         ads: res3.data,
+                        isActive: isActive,
+                        isAbleToAsk: isAbleToAsk,
                     })
                 });
 
