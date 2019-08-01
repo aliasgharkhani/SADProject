@@ -43,6 +43,7 @@ INSTALLED_APPS = [
     'rest_framework',
     'rest_framework.authtoken',
     'corsheaders',
+    'django_nose',
 
     'authentication',
     'store',
@@ -137,3 +138,11 @@ REST_FRAMEWORK = {
 MEDIA_ROOT = '../media/'
 
 MEDIA_URL = '/media/'
+
+TEST_RUNNER = 'django_nose.NoseTestSuiteRunner'
+
+# Tell nose to measure coverage on the 'foo' and 'bar' apps
+NOSE_ARGS = [
+    '--with-coverage',
+    '--cover-package=QA,authentication,store',
+]
