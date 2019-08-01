@@ -316,8 +316,10 @@ class Book extends Component {
 
     hasBoughtBook() {
         if (this.state.memberInfo !== null && this.state.memberInfo !== undefined && this.state.memberInfo.bought_books !== undefined) {
+            console.log('salam');
             for (let i = 0; i < this.state.memberInfo.bought_books.length; i++) {
-                if (this.state.memberInfo.bought_books[i].id === this.bookId) {
+                console.log('manam  ',this.state.memberInfo.bought_books[i].id, this.bookId);
+                if (parseInt(this.state.memberInfo.bought_books[i].id) === parseInt(this.bookId)) {
                     return true
                 }
             }

@@ -214,7 +214,7 @@ class AnswerOfQuestionPage extends Component {
                                 </Grid.Column>
 
                                 <Grid.Column width={3}>
-                                    <div style={{textAlign: 'center', fontSize: '1.2em'}}> پرسیده شده در تاریخ
+                                    <div style={{textAlign: 'center', fontSize: '1.2em'}}>پاسخ در تاریخ
                                         <br/>
                                         <br/>
                                         {this.state.reply.date}
