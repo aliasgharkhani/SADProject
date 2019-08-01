@@ -1,5 +1,6 @@
 from django.contrib.auth.models import AbstractUser
 from django.db import models
+from django.conf import settings
 
 
 class Member(AbstractUser):
@@ -35,7 +36,7 @@ class Member(AbstractUser):
         from QA.models import Question
         if self.premium:
             return True
-        return Question.objects.filter(creator=self).count() < 200
+        return Question.objects.filter(creator=self).count() < settings.QUESTION_LIMIT
 
     def get_asked_questions(self):
         from QA.models import Question
