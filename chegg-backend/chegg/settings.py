@@ -147,4 +147,4 @@ NOSE_ARGS = [
     '--cover-package=QA,authentication,store',
 ]
 
-QUESTION_LIMIT = 2
+QUESTION_LIMIT = 100
