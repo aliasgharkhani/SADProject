@@ -139,6 +139,7 @@ class QuestionPage extends Component {
             modalActive: false,
             memberInfo: null,
             modalMessage: "",
+            ads: [{'id': 0, 'link': ''}, {'id': 1, 'link': ''}, {'id': 2, 'link': ''},],
         };
 
     }
@@ -171,31 +172,40 @@ class QuestionPage extends Component {
         };
         axios.get('http://localhost:8000/qa/questions/' + urlParameters.id + '/',)
             .then(res1 => {
-                if(localStorage.getItem('chegg-token') === undefined || localStorage.getItem('chegg-token') === null){
-                axios.get('http://localhost:8000/qa/questions/' + urlParameters.id + '/replies/')
-                    .then(res2 => {
-                        this.setState({
-                                question: res1.data,
-                                replies: res2.data,
-                                own: res1.data.asker === localStorage.getItem('chegg-username')
-                            }
+                if (localStorage.getItem('chegg-token') === undefined || localStorage.getItem('chegg-token') === null) {
+                    axios.get('http://localhost:8000/qa/questions/' + urlParameters.id + '/replies/')
+                        .then(res2 => {
+                            axios.get('http://localhost:8000/store/ads/')
+                                .then(res3 => {
+                                    this.setState({
+                                            question: res1.data,
+                                            replies: res2.data,
+                                            own: res1.data.asker === localStorage.getItem('chegg-username'),
+                                            ads: res3.data,
+                                        }
+                                    )
+                                });
+
+
+                        })
+                        .catch(
+
                         )
 
-                    })
-                    .catch(
-
-                    )
-
-                }
-                else {
+                } else {
                     axios.get('http://localhost:8000/qa/questions/' + urlParameters.id + '/replies/', {headers: headers})
                         .then(res2 => {
-                            this.setState({
-                                    question: res1.data,
-                                    replies: res2.data,
-                                    own: res1.data.asker === localStorage.getItem('chegg-username')
-                                }
-                            )
+                            axios.get('http://localhost:8000/store/ads/')
+                                .then(res3 => {
+                                    this.setState({
+                                            question: res1.data,
+                                            replies: res2.data,
+                                            own: res1.data.asker === localStorage.getItem('chegg-username'),
+                                            ads: res3.data,
+                                        }
+                                    )
+                                });
+
 
                         })
                         .catch(
@@ -217,7 +227,7 @@ class QuestionPage extends Component {
             memberInfo: null,
             modalMessage: "",
         });
-          window.location.reload()
+        window.location.reload()
     }
 
     handleAnswerSubmit(e) {
@@ -226,8 +236,7 @@ class QuestionPage extends Component {
         var data = {'question': this.state.question.id, 'body': body};
 
 
-
-         var headers = {
+        var headers = {
 
             'Authorization': 'TOKEN ' + localStorage.getItem('chegg-token')
         };
@@ -237,7 +246,7 @@ class QuestionPage extends Component {
                 if (response.status === 200) {
 
                     this.setState({
-                       modalMessage: "جواب شما با موفقیت ثبت شد"
+                        modalMessage: "جواب شما با موفقیت ثبت شد"
                     })
 
                 } else {
@@ -245,7 +254,7 @@ class QuestionPage extends Component {
                         modalMessage: "جواب شما با موفقیت ثبت شد"
                     })
                     setTimeout(() => {
-                       // this.props.history.push('../questions');
+                        // this.props.history.push('../questions');
 
                         // window.location.replace("http://localhost:3000/questions")
                     }, 2000)
@@ -265,7 +274,7 @@ class QuestionPage extends Component {
 
         const {editorState} = this.state;
         const styleObj = {
-            minHeight:'100px',
+            minHeight: '100px',
             border: '0.3px solid gray',
             padding: '0 5px',
             maxHeight: '200px',
@@ -359,9 +368,9 @@ class QuestionPage extends Component {
                         </Grid.Column>
 
                         <Grid.Column style={{height: '80vh'}} width={3}>
-                            <Ad ad1={"https://cdn.zoomg.ir/2019/3/4db9f81a-8796-431d-9ef0-80fbc174257c.gif"}
-                                ad2={"https://cdn.zoomg.ir/2019/3/4db9f81a-8796-431d-9ef0-80fbc174257c.gif"}
-                                ad3={"https://cdn.zoomg.ir/2019/3/4db9f81a-8796-431d-9ef0-80fbc174257c.gif"}/>
+                            <Ad ad1={this.state.ads[0].link}
+                                ad2={this.state.ads[1].link}
+                                ad3={this.state.ads[2].link}/>
                         </Grid.Column>
                     </Grid.Row>
                 </Grid>

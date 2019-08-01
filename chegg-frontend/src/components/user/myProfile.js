@@ -61,7 +61,8 @@ class MyProfile extends Component {
         answeredQuestions: [],
         level: false,
         messages: [],
-        banned: false
+        banned: false,
+        repliedQuestions : []
     };
 
     reloadWhenUpgraded = () => {
@@ -100,7 +101,7 @@ class MyProfile extends Component {
                 )
             }
         } else if (this.state.activeItem === 'سوالات پرسیده شده') {
-            if (this.state.askedQuestions.length === 0) {
+            if (this.state.repliedQuestions.length === 0) {
                 return (
                     <div>
                         <strong>
@@ -126,7 +127,7 @@ class MyProfile extends Component {
                 return (
                     <div>
                         <strong>
-                             هنوز به سوالی جواب نداده اید.
+                            هنوز به سوالی جواب نداده اید.
                         </strong>
                         <br/>
                         <br/>
@@ -135,7 +136,7 @@ class MyProfile extends Component {
                 )
             } else {
                 return (
-                    <AskedQuestions isProfile={1} asker={this.state.username} question={this.state.answeredQuestions}/>
+                    <AskedQuestions isProfile={1} asker={this.state.username} question={this.state.repliedQuestions}/>
                 )
             }
         } else if (this.state.activeItem === 'ارتقای سطح کاربری') {
@@ -228,7 +229,7 @@ class MyProfile extends Component {
                                 answeredQuestions: questions,
                                 messages: res.data.messages,
                                 questions: questions,
-
+                                repliedQuestions: res.data.replied_questions
                             }
                         );
 

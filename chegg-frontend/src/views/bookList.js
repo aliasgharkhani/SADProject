@@ -5,6 +5,7 @@ import Template from '../components/template/template';
 import axios from "axios";
 import Ad from '../components/ad'
 import _ from "lodash";
+
 const initialState = {isLoading: false, results: [], value: ''}
 
 const books1 = [{
@@ -60,7 +61,8 @@ class BookList extends Component {
         isLoading: false,
         value: '',
         results: [],
-        numOfChapters: []
+        numOfChapters: [],
+        ads: [{'id':0, 'link':''}, {'id':1, 'link':''}, {'id':2, 'link':''}, ],
 
     };
 
@@ -87,16 +89,18 @@ class BookList extends Component {
     searchResultRenderer = ({price, title}) => [
         <Grid key='content' className='content'>
             <Grid.Row columns={2}>
-                <Grid.Column width={4} style={{textAlign:'left'}}>
-                    <div className='price'>{price}</div>&nbsp;:قیمت
+                <Grid.Column width={4} style={{textAlign: 'left'}}>
+                    <div className='price'>{price}</div>
+                    &nbsp;:قیمت
                 </Grid.Column>
-                <Grid.Column style={{fontFamily: 'B Yekan', color:'#4183c4', textAlign:'right'}} width={12}>
+                <Grid.Column style={{fontFamily: 'B Yekan', color: '#4183c4', textAlign: 'right'}} width={12}>
                     {title}
                 </Grid.Column>
 
             </Grid.Row>
         </Grid>,
     ];
+
     componentDidMount() {
         document.title = "لیست کتاب ها";
         console.log(localStorage.getItem('chegg-token'))
@@ -115,13 +119,19 @@ class BookList extends Component {
                             numOfChapters[res.data.bought_chapters[i].book - 1] += 1;
 
                         }
-                        this.setState(
-                            {
-                                numOfChapters: numOfChapters,
-                                bought_books: res.data.bought_books,
-                                books: books,
-                            }
-                        )
+                        axios.get('http://localhost:8000/store/ads/')
+                            .then(res1 => {
+                                this.setState(
+                                    {
+                                        numOfChapters: numOfChapters,
+                                        bought_books: res.data.bought_books,
+                                        books: books,
+                                        ads : res1.data,
+                                    }
+                                );
+                            })
+
+
                     }).catch((error) => {
                     this.setState(
                         {
@@ -211,10 +221,10 @@ class BookList extends Component {
 
                             </div>
                         </Grid.Column>
-                        <Grid.Column style={{height:'80vh'}} width={3}>
-                            <Ad ad1={"https://cdn.zoomg.ir/2019/3/4db9f81a-8796-431d-9ef0-80fbc174257c.gif"}
-                                ad2={"https://cdn.zoomg.ir/2019/3/4db9f81a-8796-431d-9ef0-80fbc174257c.gif"}
-                                ad3={"https://cdn.zoomg.ir/2019/3/4db9f81a-8796-431d-9ef0-80fbc174257c.gif"}/>
+                        <Grid.Column style={{height: '80vh'}} width={3}>
+                            <Ad ad1={this.state.ads[0].link}
+                                ad2={this.state.ads[1].link}
+                                ad3={this.state.ads[2].link}/>
                         </Grid.Column>
                     </Grid.Row>
                 </Grid>

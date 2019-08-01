@@ -271,26 +271,32 @@ class Book extends Component {
         chapters: [],
         modalActive: false,
         book: '',
-        memberInfo: ''
+        memberInfo: '',
+        ads: [{'id': 0, 'link': ''}, {'id': 1, 'link': ''}, {'id': 2, 'link': ''},],
     };
 
     componentWillMount() {
         axios.get(`http://localhost:8000/store/books/${this.bookId}/`)
             .then(res => {
                 const chapters = res.data.chapters;
-                this.setState({
-                    ISBN: res.data.ISBN,
-                    score: res.data.score,
-                    publication_date: res.data.publication_date,
-                    edition: res.data.edition,
-                    title: res.data.title,
-                    author: res.data.author,
-                    price: res.data.price,
-                    cover: res.data.cover,
-                    description: res.data.description,
-                    chapters: chapters,
-                    book: res.data
-                })
+                axios.get('http://localhost:8000/store/ads/')
+                    .then(res1 => {
+                        this.setState({
+                            ISBN: res.data.ISBN,
+                            score: res.data.score,
+                            publication_date: res.data.publication_date,
+                            edition: res.data.edition,
+                            title: res.data.title,
+                            author: res.data.author,
+                            price: res.data.price,
+                            cover: res.data.cover,
+                            description: res.data.description,
+                            chapters: chapters,
+                            book: res.data,
+                            ads: res1.data,
+                        })
+                    })
+
             });
         let token = localStorage.getItem('chegg-token');
         if (token !== undefined) {
@@ -311,7 +317,7 @@ class Book extends Component {
     hasBoughtBook() {
         if (this.state.memberInfo !== null && this.state.memberInfo !== undefined && this.state.memberInfo.bought_books !== undefined) {
             for (let i = 0; i < this.state.memberInfo.bought_books.length; i++) {
-                if (this.state.memberInfo.bought_books[i].id == this.bookId) {
+                if (this.state.memberInfo.bought_books[i].id === this.bookId) {
                     return true
                 }
             }
@@ -337,10 +343,10 @@ class Book extends Component {
         return (
             <Template>
 
-                <Grid style={{margin: 'auto', width: '70%', height:'82vh'}}>
-                    <Grid.Row columns={2} style={{height:'100%'}}>
+                <Grid style={{margin: 'auto', width: '70%', height: '82vh'}}>
+                    <Grid.Row columns={2} style={{height: '100%'}}>
 
-                        <Grid.Column width={13} style={{height:'100%'}}>
+                        <Grid.Column width={13} style={{height: '100%'}}>
 
                             <Modal onRequestClose={this.onCloseModal.bind(this)} open={this.state.modalActive}>
                                 <Icon name="close" onClick={this.onCloseModal.bind(this)}/>
@@ -373,10 +379,20 @@ class Book extends Component {
 
                                 </Modal.Actions>
                             </Modal>
-                            <Segment style={{maxHeight:'100%', overflowY:'auto', overflowX:'hidden', width:'100%'}}>
+                            <Segment style={{maxHeight: '100%', overflowY: 'auto', overflowX: 'hidden', width: '100%'}}>
                                 <Grid columns={2} relaxed={"very"}
-                                      style={{height: '100%', width:'100%', margin:'auto', gridTemplateRows:'70% 30%'}}>
-                                    <Grid.Row style={{direction: 'rtl', fontFamily: 'B Yekan',  height:'50%', alignItems: 'stretch'}}>
+                                      style={{
+                                          height: '100%',
+                                          width: '100%',
+                                          margin: 'auto',
+                                          gridTemplateRows: '70% 30%'
+                                      }}>
+                                    <Grid.Row style={{
+                                        direction: 'rtl',
+                                        fontFamily: 'B Yekan',
+                                        height: '50%',
+                                        alignItems: 'stretch'
+                                    }}>
 
                                         <Grid.Column width={10} style={{display: 'flex', flexDirection: 'column'}}>
 
@@ -411,7 +427,7 @@ class Book extends Component {
                                         </Grid.Column>
                                         <Grid.Column width={6}>
 
-                                            <img style={{width: '80%', height:'35vh'}} className="ui small image"
+                                            <img style={{width: '80%', height: '35vh'}} className="ui small image"
                                                  src={this.state.cover}/><br/>
 
 
@@ -431,8 +447,10 @@ class Book extends Component {
                                 </Grid>
                             </Segment>
                         </Grid.Column>
-                        <Grid.Column style={{height:'80vh'}} width={3}>
-                            <Ad  ad1={"https://cdn.zoomg.ir/2019/3/4db9f81a-8796-431d-9ef0-80fbc174257c.gif"} ad2={"https://cdn.zoomg.ir/2019/3/4db9f81a-8796-431d-9ef0-80fbc174257c.gif"} ad3={"https://cdn.zoomg.ir/2019/3/4db9f81a-8796-431d-9ef0-80fbc174257c.gif"}/>
+                        <Grid.Column style={{height: '80vh'}} width={3}>
+                            <Ad ad1={this.state.ads[0].link}
+                                ad2={this.state.ads[1].link}
+                                ad3={this.state.ads[2].link}/>
                         </Grid.Column>
                     </Grid.Row>
                 </Grid>

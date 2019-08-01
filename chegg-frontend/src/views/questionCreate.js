@@ -23,6 +23,7 @@ class QuestionCreate extends Component {
             selectedTags: [],
             editorState: EditorState.createEmpty(),
             text: '',
+            ads: [{'id': 0, 'link': ''}, {'id': 1, 'link': ''}, {'id': 2, 'link': ''},],
         };
     }
 
@@ -40,13 +41,18 @@ class QuestionCreate extends Component {
     };
 
 
-    componentWillMount() {
+    componentDidMount() {
         axios.get('http://localhost:8000/qa/tags/').then(res => {
+            axios.get('http://localhost:8000/store/ads/')
+                .then(res3 => {
+                    this.setState({
+                        tags: res.data,
+                        allow: true,
+                        ads: res3.data,
+                    })
+                });
 
-            this.setState({
-                tags: res.data,
-                allow: true,
-            })
+
         });
 
     }
@@ -105,7 +111,7 @@ class QuestionCreate extends Component {
     render() {
         const editorState = this.state.editorState;
         const styleObj = {
-            minHeight:'100px',
+            minHeight: '100px',
             border: '0.3px solid gray',
             padding: '0 5px',
             maxHeight: '200px',
@@ -208,9 +214,9 @@ class QuestionCreate extends Component {
                                 </Container>
                             </Grid.Column>
                             <Grid.Column width={3}>
-                                <Ad ad1={"https://cdn.zoomg.ir/2019/3/4db9f81a-8796-431d-9ef0-80fbc174257c.gif"}
-                                    ad2={"https://cdn.zoomg.ir/2019/3/4db9f81a-8796-431d-9ef0-80fbc174257c.gif"}
-                                    ad3={"https://cdn.zoomg.ir/2019/3/4db9f81a-8796-431d-9ef0-80fbc174257c.gif"}/>
+                                <Ad ad1={this.state.ads[0].link}
+                                    ad2={this.state.ads[1].link}
+                                    ad3={this.state.ads[2].link}/>
                             </Grid.Column>
                         </Grid.Row>
                     </Grid>
