@@ -75,3 +75,29 @@ class AuthenticationTestCase(TestCase):
         self.assertEqual(response.status_code, 200)
         self.test_member.refresh_from_db()
         self.assertEqual(self.test_member.bio, 'I do have biography')
+
+    def test_member_info(self):
+        token = self.obtain_token('garamaleki', '123456')
+        self.test_member.first_name = 'salam'
+        self.test_member.save()
+        response = self.client.get(reverse('authentication:profile'),
+                                   HTTP_AUTHORIZATION='TOKEN ' + token)
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual('salam', json.loads(response.content)['user_info']['first_name'])
+
+    def test_upgrade(self):
+        token = self.obtain_token('garamaleki', '123456')
+        response = self.client.post(reverse('authentication:upgrade'),
+                                    HTTP_AUTHORIZATION='TOKEN ' + token)
+        self.assertEqual(response.status_code, 200)
+        self.test_member.refresh_from_db()
+        self.assertTrue(self.test_member.premium)
+
+    def test_logout(self):
+        token1 = self.obtain_token('garamaleki', '123456')
+        response = self.client.get(reverse('authentication:logout'),
+                                   HTTP_AUTHORIZATION='TOKEN ' + token1)
+        self.assertEqual(response.status_code, 200)
+        self.test_member.refresh_from_db()
+        token2 = self.obtain_token('garamaleki', '123456')
+        self.assertNotEqual(token1, token2)

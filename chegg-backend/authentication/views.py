@@ -1,4 +1,4 @@
-from authentication.models import Member, Message
+from authentication.models import Member
 from authentication.serializers import MemberSignupSerializer, MemberProfileSerializer, MemberPageSerializer
 from django.contrib.auth import authenticate
 from django.http import Http404
@@ -19,13 +19,6 @@ class MemberSignupAPIView(CreateAPIView):
             serializer.save()
             return Response(serializer.data)
         return Response(serializer.errors, status=status.HTTP_203_NON_AUTHORITATIVE_INFORMATION)
-
-
-class HelloView(APIView):
-    permission_classes = [IsAuthenticated]
-
-    def get(self, request):
-        return Response({'s': 'a'})
 
 
 class MemberProfileAPIView(APIView):
