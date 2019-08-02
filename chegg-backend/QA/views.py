@@ -22,13 +22,19 @@ class QuestionViewSet(viewsets.ModelViewSet):
             return Question.objects.filter(tags__name__in=tags_name).distinct().order_by('-id')
         return Question.objects.all().order_by('-id')
 
+    def create(self, request, *args, **kwargs):
+        if self.request.user.is_authenticated and not self.request.user.is_able_to_ask():
+            return Response('حساب کاربری خود را ارتقا دهید')
+        return super().create(request, *args, **kwargs)
+
     def get_serializer_context(self):
         return {'request': self.request}
 
     @action(detail=True, methods=['get'], permission_classes=[IsAuthenticatedOrReadOnly])
     def replies(self, request, pk):
         question = self.get_object()
-        return Response(ReplySerializer(question.replies.all().order_by('-score'), many=True, context={'request': self.request}).data)
+        return Response(ReplySerializer(question.replies.all().order_by('-score'), many=True,
+                                        context={'request': self.request}).data)
 
 
 class TagListAPIView(ListAPIView):
