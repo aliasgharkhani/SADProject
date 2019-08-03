@@ -69,11 +69,12 @@ class SignIn extends React.Component {
                         <Form size='large'>
                             <Segment stacked>
                                 {this.state.message}
-                                <Form.Input fluid icon='user' iconPosition='left'
+                                <Form.Input fluid icon='user' iconPosition='left' id='username'
                                             placeholder='نام کاربری' onChange={this.handleInput}
                                             name={'username'} value={this.state.username}/>
                                 <Form.Input
                                     fluid
+                                    id='password'
                                     icon='lock'
                                     iconPosition='left'
                                     placeholder='رمز کاربری'
@@ -83,7 +84,7 @@ class SignIn extends React.Component {
                                     type='password'
                                 />
 
-                                <Button color='black' fluid size='large' onClick={this.handleLogin}
+                                <Button color='black' id='submit' fluid size='large' onClick={this.handleLogin}
                                         style={{fontFamily: 'B Yekan'}}>
                                     ورود
                                 </Button>

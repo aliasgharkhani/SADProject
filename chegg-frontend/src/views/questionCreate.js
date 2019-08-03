@@ -194,6 +194,7 @@ class QuestionCreate extends Component {
                                         <Form onSubmit={this.handleSubmit} style={{'direction': 'rtl'}}>
                                             <Form.Group>
                                                 <Form.TextArea width={16} required
+                                                               id='title'
                                                                style={{
                                                                    resize: 'none',
                                                                    height: '42px',
@@ -236,6 +237,7 @@ class QuestionCreate extends Component {
                                             />
                                             <br/>
                                             <Button type='submit'
+                                                    id='submit'
                                                     style={{
                                                         fontFamily: 'B Yekan',
                                                         color: '#ffffff',

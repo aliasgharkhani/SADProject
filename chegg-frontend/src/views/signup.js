@@ -108,19 +108,19 @@ class SignupForm extends Component {
                 <div>{this.error()}</div>
                 <Form onSubmit={this.handleSubmit}>
 
-                    <Form.Input name="first_name" fluid label='نام' required/>
-                    <Form.Input name="last_name" fluid label='نام خانوادگی' required/>
-                    <Form.Input name="username" fluid label='نام کاربری' required/>
-                    <Form.Input name="password" fluid label='رمز عبور' required onChange={this.passSave}
+                    <Form.Input name="first_name" fluid label='نام' id='first_name' required/>
+                    <Form.Input name="last_name" fluid label='نام خانوادگی' id='last_name' required/>
+                    <Form.Input name="username" fluid label='نام کاربری' id='username' required/>
+                    <Form.Input name="password" fluid label='رمز عبور' id='password' required onChange={this.passSave}
                                 type="password"/>
-                    <Form.Input name="confirm_pass" fluid label='تایید رمز عبور' required
+                    <Form.Input name="confirm_pass" fluid label='تایید رمز عبور'  id='confirm_password' required
                                 onChange={this.passConfirmCheck} error={!this.state.equal} type="password"/>
-                    <Form.Input name="email" fluid label='ایمیل' placeholder='Email@example.com' type="email" required/>
+                    <Form.Input name="email" fluid label='ایمیل' placeholder='Email@example.com'  id='email' type="email" required/>
                     {/*<Form.Checkbox name="rules" label='قوانین و شرایط را قبول دارم' required/>*/}
                     <label htmlFor="other">قوانین و شرایط را قبول دارم</label>
-                    <Form.Input type="checkbox" name="rules" id="other" ref="rule" required/>
+                    <Form.Input type="checkbox" name="rules" id="rule" ref="rule" required/>
 
-                    <Button color='black' fluid type='submit' style={{fontFamily: 'B Yekan'}}>تایید</Button>
+                    <Button color='black' fluid type='submit'  id='submit' style={{fontFamily: 'B Yekan'}}>تایید</Button>
                 </Form>
             </Segment>
         )
