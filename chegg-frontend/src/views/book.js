@@ -185,14 +185,14 @@ class MenuExampleInvertedSegment extends Component {
                 </Modal>
                 <Accordion>
                     {this.props.chapters.map((chapter) => {
-                        console.log('ali\n\n\n');
+                        console.log(chapter);
                         return (
                             <Segment>
                                 <Accordion.Title style={{direction: 'rtl', fontFamily: 'B Yekan'}}
                                                  active={(this.state.activeItem === chapter.chapter_id) && (this.state.activeItem2 === chapter.chapter_id)}
                                                  id={chapter.chapter_id} onClick={this.handleClick}>
                                     <Icon name='dropdown'/>
-                                    {'فصل' + chapter.chapter_id}
+                                    {'فصل' + chapter.chapter_id} : {  chapter.title}
                                 </Accordion.Title>
                                 <Accordion.Content
                                     active={(this.state.activeItem === chapter.chapter_id) && (this.state.activeItem2 === chapter.chapter_id)}>
@@ -316,9 +316,9 @@ class Book extends Component {
 
     hasBoughtBook() {
         if (this.state.memberInfo !== null && this.state.memberInfo !== undefined && this.state.memberInfo.bought_books !== undefined) {
-            console.log('salam');
+
             for (let i = 0; i < this.state.memberInfo.bought_books.length; i++) {
-                console.log('manam  ',this.state.memberInfo.bought_books[i].id, this.bookId);
+
                 if (parseInt(this.state.memberInfo.bought_books[i].id) === parseInt(this.bookId)) {
                     return true
                 }

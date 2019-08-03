@@ -46,7 +46,7 @@ class bookProblem extends Component {
                 this.setState({
                     book: {
                         name: res.data.title,
-                        url: bookURL
+                        url: 'http://localhost:3000/books/' + urlParameters.bookId
                     },
                     chapterId: urlParameters.chapterId,
                     problemId: urlParameters.problemId

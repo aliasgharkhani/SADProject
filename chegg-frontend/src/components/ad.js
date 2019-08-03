@@ -27,17 +27,17 @@ class Ad extends Component {
             <Grid style={{height:'100%', margin:'auto', justifyContent: 'space-between'}}>
                 <Grid.Row style={{paddingTop:'0'}}>
                     <Grid.Column>
-                        <div  style={{ width: '100%', height: '100%',backgroundSize: 'contain', backgroundImage : 'url('+ this.props.ad1 +')'}} />
+                        <div  style={{ backgroundRepeat: 'no-repeat', width: '100%', height: '100%',backgroundSize: '100% 100%', backgroundImage : 'url('+ this.props.ad1 +')'}} />
                     </Grid.Column>
                 </Grid.Row>
                 <Grid.Row>
                     <Grid.Column>
-                        <div  style={{ width: '100%', height: '100%',backgroundSize: 'contain', backgroundImage : 'url('+ this.props.ad2 +')'}} />
+                        <div  style={{backgroundRepeat: 'no-repeat', width: '100%', height: '100%',backgroundSize: '100% 100%', backgroundImage : 'url('+ this.props.ad2 +')'}} />
                     </Grid.Column>
                 </Grid.Row>
                 <Grid.Row style={{paddingBottom:'0'}}>
                     <Grid.Column>
-                        <div  style={{ width: '100%', height: '100%',backgroundSize: 'contain', backgroundImage : 'url('+ this.props.ad3 +')'}} />
+                        <div  style={{backgroundRepeat: 'no-repeat', width: '100%', height: '100%',backgroundSize: '100% 100%', backgroundImage : 'url('+ this.props.ad3 +')'}} />
                     </Grid.Column>
                 </Grid.Row>
             </Grid>

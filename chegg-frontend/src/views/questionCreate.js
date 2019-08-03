@@ -196,8 +196,8 @@ class QuestionCreate extends Component {
                                                 <Form.TextArea width={16} required
                                                                style={{
                                                                    resize: 'none',
-                                                                   height: '37.6px',
-                                                                   overflow: 'hidden',
+                                                                   height: '42px',
+                                                                  overflow: 'hidden',
                                                                    fontFamily: 'B Yekan'
                                                                }}
                                                                label='عنوان'/>

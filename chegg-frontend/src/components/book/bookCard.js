@@ -100,12 +100,12 @@ class BookCard extends Component {
 
                         <Grid.Row style={{padding: '0px', textAlign: 'center'}}>
                             <Grid.Column>
-                                {this.state.chaptersPurchased === undefined ? <Popup style={{fontFamily: 'B Yekan'}}
+                                {this.state.chaptersPurchased === undefined && localStorage.getItem('chegg-token') === null ? <Popup style={{fontFamily: 'B Yekan'}}
                                                                                      size={'tiny'}
                                                                                      content={'برای دیدن فصل های خریداری شده وارد شوید'}
                                                                                      trigger={<Icon name={'tasks'}/>}/>
                                     : <Popup style={{fontFamily: 'B Yekan'}}
-                                             content={'تعداد فصل های خریداری شده:' + this.state.chaptersPurchased}
+                                             content={'تعداد فصل های خریداری شده:' + 0 /*this.state.chaptersPurchased*/}
                                              trigger={<Icon name={'tasks'}/>}/>
                                 }
                             </Grid.Column>
