@@ -48,22 +48,45 @@ let menuItems = [
 
 class MyProfile extends Component {
 
+    constructor(props) {
+        super(props);
+        if (this.props.urlParameters === 'message') {
+            this.state = {
+                books: [],
+                bought_books: [],
+                numOfChapters: [],
+                activeItem: 'مشخصات کاربری',
+                username: '',
+                userInfo: {},
+                allow: false,
+                askedQuestions: [],
+                answeredQuestions: [],
+                level: false,
+                messages: [],
+                banned: false,
+                repliedQuestions: []
+            }
+        }
+        else {
+            this.state = {
+                books: [],
+                bought_books: [],
+                numOfChapters: [],
+                activeItem: 'پیام ها',
+                username: '',
+                userInfo: {},
+                allow: false,
+                askedQuestions: [],
+                answeredQuestions: [],
+                level: false,
+                messages: [],
+                banned: false,
+                repliedQuestions: []
+            }
+        }
 
-    state = {
-        books: [],
-        bought_books: [],
-        numOfChapters: [],
-        activeItem: 'مشخصات کاربری',
-        username: '',
-        userInfo: {},
-        allow: false,
-        askedQuestions: [],
-        answeredQuestions: [],
-        level: false,
-        messages: [],
-        banned: false,
-        repliedQuestions : []
-    };
+    }
+
 
     reloadWhenUpgraded = () => {
         this.setState({level: true})
@@ -76,7 +99,7 @@ class MyProfile extends Component {
 
     handleItemClick = (e, {name}) => {
         this.setState({activeItem: name});
-    }
+    };
     getPageContent = () => {
         if (this.state.activeItem === 'مشخصات کاربری') {
             return (

@@ -1,6 +1,6 @@
 import React, {Component} from "react";
 import axios from "axios";
-import {Dropdown, Icon, Menu} from "semantic-ui-react";
+import {Dropdown, Icon, Label, Menu, Popup} from "semantic-ui-react";
 
 
 const IconExampleDisabled = () => <Icon name='users'/>;
@@ -11,23 +11,43 @@ const IconExampleDisabled2 = () => <Icon name='users'/>;
 class Navbar extends Component {
 
     constructor(props) {
-        super(props)
+        super(props);
         this.handleLogout = this.handleLogout.bind(this);
+        this.state = {
+            setName: false,
+            name: '',
+            change: false,
+            first: true,
+            visible: false,
+            messages: []
+        }
     }
 
-    state = {
+    componentDidMount() {
+        var headers = {
 
-        setName: false,
-        name: '',
-        change: false,
-        first: true,
-        visible: false,
-    };
+            'Authorization': 'TOKEN ' + localStorage.getItem('chegg-token')
+        };
+        axios.get('http://localhost:8000/auth/self/', {headers: headers})
+            .then(res => {
+                console.log('sadi  ',res.data.messages);
+                this.setState(
+                    {
+                        messages: res.data.messages
+                    }
+                );
+                var that = this;
+            }).catch((error) => {
+            console.log(error)
+        })
+    }
 
 
     handleItemClick = (e, {name, path}) => {
 
-        console.log(path);
+        this.setState({
+            messages: []
+        });
 
         window.location.replace(path);
     };
@@ -52,7 +72,7 @@ class Navbar extends Component {
             if (localStorage.getItem('chegg-token') === null) {
 
                 return (
-                    <Menu.Menu   style={{marginRight:'auto'}}>
+                    <Menu.Menu style={{marginRight: 'auto'}}>
                         <Menu.Item
                             name='ورود'
                             path='/signin'
@@ -69,18 +89,36 @@ class Navbar extends Component {
             }
         };
         const UserName_or_Icon = () => {
-            var username = 5;
 
             const options = [
-                {key: 1, text: 'صفحه ی من', value: 1, path: '/profile/' + localStorage.getItem('chegg-username'), onClick: this.handleItemClick},
+                {
+                    key: 1,
+                    text: 'صفحه ی من',
+                    value: 1,
+                    path: '/profile/' + localStorage.getItem('chegg-username'),
+                    onClick: this.handleItemClick
+                },
                 /*{key: 2, text: 'Choice 2', value: 2},*/
                 {key: 2, text: 'خروج', value: 2, onClick: this.handleLogout},
             ];
+            let unread_messages_number = this.state.messages.filter((message) => !message.read).length;
             if (localStorage.getItem('chegg-token') !== null) {
                 const icons = <div><Icon name='user'/> {localStorage.getItem('chegg-username')}</div>
                 return (
-                    <Menu.Menu  style={{marginRight:'auto', padding:'0'}}>
-                        <Dropdown style={{margin:'0'}} text={icons} options={options} item/>
+                    <Menu.Menu style={{marginRight: 'auto', padding: '0'}}>
+
+                        <Menu.Item path={'/profile/' + localStorage.getItem('chegg-username') + '/message/'}
+                                   onClick={this.handleItemClick}>
+                            <Popup style={{fontFamily: 'B Yekan'}}
+                                   content={'برای مشاهده‌ی پیام‌ها کلیک کنید'}
+                                   trigger={unread_messages_number === 0 ?
+                                       <Label>{unread_messages_number}</Label> : unread_messages_number < 10 ?
+                                           <Label color='teal'>{unread_messages_number}</Label> :
+                                           <Label>9+</Label>}/>
+
+
+                        </Menu.Item>
+                        <Dropdown style={{margin: '0'}} text={icons} options={options} item/>
                     </Menu.Menu>
 
                 )
