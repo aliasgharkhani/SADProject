@@ -197,8 +197,8 @@ class QuestionCreate extends Component {
                                                                id='title'
                                                                style={{
                                                                    resize: 'none',
-                                                                   height: '42px',
-                                                                  overflow: 'hidden',
+                                                                    height: '42px',
+                                                                   overflow: 'hidden',
                                                                    fontFamily: 'B Yekan'
                                                                }}
                                                                label='عنوان'/>

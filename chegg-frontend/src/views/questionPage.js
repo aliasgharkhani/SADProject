@@ -232,6 +232,7 @@ class QuestionPage extends Component {
 
     handleAnswerSubmit(e) {
 
+        console.log(this.state.editorState.getCurrentContent(), 'current')
         var body = draftToHtml(convertToRaw(this.state.editorState.getCurrentContent()));
         var data = {'question': this.state.question.id, 'body': body};
 
@@ -240,6 +241,17 @@ class QuestionPage extends Component {
 
             'Authorization': 'TOKEN ' + localStorage.getItem('chegg-token')
         };
+
+        console.log(body[7], body.length);
+
+
+      if (body.length <= 8) {
+            this.setState({
+                modalMessage: "جواب خالی ثبت نمی شود.",
+                modalActive: "True"
+            })
+            return
+        }
 
         axios.post('http://127.0.0.1:8000/qa/reply/', data, {headers: headers})
             .then(response => {
