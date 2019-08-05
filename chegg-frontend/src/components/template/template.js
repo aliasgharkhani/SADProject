@@ -21,11 +21,12 @@ class Template extends Component {
     }
 
     render() {
+
         return (
             <Grid style={templateStyle}>
                 <Grid.Row style={{height: '8%', paddingBottom: '0px', direction: 'rtl'}}>
                     <Grid.Column>
-                        <Navbar{...this.props}/>
+                        <Navbar {...this.props}/>
                     </Grid.Column>
                 </Grid.Row>
 

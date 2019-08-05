@@ -50,12 +50,13 @@ class MyProfile extends Component {
 
     constructor(props) {
         super(props);
-        if (this.props.urlParameters === 'message') {
+        console.log('urlParameters ', this.props.urlParameters.page_content);
+        if (this.props.urlParameters.page_content === 'message') {
             this.state = {
                 books: [],
                 bought_books: [],
                 numOfChapters: [],
-                activeItem: 'مشخصات کاربری',
+                activeItem: 'پیام ها',
                 username: '',
                 userInfo: {},
                 allow: false,
@@ -72,7 +73,7 @@ class MyProfile extends Component {
                 books: [],
                 bought_books: [],
                 numOfChapters: [],
-                activeItem: 'پیام ها',
+                activeItem: 'مشخصات کاربری',
                 username: '',
                 userInfo: {},
                 allow: false,

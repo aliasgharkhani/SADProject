@@ -14,7 +14,7 @@ export default class SidebarMenu extends Component {
                                            onClick={this.props.handleItemClick}>
                                     {menuItem.name}
                                     <Icon name={menuItem.iconName}/>
-                                    <Label color='teal' style={{'float': 'left'}}>{this.props.messagesLen}</Label>
+                                    <Label color={this.props.messagesLen === 0 ? '':'teal'} style={{'float': 'left'}}>{this.props.messagesLen}</Label>
                                 </Menu.Item>
                             )
                         }

@@ -3,11 +3,6 @@ import axios from "axios";
 import {Dropdown, Icon, Label, Menu, Popup} from "semantic-ui-react";
 
 
-const IconExampleDisabled = () => <Icon name='users'/>;
-
-const IconExampleDisabled2 = () => <Icon name='users'/>;
-
-
 class Navbar extends Component {
 
     constructor(props) {
@@ -23,6 +18,7 @@ class Navbar extends Component {
         }
     }
 
+
     componentDidMount() {
         var headers = {
 
@@ -30,7 +26,7 @@ class Navbar extends Component {
         };
         axios.get('http://localhost:8000/auth/self/', {headers: headers})
             .then(res => {
-                console.log('sadi  ',res.data.messages);
+                console.log('sadi  ', res.data.messages);
                 this.setState(
                     {
                         messages: res.data.messages
@@ -62,6 +58,35 @@ class Navbar extends Component {
 
 
     render() {
+
+        setTimeout(
+            function () {
+                console.log('mahdi  ', window.location.href);
+                if(this.state.messages.filter((message) => !message.read).length === 0 || window.location.href.substring(0, 29) !== 'http://localhost:3000/profile'){
+                    return
+                }
+                else {
+                    let headers = {
+
+                        'Authorization': 'TOKEN ' + localStorage.getItem('chegg-token')
+                    };
+                    axios.get('http://localhost:8000/auth/self/', {headers: headers})
+                        .then(res => {
+                            this.setState(
+                                {
+                                    messages: res.data.messages
+                                }
+                            );
+                            var that = this;
+                        }).catch((error) => {
+                        console.log(error)
+                    })
+                }
+            }
+                .bind(this),
+            300
+        );
+
 
         if (localStorage.getItem('username') !== null && !this.state.setName) {
             this.setState({setName: true, name: localStorage.getItem('username')})
