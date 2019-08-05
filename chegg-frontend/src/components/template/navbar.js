@@ -61,7 +61,6 @@ class Navbar extends Component {
 
         setTimeout(
             function () {
-                console.log('mahdi  ', window.location.href);
                 if(this.state.messages.filter((message) => !message.read).length === 0 || window.location.href.substring(0, 29) !== 'http://localhost:3000/profile'){
                     return
                 }

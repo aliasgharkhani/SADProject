@@ -1,5 +1,5 @@
 import React, {Component} from "react";
-import {Grid, Segment, Button, Checkbox, Form} from 'semantic-ui-react'
+import {Grid, Segment, Button, Checkbox, Form, Icon} from 'semantic-ui-react'
 import QuestionOfQuestionList from '../components/question/questionOfQuestionList'
 import axios from "axios";
 import Template from '../components/template/template';
@@ -52,6 +52,7 @@ class TaggedQuestions extends Component {
         this.checkedOrNot = this.checkedOrNot.bind(this);
         this.arrayRemove = this.arrayRemove.bind(this);
         this.checkBoxClick = this.checkBoxClick.bind(this);
+        this.handleClick = this.handleClick.bind(this);
         this.state = {
             questions: [],
             tags: [],
@@ -64,7 +65,7 @@ class TaggedQuestions extends Component {
     }
 
     handleResultSelect = (e, {result}) => {
-        this.props.history.push('question/' + result.id);
+        this.props.history.push('../../question/' + result.id);
     };
 
     handleSearchChange = (e, {value}) => {
@@ -83,6 +84,9 @@ class TaggedQuestions extends Component {
         }, 300)
     };
 
+    handleClick() {
+        window.location.replace('http://localhost:3000/search/' + this.state.value);
+    }
 
     componentDidMount() {
         var taggs = this.props.match.params.tags.split(' ').join(' ')
@@ -93,8 +97,8 @@ class TaggedQuestions extends Component {
         console.log(taggs, 'tags');
 
 
-        axios.get('http://localhost:8000/qa/questions/'+ taggs).then(res1 => {
-            console.log(res1.data , ' question')
+        axios.get('http://localhost:8000/qa/questions/' + taggs).then(res1 => {
+                console.log(res1.data, ' question')
                 axios.get('http://localhost:8000/qa/tags/').then(res2 => {
 
 
@@ -124,7 +128,7 @@ class TaggedQuestions extends Component {
         }
 
 
-        if (checked_tags.length === 0){
+        if (checked_tags.length === 0) {
             console.log(checked_tags.length, checked_tags)
             window.location.replace('http://localhost:3000/questions')
             return
@@ -193,6 +197,22 @@ class TaggedQuestions extends Component {
             })
         }
     }
+    searchResultRenderer = ({asker, title, is_answered}) => [
+        <Grid key='content' className='content'>
+            <Grid.Row columns={2}>
+                <Grid.Column width={4} style={{textAlign: 'left'}}>
+                    {asker}:نویسنده
+                    &nbsp;&nbsp;
+                    {is_answered ? <Icon style={{width: '100%', margin: 'auto', display: 'inline'}} size={"large"}
+                                         name={"check circle outline"} color={"green"}/> : <div/>}
+                </Grid.Column>
+                <Grid.Column style={{fontFamily: 'B Yekan', color: '#4183c4', textAlign: 'right'}} width={12}>
+                    {title}
+                </Grid.Column>
+
+            </Grid.Row>
+        </Grid>,
+    ];
 
     arrayRemove(arr, value) {
 
@@ -231,44 +251,55 @@ class TaggedQuestions extends Component {
                         <Grid.Column width={13} style={{maxHeight: '100%'}}>
 
 
-                            <Grid.Row style={{height: '91.7%'}}>
-                                <Search
-                                    fluid={true}
-                                    input={{fluid: true}}
-                                    noResultsMessage={'نتیجه‌ای یافت نشد.'}
-                                    style={{margin: '10px auto', width: '80%'}}
-                                    loading={this.state.isLoading}
-                                    onResultSelect={this.handleResultSelect}
-                                    onSearchChange={_.debounce(this.handleSearchChange, 500, {
-                                        leading: true,
-                                    })}
-                                    results={this.state.results}
-                                    value={this.state.value}
-                                    {...this.props}
-                                />
-                                <Segment
-                                    style={{
-                                        border: 'none',
-                                        // backgroundImage: 'url("https://visme.co/blog/wp-content/uploads/2017/07/50-Beautiful-and-Minimalist-Presentation-Backgrounds-037.jpg")',
-                                        margin: 'auto',
-                                        maxHeight: '100%',
-                                        overflow: 'auto',
-                                        width: '100%',
+                            <Grid style={{height:'100%'}}>
+                                <Grid.Row style={{paddingBottom:'0'}}>
+                                    <Grid.Column width={2} style={{display:'flex', flexDirection:'row', alignItems:'center'}}>
+                                        <Button onClick={this.handleClick} basic color='red' fluid={true}>جستجو</Button>
+                                    </Grid.Column>
+                                    <Grid.Column width={14} style={{paddingLeft:'0'}}>
+                                        <Search
+                                            resultRenderer={this.searchResultRenderer}
+                                            fluid={true}
+                                            input={{fluid: true}}
+                                            noResultsMessage={'.نتیجه‌ای یافت نشد'}
+                                            style={{margin: '10px auto', width: '100%'}}
+                                            loading={this.state.isLoading}
+                                            onResultSelect={this.handleResultSelect}
+                                            onSearchChange={_.debounce(this.handleSearchChange, 500, {
+                                                leading: true,
+                                            })}
+                                            results={this.state.results}
+                                            value={this.state.value}
+                                            {...this.props}
+                                        />
+                                    </Grid.Column>
 
-                                    }}>
-                                    <Grid style={{
-                                        display: 'flex',
-                                        flexDirection: 'row',
-                                        justifyContent: 'flex-start',
-                                        flexWrap: 'wrap',
-                                        direction: 'rtl'
-                                    }}>
+                                </Grid.Row>
+                                <Grid.Row style={{height: '93%', paddingTop:'0'}}>
+                                    <Segment
+                                        style={{
+                                            border: 'none',
+                                            // backgroundImage: 'url("https://visme.co/blog/wp-content/uploads/2017/07/50-Beautiful-and-Minimalist-Presentation-Backgrounds-037.jpg")',
+                                            margin: 'auto',
+                                            maxHeight: '100%',
+                                            overflow: 'auto',
+                                            width: '100%',
 
-                                        {this.getQuestionsOrEmpty()}
-                                    </Grid>
+                                        }}>
+                                        <Grid style={{
+                                            display: 'flex',
+                                            flexDirection: 'row',
+                                            justifyContent: 'flex-start',
+                                            flexWrap: 'wrap',
+                                            direction: 'rtl'
+                                        }}>
 
-                                </Segment>
-                            </Grid.Row>
+                                            {this.getQuestionsOrEmpty()}
+                                        </Grid>
+
+                                    </Segment>
+                                </Grid.Row>
+                            </Grid>
                         </Grid.Column>
                         <Grid.Column width={3} style={{maxHeight: '100%'}}>
                             {TagFilter()}

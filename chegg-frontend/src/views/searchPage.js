@@ -5,56 +5,17 @@ import axios from "axios";
 import Template from '../components/template/template';
 import _ from 'lodash'
 import {Search} from 'semantic-ui-react'
-import {Redirect} from "react-router";
 
 
 const initialState = {isLoading: false, results: [], value: ''}
 
-const source = [
-    {
-        "title": "لینوکس خوبه",
-        "description": "خیلی خیلی خوبه",
-        "image": "https://s3.amazonaws.com/uifaces/faces/twitter/arpitnj/128.jpg",
-        "price": "$58.98"
-    },
-    {
-        "title": "Terry - Bernier",
-        "description": "Multi-layered full-range customer loyalty",
-        "image": "https://s3.amazonaws.com/uifaces/faces/twitter/robergd/128.jpg",
-        "price": "$98.43"
-    },
-    {
-        "title": "Kris, Stokes and Runolfsdottir",
-        "description": "Optimized explicit workforce",
-        "image": "https://s3.amazonaws.com/uifaces/faces/twitter/curiousoffice/128.jpg",
-        "price": "$0.57"
-    },
-    {
-        "title": "Olson LLC",
-        "description": "Mandatory 5th generation interface",
-        "image": "https://s3.amazonaws.com/uifaces/faces/twitter/operatino/128.jpg",
-        "price": "$19.91"
-    },
-    {
-        "title": "Kuhic, Hoppe and Prohaska",
-        "description": "Up-sized value-added customer loyalty",
-        "image": "https://s3.amazonaws.com/uifaces/faces/twitter/samscouto/128.jpg",
-        "price": "$73.30"
-    }
-]
 
-
-class QuestionsList extends Component {
-
-
+class SearchPage extends Component {
     constructor(props) {
         super(props);
-        this.handleChange = this.handleChange.bind(this);
         this.getQuestionsOrEmpty = this.getQuestionsOrEmpty.bind(this);
         this.handleClick = this.handleClick.bind(this);
         this.state = {
-            questions: [],
-            tags: [],
             visible_questions: [],
             isLoading: false,
             value: '',
@@ -78,7 +39,7 @@ class QuestionsList extends Component {
         </Grid>,
     ];
     handleResultSelect = (e, {result}) => {
-        this.props.history.push('question/' + result.id);
+        this.props.history.push('../question/' + result.id);
     };
 
     handleSearchChange = (e, {value}) => {
@@ -97,54 +58,23 @@ class QuestionsList extends Component {
         }, 300)
     };
 
-
-    componentDidMount() {
-        axios.get('http://localhost:8000/qa/questions/').then(res1 => {
-                axios.get('http://localhost:8000/qa/tags/').then(res2 => {
-                        this.setState({
-                            questions: res1.data,
-                            tags: res2.data,
-                            visible_questions: res1.data
-                        })
-                    }
-                )
-
-            }
-        )
-    }
     handleClick(){
+        console.log('ali vali  ', this.state.value);
         window.location.replace('http://localhost:3000/search/'+this.state.value);
     }
 
-    handleChange(e) {
-        e.preventDefault();
-        const formFields = e.target;
-        let checked_tags = [];
-        let visible_questions = [];
-        for (let i = 0; i < formFields.length - 1; i++) {
-            if (formFields[i].checked === true) {
-                checked_tags.push(formFields[i].name);
-            }
-        }
-        if (checked_tags.length === 0) {
-            this.setState({
-                visible_questions: this.state.questions
-            });
-            return;
-        }
-        window.location.replace('http://localhost:3000/questions/tagged/' + checked_tags.join(' '))
-        // for (let i = 0; i < this.state.questions.length; i++) {
-        //     for (let j = 0; j < this.state.questions[i].tags_with_names.length; j++) {
-        //         if (checked_tags.includes(this.state.questions[i].tags_with_names[j].id)) {
-        //             visible_questions.push(this.state.questions[i]);
-        //             break;
-        //         }
-        //     }
-        // }
-        // this.setState({
-        //     visible_questions: visible_questions,
-        // })
+    componentDidMount() {
+        let urlParameters = this.props.match.params;
+        axios.get('http://localhost:8000/qa/questions/').then(res1 => {
+                const re = new RegExp(_.escapeRegExp(urlParameters.title), 'i');
+                const isMatch = result => re.test(result.title);
+                this.setState({
+                    visible_questions: _.filter(res1.data, isMatch),
+                });
 
+
+            }
+        )
     }
 
     getQuestionsOrEmpty() {
@@ -174,24 +104,6 @@ class QuestionsList extends Component {
 
     render() {
 
-        const TagFilter = () => (
-            <Form onSubmit={this.handleChange} style={{height: '100%', overflow: 'auto'}}>
-                <Segment style={{
-                    maxHeight: '92.6%', overflow: 'auto', border: '0.7px groove',
-                    borderRadius: '10px'
-                }}>
-                    {this.state.tags.map(tag =>
-                        <Form.Field>
-                            <Checkbox name={tag.name} style={{color: 'black'}} id={tag.id} label={tag.name}/>
-                        </Form.Field>
-                    )}
-                </Segment>
-                <Button style={{fontFamily: 'B Yekan', backgroundColor: 'black', color: 'white'}} fluid={true}
-                        floated={'left'} type='submit'>فیلتر</Button>
-            </Form>
-
-        );
-
 
         return (
             <Template {...this.props}>
@@ -199,10 +111,11 @@ class QuestionsList extends Component {
                     <Grid.Row columns={2} style={{maxHeight: '100%',}}>
                         <Grid.Column width={13} style={{maxHeight: '100%'}}>
 
+
                             <Grid style={{height:'100%'}}>
                                 <Grid.Row style={{paddingBottom:'0'}}>
                                     <Grid.Column width={2} style={{display:'flex', flexDirection:'row', alignItems:'center'}}>
-                                        <Button onClick={this.handleClick} basic color='red' fluid={true}>جستجو</Button>
+                                        <Button onClick={this.handleClick}  basic color='red' fluid={true}>جستجو</Button>
                                     </Grid.Column>
                                     <Grid.Column width={14} style={{paddingLeft:'0'}}>
                                         <Search
@@ -223,7 +136,7 @@ class QuestionsList extends Component {
                                     </Grid.Column>
 
                                 </Grid.Row>
-                                <Grid.Row style={{height: '93%', paddingTop:'0'}}>
+                                <Grid.Row style={{height: '93%', paddingTop:'0', display:'flex', flexDirection:'row', alignContent:'flex-start'}}>
                                     <Segment
                                         style={{
                                             border: 'none',
@@ -250,7 +163,7 @@ class QuestionsList extends Component {
                             </Grid>
                         </Grid.Column>
                         <Grid.Column width={3} style={{maxHeight: '100%'}}>
-                            {TagFilter()}
+
                         </Grid.Column>
                     </Grid.Row>
                 </Grid>
@@ -264,4 +177,4 @@ class QuestionsList extends Component {
 
 }
 
-export default QuestionsList;
+export default SearchPage;

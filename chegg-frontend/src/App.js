@@ -12,6 +12,7 @@ import './App.css';
 import BookProblem from "./views/bookProblem";
 import UserProfile from "./views/userProfile";
 import QuestionsList from "./views/questionsList";
+import SearchPage from "./views/searchPage";
 import QuestionCreate from "./views/questionCreate";
 import QuestionPage from "./views/questionPage";
 import SearchExampleStandard from "./views/test";
@@ -31,6 +32,7 @@ function App() {
                 <Route exact path='/books/:bookId/chapters/:chapterId/problems/:problemId' component={BookProblem}/>
                 <Route exact path='/profile/:username/:page_content?' component={UserProfile}/>
                 <Route exact path='/questions' component={QuestionsList}/>
+                <Route exact path='/search/:title' component={SearchPage}/>
                 <Route exact path='/questions/submit' component={QuestionCreate}/>
                  <Route exact path='/question/:id' component={QuestionPage}/>
                  <Route exact path='/test' component={SearchExampleStandard}/>
