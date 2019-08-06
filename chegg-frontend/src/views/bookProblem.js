@@ -61,7 +61,10 @@ class bookProblem extends Component {
             <Template>
                 <Segment piled={true} style={{
                     width: ' 70%',
-                    margin: 'auto'
+                    margin: 'auto',
+                    height: '90%',
+                    overflowY: 'auto',
+                    overflowX: 'hidden',
                 }}>
                     <Grid>
                         <Grid.Row style={{margin: '20px'}}>
@@ -73,7 +76,11 @@ class bookProblem extends Component {
                         <Grid.Row style={{padding: '2em', marginBottom: '15px'}}>
                             <div style={{direction: 'rtl', width: '100%', fontSize: '1.56em'}}>{this.state.body}</div>
                         </Grid.Row>
-                        <Grid.Row>
+                        <Grid.Row style={{padding: '2em', fontSize: '1.5em' ,direction: 'rtl'}}>
+                            <div style={{direction: 'rtl', textAlign: 'right'}}>پاسخ:  </div>
+                        </Grid.Row>
+                        <Grid.Row >
+
                             <Image style={{margin: '1em 6em', width: '100%'}} src={this.state.answer}/>
                         </Grid.Row>
                     </Grid>
