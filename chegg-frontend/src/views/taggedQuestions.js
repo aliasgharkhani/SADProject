@@ -275,7 +275,7 @@ class TaggedQuestions extends Component {
                                     </Grid.Column>
 
                                 </Grid.Row>
-                                <Grid.Row style={{height: '93%', paddingTop:'0'}}>
+                                <Grid.Row style={{height: '93%', paddingTop:'0',display:'flex', flexDirection:'row', alignContent:'flex-start'}}>
                                     <Segment
                                         style={{
                                             border: 'none',

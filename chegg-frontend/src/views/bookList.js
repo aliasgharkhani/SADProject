@@ -178,7 +178,7 @@ class BookList extends Component {
                                 fluid={true}
                                 input={{fluid: true}}
                                 noResultsMessage={'نتیجه‌ای یافت نشد.'}
-                                style={{margin: '10px auto', width: '80%'}}
+                                style={{margin: '10px auto', width: '50%'}}
                                 loading={this.state.isLoading}
                                 onResultSelect={this.handleResultSelect}
                                 onSearchChange={_.debounce(this.handleSearchChange, 500, {

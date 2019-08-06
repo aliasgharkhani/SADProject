@@ -28,7 +28,7 @@ class PurchasedBooks extends Component {
                 <Segment
                     color='red'
                     style={{
-                        backgroundImage: 'url("https://freefrontend.com/assets/img/css-background-patterns/simple-pattern-with-css3.png")',
+                        backgroundImage: 'url("https://image.freepik.com/free-vector/elegant-golden-pattern-background-design_1017-13782.jpg")',
                         margin: 'auto',
                         maxHeight: '48vh',
                         overflow: 'auto',
