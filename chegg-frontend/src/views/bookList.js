@@ -1,5 +1,5 @@
 import React, {Component} from "react";
-import {Grid, Icon, Image, Menu, Search, Segment} from 'semantic-ui-react'
+import {Grid, Search} from 'semantic-ui-react'
 import BookCard from '../components/book/bookCard'
 import Template from '../components/template/template';
 import axios from "axios";
@@ -7,49 +7,6 @@ import Ad from '../components/ad'
 import _ from "lodash";
 
 const initialState = {isLoading: false, results: [], value: ''}
-
-const books1 = [{
-    'title': 'قلعه ی حیوانات',
-    'author': "جورج",
-    'description': 'کتاب خوب',
-    "image": './b.png',
-    'purchased': 1,
-    "chaptersPurchased": 5,
-    'price': 15,
-    'link': 'google.com',
-},
-    {
-        'title': 'قلعه ی حیوانات',
-        'author': "عطا",
-        'description': 'کتاب خوب',
-        "image": "./a.jpeg",
-        'purchased': 0,
-        "chaptersPurchased": 10,
-        'price': 10,
-        'link': '',
-
-    },
-    {
-        'title': 'قلعه ی حیوانات',
-        'author': "علی اصغر",
-        'description': 'کتاب خوب',
-        "image": "./a.jpeg",
-        'purchased': 1,
-        "chaptersPurchased": 5,
-        'price': 20,
-        'link': '',
-
-    }, {
-        'title': 'قلعه ی حیوانات',
-        'author': "جورج",
-        'description': 'کتاب خوب',
-        "image": "./a.jpeg",
-        'purchased': 1,
-        "chaptersPurchased": 5,
-        'price': 10,
-        'link': '',
-
-    },];
 
 
 class BookList extends Component {
@@ -62,7 +19,7 @@ class BookList extends Component {
         value: '',
         results: [],
         numOfChapters: [],
-        ads: [{'id':0, 'link':''}, {'id':1, 'link':''}, {'id':2, 'link':''}, ],
+        ads: [{'id': 0, 'link': ''}, {'id': 1, 'link': ''}, {'id': 2, 'link': ''},],
 
     };
 
@@ -103,7 +60,6 @@ class BookList extends Component {
 
     componentDidMount() {
         document.title = "لیست کتاب ها";
-        console.log(localStorage.getItem('chegg-token'))
         axios.get(`http://localhost:8000/store/books`)
             .then(res => {
                 let books = res.data;
@@ -126,7 +82,7 @@ class BookList extends Component {
                                         numOfChapters: numOfChapters,
                                         bought_books: res.data.bought_books,
                                         books: books,
-                                        ads : res1.data,
+                                        ads: res1.data,
                                     }
                                 );
                             })

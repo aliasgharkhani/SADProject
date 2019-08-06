@@ -59,7 +59,7 @@ class SearchPage extends Component {
     };
 
     handleClick(){
-        console.log('ali vali  ', this.state.value);
+
         window.location.replace('http://localhost:3000/search/'+this.state.value);
     }
 

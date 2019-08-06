@@ -50,7 +50,7 @@ class MyProfile extends Component {
 
     constructor(props) {
         super(props);
-        console.log('urlParameters ', this.props.urlParameters.page_content);
+
         if (this.props.urlParameters.page_content === 'message') {
             this.state = {
                 books: [],

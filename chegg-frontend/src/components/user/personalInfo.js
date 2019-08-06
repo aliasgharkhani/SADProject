@@ -1,6 +1,6 @@
 import React, {Component} from 'react'
-import {Form, Image, Divider, Segment, Button, Icon, Modal} from 'semantic-ui-react'
-import axios, {put} from "axios";
+import {Form,  Divider, Segment, Button, Icon, Modal} from 'semantic-ui-react'
+import axios from "axios";
 
 class PersonalInfo extends Component {
     constructor(props) {
@@ -114,18 +114,6 @@ class PersonalInfo extends Component {
         })
     }
 
-
-    // static getDerivedStateFromProps(props, state) {
-    //     console.log('getdrive ali ');
-    //     return {
-    //
-    //     };
-    // }
-
-    //
-    // // componentDidMount(){
-    // //
-    // // }
 
     render() {
 

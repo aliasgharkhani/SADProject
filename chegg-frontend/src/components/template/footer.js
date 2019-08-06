@@ -1,12 +1,6 @@
 import React, {Component} from 'react';
 import {Message} from 'semantic-ui-react';
 
-const footerStyle = {
-    backgroundColor: '#13003d',
-    color: '#ffffff',
-    padding: '16px',
-    textAlign: 'center'
-};
 
 
 

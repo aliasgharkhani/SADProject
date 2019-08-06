@@ -37,7 +37,7 @@ class Messages extends Component {
         axios.post('http://127.0.0.1:8000/auth/self/read/', {},
             {headers: headers})
             .then(response => {
-                console.log(response)
+
                 this.props.readMessages()
             })
             .catch((error) => {

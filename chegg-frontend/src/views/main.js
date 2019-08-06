@@ -10,9 +10,9 @@ class Main extends Component {
 
     handleItemClick = (e, {name, path}) => {
 
-        console.log(path);
+
         this.props.history.push('../' + path)
-        // window.location.replace(path);
+
     };
 
     state = {
@@ -156,6 +156,6 @@ class Main extends Component {
     }
 }
 
-// console.log(document.getElementsByClassName('slick-slider'));
+
 
 export default Main;

@@ -26,7 +26,7 @@ class Navbar extends Component {
         };
         axios.get('http://localhost:8000/auth/self/', {headers: headers})
             .then(res => {
-                console.log('sadi  ', res.data.messages);
+
                 this.setState(
                     {
                         messages: res.data.messages

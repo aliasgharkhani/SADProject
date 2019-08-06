@@ -2,18 +2,18 @@ import React, {Component} from "react";
 import Template from '../components/template/template';
 import {
     Button,
-    Container,
+
     Grid,
     Header,
     Icon,
     Image,
     Label,
     List,
-    Menu,
+
     Modal,
     Segment,
     Accordion,
-    Rating,
+
 } from 'semantic-ui-react';
 import axios from 'axios';
 import Ad from "../components/ad";
@@ -127,12 +127,7 @@ class MenuExampleInvertedSegment extends Component {
         )
     }
 
-    /* starClick = (value) => {
 
-         console.log(id, 'key')
-         console.log(e)
-
-     };*/
     handleClick = (e, titleProps) => {
         const {id} = titleProps;
         const activeIndex = this.state.activeItem2;
@@ -145,7 +140,7 @@ class MenuExampleInvertedSegment extends Component {
     }
 
     render() {
-        console.log('ali\n\n', this.props.chapters);
+
 
         if (this.props.chapters === undefined || this.props.chapters[this.state.activeItem - 1] === undefined) {
             return (<div/>)
@@ -185,7 +180,7 @@ class MenuExampleInvertedSegment extends Component {
                 </Modal>
                 <Accordion>
                     {this.props.chapters.map((chapter) => {
-                        console.log(chapter);
+
                         return (
                             <Segment>
                                 <Accordion.Title style={{direction: 'rtl', fontFamily: 'B Yekan'}}
@@ -437,7 +432,7 @@ class Book extends Component {
                                     </Grid.Row>
                                     <Grid.Row>
                                         <Grid.Column width={16}>
-                                            {console.log(this.state.memberInfo)}
+
                                             <MenuExampleInvertedSegment book={this.state.book}
                                                                         bookCover={this.state.cover}
                                                                         chapters={this.state.chapters}

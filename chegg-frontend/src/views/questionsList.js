@@ -5,43 +5,10 @@ import axios from "axios";
 import Template from '../components/template/template';
 import _ from 'lodash'
 import {Search} from 'semantic-ui-react'
-import {Redirect} from "react-router";
+
 
 
 const initialState = {isLoading: false, results: [], value: ''}
-
-const source = [
-    {
-        "title": "لینوکس خوبه",
-        "description": "خیلی خیلی خوبه",
-        "image": "https://s3.amazonaws.com/uifaces/faces/twitter/arpitnj/128.jpg",
-        "price": "$58.98"
-    },
-    {
-        "title": "Terry - Bernier",
-        "description": "Multi-layered full-range customer loyalty",
-        "image": "https://s3.amazonaws.com/uifaces/faces/twitter/robergd/128.jpg",
-        "price": "$98.43"
-    },
-    {
-        "title": "Kris, Stokes and Runolfsdottir",
-        "description": "Optimized explicit workforce",
-        "image": "https://s3.amazonaws.com/uifaces/faces/twitter/curiousoffice/128.jpg",
-        "price": "$0.57"
-    },
-    {
-        "title": "Olson LLC",
-        "description": "Mandatory 5th generation interface",
-        "image": "https://s3.amazonaws.com/uifaces/faces/twitter/operatino/128.jpg",
-        "price": "$19.91"
-    },
-    {
-        "title": "Kuhic, Hoppe and Prohaska",
-        "description": "Up-sized value-added customer loyalty",
-        "image": "https://s3.amazonaws.com/uifaces/faces/twitter/samscouto/128.jpg",
-        "price": "$73.30"
-    }
-]
 
 
 class QuestionsList extends Component {

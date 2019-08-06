@@ -51,10 +51,9 @@ class SignupForm extends Component {
             config: {headers: {'Content-Type': 'multipart/form-data'}}
         }).then(function (response) {
 
-            console.log('maman   ', response);
+
             if (response.status === 200) {
-                console.log('ghghfhgfjhgfjhgf')
-                // this.props.history.push('../signin');
+
                 window.location.replace("http://localhost:3000/signin");
             }
             else if(response.status === 203) {
@@ -132,7 +131,7 @@ class SignupForm extends Component {
 
 class App extends Component {
     render() {
-        console.log("APP")
+
         const body =
             <Grid verticalAlign='middle' textAlign='center' style={{width: '100%', height: '100%'}}>
                 <Grid.Row>

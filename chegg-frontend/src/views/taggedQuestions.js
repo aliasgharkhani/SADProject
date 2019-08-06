@@ -90,15 +90,15 @@ class TaggedQuestions extends Component {
 
     componentDidMount() {
         var taggs = this.props.match.params.tags.split(' ').join(' ')
-        console.log(taggs, ' tags from up')
+
         var initailTags = this.props.match.params.tags.split(' ')
-        console.log(' inital tags', initailTags)
+
         taggs = '?tags=' + taggs;
-        console.log(taggs, 'tags');
+
 
 
         axios.get('http://localhost:8000/qa/questions/' + taggs).then(res1 => {
-                console.log(res1.data, ' question')
+
                 axios.get('http://localhost:8000/qa/tags/').then(res2 => {
 
 
@@ -129,7 +129,7 @@ class TaggedQuestions extends Component {
 
 
         if (checked_tags.length === 0) {
-            console.log(checked_tags.length, checked_tags)
+
             window.location.replace('http://localhost:3000/questions')
             return
         }
@@ -172,10 +172,9 @@ class TaggedQuestions extends Component {
     }
 
     checkBoxClick(e) {
-        console.log(e.target);
+
         name = e.target.name;
-        console.log(name);
-        console.log(this.state.checkedTags)
+
         var checkedTags = this.state.checkedTags;
         if (!this.state.checkedTags.includes(name)) {
 
@@ -191,7 +190,6 @@ class TaggedQuestions extends Component {
                     checkedTags.splice(i, 1);
                 }
             }
-            console.log('checked', checkedTags)
             this.setState({
                 checkedTags: checkedTags
             })

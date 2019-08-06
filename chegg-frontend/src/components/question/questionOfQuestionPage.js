@@ -44,13 +44,6 @@ class QuestionOfQuestionPage extends Component {
         }
     }
 
-    // componentWillMount() {
-    //     console.log("component will mount", this.props)
-    //     this.setState({
-    //         question: this.props.question
-    //     })
-    // }
-
     showTags() {
         if (this.state.question.length === 0) {
             return (<div/>)

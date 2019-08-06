@@ -50,7 +50,7 @@ class PublicProfile extends Component {
     handleItemClick = (e, {name}) => this.setState({activeItem: name});
     getPageContent = () => {
         if (this.state.activeItem === 'مشخصات کاربری') {
-            console.log('personal info', this.state.userInfo)
+
             return (
                 <PublicInfo info={this.state.userInfo}/>
             )
@@ -70,7 +70,7 @@ class PublicProfile extends Component {
                     <p style={{fontSize: '2em'}}> این کاربر جوابی نداده است.</p>
                 )
             } else {
-                console.log(this.state.answeredQuestions)
+
                 return (
                     <AskedQuestions isProfile={1} asker={this.state.username} question={this.state.answeredQuestions}/>
                 )

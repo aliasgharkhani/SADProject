@@ -1,6 +1,6 @@
 import React, {Component} from 'react'
 import {Button, Divider, Form, Icon, Modal} from 'semantic-ui-react'
-import axios, {put} from "axios";
+import axios from "axios";
 
 class ChangePassword extends Component {
     constructor(props) {

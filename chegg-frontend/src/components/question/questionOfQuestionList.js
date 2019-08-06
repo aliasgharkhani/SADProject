@@ -61,7 +61,7 @@ class QuestionOfQuestionList extends Component {
     };
 
     tagOnclick(e){
-        console.log(e.target)
+
         /*window.location.replace(e.target.link)*/
     }
 

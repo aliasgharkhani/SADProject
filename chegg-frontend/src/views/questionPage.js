@@ -5,7 +5,7 @@ import axios from "axios";
 import Ad from '../components/ad'
 import {Editor} from 'react-draft-wysiwyg';
 import 'react-draft-wysiwyg/dist/react-draft-wysiwyg.css';
-import {EditorState, convertToRaw, ContentState, convertFromRaw, convertFromHTML} from 'draft-js';
+import {EditorState, convertToRaw} from 'draft-js';
 import QuestionPart from '../components/question/questionOfQuestionPage'
 import AnswerOfQuestionPage from '../components/question/answerOfQuestionPage'
 
@@ -232,7 +232,7 @@ class QuestionPage extends Component {
 
     handleAnswerSubmit(e) {
 
-        console.log(this.state.editorState.getCurrentContent(), 'current')
+
         var body = draftToHtml(convertToRaw(this.state.editorState.getCurrentContent()));
         var data = {'question': this.state.question.id, 'body': body};
 
@@ -242,7 +242,7 @@ class QuestionPage extends Component {
             'Authorization': 'TOKEN ' + localStorage.getItem('chegg-token')
         };
 
-        console.log(body[7], body.length);
+
 
 
       if (body.length <= 8) {
@@ -273,7 +273,7 @@ class QuestionPage extends Component {
                 }
             })
             .catch((error) => {
-                console.log("error", error)
+
                 this.setState({
                     modalMessage: "خطا در ثبت جواب. دوباره تلاش کنید."
                 })

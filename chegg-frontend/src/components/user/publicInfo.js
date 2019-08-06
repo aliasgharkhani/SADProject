@@ -1,5 +1,5 @@
 import React, {Component} from 'react'
-import {Form, Divider, Segment, Grid} from 'semantic-ui-react'
+import {Form, Divider, Segment} from 'semantic-ui-react'
 
 class PublicInfo extends Component {
     constructor(props) {

@@ -43,7 +43,7 @@ class QuestionCreate extends Component {
 
             window.location.replace('http://localhost:3000/')
         }
-        console.log(this.state.isAbleToAsk)
+
         if (!this.state.isAbleToAsk) {
             alert('تعداد سوالاتی که می توانستید بپرسید به بیشینه مقدار خود رسیده است. برای پرسیدن سوال, حساب خود را ارتقا دهید.')
 
@@ -70,7 +70,7 @@ class QuestionCreate extends Component {
                     isAbleToAsk: res.data.is_able_to_ask,
                     isActive: res.data.is_active
                 });
-                console.log("back", res.data.is_able_to_ask, "here", this.state.isAbleToAsk);
+
                 axios.get('http://localhost:8000/qa/tags/').then(res2 => {
                     axios.get('http://localhost:8000/store/ads/')
                         .then(res3 => {
@@ -86,7 +86,6 @@ class QuestionCreate extends Component {
             })
         }
 
-        console.log(this.state.isAbleToAsk, "nice")
 
     }
 
@@ -100,7 +99,7 @@ class QuestionCreate extends Component {
 
     handleSubmit(e) {
         e.preventDefault();
-        console.log('baba    ', this.state.text);
+
         const formFields = e.target;
         const title = formFields[0].value;
         var body = draftToHtml(convertToRaw(this.state.editorState.getCurrentContent()));
@@ -117,7 +116,7 @@ class QuestionCreate extends Component {
         axios.post('http://127.0.0.1:8000/qa/questions/', data, {headers: headers})
             .then(response => {
                 if (response.status === 200) {
-                    console.log(response.data)
+
                     this.setState({
                         modalMessage: " موفقیت آمیز"
                     })
@@ -132,7 +131,7 @@ class QuestionCreate extends Component {
                 }
             })
             .catch((error) => {
-                console.log("error", error)
+
                 this.setState({
                     modalMessage: "خطا"
                 })
